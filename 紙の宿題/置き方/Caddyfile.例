@@ -1,0 +1,14 @@
+# 紙の宿題の置き方（例）―― 小さな別のサーバ（tubestudy とは別の箱）に置き、HTTPS で開く。
+#   ・paper.example.com は、本人が決めた住所に置き換える（tubestudy と同じ住所・同じ箱には置かない）
+#   ・Caddy が証明書を取り、HTTPS を受けて、中継（127.0.0.1:8940）へ渡す
+#   ・中継は何も保存しない。この箱に答案は残らない
+paper.example.com {
+	encode gzip
+	reverse_proxy 127.0.0.1:8940
+	request_body {
+		max_size 13MB
+	}
+	log {
+		output discard
+	}
+}

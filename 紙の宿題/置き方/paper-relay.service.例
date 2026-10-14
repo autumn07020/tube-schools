@@ -1,0 +1,20 @@
+# 紙の宿題の中継を、Linux のサーバで動かし続ける（systemd）。/opt/paper に relay.py と web/ を置く。
+#   sudo cp paper-relay.service.例 /etc/systemd/system/paper-relay.service
+#   sudo systemctl daemon-reload && sudo systemctl enable --now paper-relay
+[Unit]
+Description=紙の宿題 中継（tubestudy の口を取り次ぐだけ。何も保存しない）
+After=network-online.target
+
+[Service]
+ExecStart=/usr/bin/python3 /opt/paper/relay.py --tube https://tube-study.uk --host 127.0.0.1 --port 8940 --quiet
+User=nobody
+Group=nogroup
+Restart=always
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadOnlyPaths=/opt/paper
+
+[Install]
+WantedBy=multi-user.target

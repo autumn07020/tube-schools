@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>TUBE study 管理</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#EFEFF3">
+<meta name="color-scheme" content="light">
+<!-- 管理ページ。席・講師・担当・生徒に出ているもの・報告。
+     入口（index.html）とは別のページで、様式も別（css/admin.css だけを読む）。
+     ここで作った合言葉は、この端末の中でハッシュにしてから送る。サーバには合言葉そのものを送らない。 -->
+<link rel="stylesheet" href="css/admin.css">
+<link rel="stylesheet" href="css/paper.css">
+</head>
+<body class="adm">
+<div id="top"></div>
+<main id="main"></main>
+<div id="layer"></div>
+<div id="toast" role="status" aria-live="polite"></div>
+<!-- 刷るときだけ見える（カード）。画面では、カードのタブの中に同じものを出す。 -->
+<div id="print" aria-hidden="true"></div>
+<script src="js/qr.js"></script>
+<script src="js/scram.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+{
+ "id": "e5b-math",
+ "name": "小5β 算数",
+ "grade": "e5",
+ "subject": "math",
+ "materials": [
+  "yos-e5-math",
+  "enshu-e5-math",
+  "keisan-yos",
+  "kiso-print"
+ ],
+ "provisional": true,
+ "source": "講師の記憶（2026-09-11）で今週の単元を合わせ、前後の単元は学習指導要領の配列と教材の組み立てから推定した仮置き。本部の表・教材の目次が届いたら、同じ id で取り込んで置き換える。2026-09-12：8週ぶんの推移が見えるよう、anchor の前をさらにさかのぼって仮置きした",
+ "anchor": {
+  "unit": "第3回",
+  "week": "2026-09-07"
+ },
+ "units": [
+  {
+   "label": "上 第7回",
+   "topic": "平均算"
+  },
+  {
+   "label": "上 第8回",
+   "topic": "差集め算"
+  },
+  {
+   "label": "上 第9回",
+   "topic": "消去算"
+  },
+  {
+   "label": "上 第10回",
+   "topic": "総復習",
+   "review": true
+  },
+  {
+   "label": "上 第11回",
+   "topic": "円と正多角形"
+  },
+  {
+   "label": "上 第12回",
+   "topic": "角柱と円柱"
+  },
+  {
+   "label": "上 第13回",
+   "topic": "食塩水"
+  },
+  {
+   "label": "上 第14回",
+   "topic": "売買損益"
+  },
+  {
+   "label": "上 第15回",
+   "topic": "総復習",
+   "review": true
+  },
+  {
+   "label": "上 第16回",
+   "topic": "倍数と約数"
+  },
+  {
+   "label": "上 第17回",
+   "topic": "分数と小数"
+  },
+  {
+   "label": "上 第18回",
+   "topic": "速さ"
+  },
+  {
+   "label": "上 第19回",
+   "topic": "速さ（旅人算）"
+  },
+  {
+   "label": "上 第20回",
+   "topic": "総復習",
+   "review": true
+  },
+  {
+   "label": "第1回",
+   "topic": "比の基本"
+  },
+  {
+   "label": "第2回",
+   "topic": "平面図形と比　辺の比"
+  },
+  {
+   "label": "第3回",
+   "topic": "平面図形と比　面積比"
+  },
+  {
+   "label": "第4回",
+   "topic": "相似の利用"
+  },
+  {
+   "label": "第5回",
+   "topic": "総復習",
+   "review": true
+  },
+  {
+   "label": "第6回",
+   "topic": "速さと比"
+  },
+  {
+   "label": "第7回",
+   "topic": "立体図形と比"
+  },
+  {
+   "label": "第8回",
+   "topic": "割合と比の文章題"
+  },
+  {
+   "label": "第9回",
+   "topic": "仕事算とニュートン算"
+  },
+  {
+   "label": "第10回",
+   "topic": "総復習",
+   "review": true
+  }
+ ]
+}

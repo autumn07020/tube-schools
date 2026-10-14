@@ -1,0 +1,414 @@
+{
+  "name": "TUBE study（現状）",
+  "version": 0,
+  "meta": {
+    "source": "app/css/app.css の計算後の値（2026-10-04）。これは現状の事実で、新しい指針ではない。暗い側は画面から選べない。"
+  },
+  "color": {
+    "themes": [
+      {
+        "id": "light",
+        "name": "明るい（既定）"
+      },
+      {
+        "id": "dark",
+        "name": "暗い（値だけ。未公開）"
+      }
+    ],
+    "tokens": [
+      {
+        "name": "bg",
+        "value": {
+          "light": "#EFEFF3",
+          "dark": "#000000"
+        },
+        "usage": "地（ページ）。上に淡いグラデーション（黄は左上、青は右下）が重なる。"
+      },
+      {
+        "name": "surface",
+        "value": {
+          "light": "#FFFFFF",
+          "dark": "#151413"
+        },
+        "usage": "札・紙の面。bg の上。"
+      },
+      {
+        "name": "surface2",
+        "value": {
+          "light": "#ECECF0",
+          "dark": "#242220"
+        },
+        "usage": "一段くぼんだ面。"
+      },
+      {
+        "name": "sunk",
+        "value": {
+          "light": "#E4E4EA",
+          "dark": "#1C1B19"
+        },
+        "usage": "入力欄・灰のボタン・終わったもの。"
+      },
+      {
+        "name": "line",
+        "value": {
+          "light": "#E3E3E8",
+          "dark": "#26231F"
+        },
+        "usage": "表の罫だけ。区切りには使わない（線を引かない決まり）。"
+      },
+      {
+        "name": "text",
+        "value": {
+          "light": "#1D1D1F",
+          "dark": "#F5F2EE"
+        },
+        "usage": "本文と見出し。"
+      },
+      {
+        "name": "text2",
+        "value": {
+          "light": "#6E6E73",
+          "dark": "#98928B"
+        },
+        "usage": "そえ書き。"
+      },
+      {
+        "name": "text3",
+        "value": {
+          "light": "#A1A1A6",
+          "dark": "#5F5A55"
+        },
+        "usage": "ラベル・注。白の上で 2.6:1、地の上で 2.2:1 しかない（弱い）。"
+      },
+      {
+        "name": "accent",
+        "value": {
+          "light": "#005BAC",
+          "dark": "#2E86D6"
+        },
+        "usage": "青。進んでいる・選ばれている・押して先へ。ロゴの tube。"
+      },
+      {
+        "name": "accent-soft",
+        "value": {
+          "light": "#E7F0FA",
+          "dark": "#0A1B2B"
+        },
+        "usage": "青の地。"
+      },
+      {
+        "name": "accent-dim",
+        "value": {
+          "light": "#4A8BC7",
+          "dark": "#1F5C94"
+        },
+        "usage": "弱い青。"
+      },
+      {
+        "name": "accent2",
+        "value": {
+          "light": "#F9B900",
+          "dark": "#F9B900"
+        },
+        "usage": "黄。今日・手を入れる所・達成。ロゴの study と印の横棒。白地の字には使わない（1.8:1）。"
+      },
+      {
+        "name": "accent2-fill",
+        "value": {
+          "light": "#FBCF52",
+          "dark": "#B88900"
+        },
+        "usage": "黄の塗り（accent2 を 68% に薄めた）。"
+      },
+      {
+        "name": "accent2-soft",
+        "value": {
+          "light": "#FDEDBD",
+          "dark": "#281E00"
+        },
+        "usage": "黄の地（26% に薄めた）。"
+      },
+      {
+        "name": "accent2-text",
+        "value": {
+          "light": "#8A5A00",
+          "dark": "#F6C13A"
+        },
+        "usage": "黄の系統の字。白地で読める深さ。"
+      },
+      {
+        "name": "accent2-line",
+        "value": {
+          "light": "#EDBE45",
+          "dark": "#8A6A12"
+        },
+        "usage": "黄の線。"
+      },
+      {
+        "name": "icon-top",
+        "value": {
+          "light": "#0A6FC7",
+          "dark": "#0A6FC7"
+        },
+        "usage": "印（アイコン）の青のグラデーションの上。"
+      },
+      {
+        "name": "icon-bottom",
+        "value": {
+          "light": "#004E93",
+          "dark": "#004E93"
+        },
+        "usage": "印の青のグラデーションの下。"
+      },
+      {
+        "name": "subject-japanese",
+        "value": {
+          "light": "rgb(226,74,108)",
+          "dark": "rgb(226,74,108)"
+        },
+        "usage": "教科の色：国語。薄いグラデーションで札に敷く。"
+      },
+      {
+        "name": "subject-math",
+        "value": {
+          "light": "rgb(0,91,172)",
+          "dark": "rgb(0,91,172)"
+        },
+        "usage": "教科の色：算数・数学。"
+      },
+      {
+        "name": "subject-science",
+        "value": {
+          "light": "rgb(34,150,84)",
+          "dark": "rgb(34,150,84)"
+        },
+        "usage": "教科の色：理科。"
+      },
+      {
+        "name": "subject-social",
+        "value": {
+          "light": "rgb(240,170,0)",
+          "dark": "rgb(240,170,0)"
+        },
+        "usage": "教科の色：社会。"
+      },
+      {
+        "name": "subject-english",
+        "value": {
+          "light": "rgb(0,140,150)",
+          "dark": "rgb(0,140,150)"
+        },
+        "usage": "教科の色：英語。"
+      }
+    ]
+  },
+  "type": {
+    "fonts": [],
+    "families": {
+      "sans": "-apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"Hiragino Sans\", \"Yu Gothic UI\", \"Noto Sans JP\", sans-serif",
+      "display": "\"Hiragino Sans\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic UI\", \"Noto Sans JP\", -apple-system, sans-serif",
+      "mono": "ui-monospace, \"SF Mono\", SFMono-Regular, Menlo, monospace"
+    },
+    "groups": [
+      {
+        "name": "画面",
+        "family": "sans",
+        "styles": [
+          {
+            "name": "section-title",
+            "fontSize": "34px",
+            "lineHeight": "39px",
+            "fontWeight": 600,
+            "letterSpacing": "-0.035em",
+            "sample": "今日やること",
+            "usage": "節の見出し。clamp(28px,3vw,34px)。iPhone では 26px。"
+          },
+          {
+            "name": "big-number",
+            "fontSize": "44px",
+            "lineHeight": "48px",
+            "fontWeight": 300,
+            "letterSpacing": "-0.03em",
+            "sample": "12",
+            "usage": "札の大きな数字（40〜44px。細く大きく）。"
+          },
+          {
+            "name": "card-title",
+            "fontSize": "19px",
+            "lineHeight": "32px",
+            "fontWeight": 500,
+            "sample": "数学",
+            "usage": "札の見出し。"
+          },
+          {
+            "name": "row-title",
+            "fontSize": "17px",
+            "lineHeight": "26px",
+            "fontWeight": 400,
+            "sample": "新中学問題集 国語",
+            "usage": "行の題。"
+          },
+          {
+            "name": "body",
+            "fontSize": "16px",
+            "lineHeight": "27px",
+            "fontWeight": 400,
+            "sample": "定理の逆と反例の復習をアプリで10問だけ足します。",
+            "usage": "本文。行間 1.7。"
+          },
+          {
+            "name": "button",
+            "fontSize": "15px",
+            "lineHeight": "25px",
+            "fontWeight": 400,
+            "letterSpacing": "0.01em",
+            "sample": "提出する",
+            "usage": "ボタンの字（14〜15px）。"
+          },
+          {
+            "name": "note",
+            "fontSize": "13px",
+            "lineHeight": "22px",
+            "fontWeight": 400,
+            "sample": "ノートの写真か PDF・6枚まで",
+            "usage": "そえ書き。画面でいちばん多い大きさ。"
+          },
+          {
+            "name": "label",
+            "fontSize": "11px",
+            "lineHeight": "19px",
+            "fontWeight": 400,
+            "letterSpacing": "0.08em",
+            "sample": "今週の宿題",
+            "usage": "ラベル。下のタブの字も 11px。"
+          }
+        ]
+      },
+      {
+        "name": "ID と合言葉",
+        "family": "mono",
+        "styles": [
+          {
+            "name": "code",
+            "fontSize": "17px",
+            "lineHeight": "24px",
+            "fontWeight": 600,
+            "sample": "s-042",
+            "usage": "ID・合言葉・登録コード。"
+          }
+        ]
+      }
+    ]
+  },
+  "spacing": {
+    "tokens": [
+      {
+        "name": "gap",
+        "value": "18px",
+        "usage": "格子の間（--gap）。"
+      },
+      {
+        "name": "page-x-phone",
+        "value": "20px",
+        "usage": "iPhone の左右。"
+      },
+      {
+        "name": "card-pad",
+        "value": "20px",
+        "usage": "札の内側（18〜22px）。"
+      },
+      {
+        "name": "tile-min",
+        "value": "300px",
+        "usage": "札の最小幅（--tile）。"
+      },
+      {
+        "name": "hit",
+        "value": "44px",
+        "usage": "押せる部品の高さ。"
+      },
+      {
+        "name": "content-max",
+        "value": "1320px",
+        "usage": "生徒の画面の本体の最大幅（講師は止めない）。"
+      },
+      {
+        "name": "sheet-width",
+        "value": "680px",
+        "usage": "紙の幅（641px 以上の画面）。"
+      }
+    ]
+  },
+  "radius": {
+    "tokens": [
+      {
+        "name": "r-input",
+        "value": "12px",
+        "usage": "入力欄。"
+      },
+      {
+        "name": "r-button",
+        "value": "14px",
+        "usage": "ボタン（--r）。"
+      },
+      {
+        "name": "r-row",
+        "value": "16px",
+        "usage": "行。"
+      },
+      {
+        "name": "r-slot",
+        "value": "18px",
+        "usage": "時間割のコマ。"
+      },
+      {
+        "name": "r-card-desk",
+        "value": "20px",
+        "usage": "講師の札（--r-lg）。"
+      },
+      {
+        "name": "r-card",
+        "value": "22px",
+        "usage": "札・カード。"
+      },
+      {
+        "name": "r-sheet",
+        "value": "26px",
+        "usage": "紙。"
+      },
+      {
+        "name": "r-pill",
+        "value": "999px",
+        "usage": "カプセル・丸い印。"
+      }
+    ]
+  },
+  "shadow": {
+    "tokens": [
+      {
+        "name": "card-shadow",
+        "value": {
+          "light": "0 0 0 .5px rgba(23,21,15,.07), 0 1px 2px rgba(23,21,15,.07), 0 12px 30px -14px rgba(23,21,15,.32)",
+          "dark": "0 0 0 .5px rgba(255,255,255,.09), 0 1px 2px rgba(0,0,0,.6), 0 12px 30px -14px rgba(0,0,0,.85)"
+        },
+        "usage": "札。髪の毛ほどの縁＋近い影＋遠い影。"
+      },
+      {
+        "name": "card-hi",
+        "value": {
+          "light": "inset 0 1px 0 rgba(255,255,255,.9)",
+          "dark": "inset 0 1px 0 rgba(255,255,255,.07)"
+        },
+        "usage": "札の上辺の光。card-shadow と重ねる。"
+      },
+      {
+        "name": "shadow",
+        "value": {
+          "light": "0 1px 2px rgba(23,21,15,.05), 0 8px 24px -12px rgba(23,21,15,.16)",
+          "dark": "0 1px 2px rgba(0,0,0,.5), 0 8px 24px -12px rgba(0,0,0,.7)"
+        },
+        "usage": "軽い影（古い部品に残る）。"
+      }
+    ]
+  }
+}

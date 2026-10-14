@@ -1,0 +1,43 @@
+# ---- 機械が作るもの ----
+.DS_Store
+__pycache__/
+*.pyc
+*.log
+shots*/
+flows-out/
+W/
+
+# ---- 秘密・個人のもの：手元には置いてよいが、履歴に入れない ----
+*.nosync
+*.nosync/
+合言葉の表.nosync/
+demo-accounts.json
+deploy/accounts/
+deploy/log/
+server/data/
+server/data.bak-*/
+*.pem
+*.key
+.env
+.env.*
+カリキュラム/*.pdf
+カリキュラム/時間割.csv
+カリキュラム/時間割.json
+カリキュラム/時間割の講師.csv
+
+# ---- 前身・控え・巨大な出力：iCloud に残す ----
+tube_next/
+firebase/
+reference/
+紙の宿題/控え/
+Claude outputs/
+outputs/**/*.png
+outputs/**/*.pdf
+outputs/**/*.mp4
+outputs/**/*.wav
+outputs/**/*.pptx
+outputs/**/*.m4a
+outputs/**/*.zip
+
+# 講師の名字入り（build.py が「Claude outputs/」に作る。Git に入れない）
+outputs/時間割の確認.html

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>家で撮って出す</title>
+<!-- 生徒・保護者の方に配る A4 1枚。印刷は「実際のサイズ」で。tubestudy の画面の言葉に合わせてある（app/js/ui-student.js）。 -->
+<style>
+  @page{size:A4 portrait; margin:14mm}
+  html,body{margin:0; background:#fff; color:#17150F; font-family:-apple-system,"Hiragino Sans","Yu Gothic",sans-serif; line-height:1.75}
+  .pg{max-width:182mm; margin:0 auto; padding:10mm 0}
+  h1{font-size:22pt; font-weight:600; margin:0 0 2mm; color:#005BAC}
+  .lead{font-size:12pt; margin:0 0 8mm}
+  h2{font-size:14pt; font-weight:600; margin:8mm 0 2mm}
+  ol{margin:0; padding-left:1.4em; font-size:12pt}
+  li{margin:2mm 0}
+  b{font-weight:600}
+  .box{margin-top:8mm; padding:5mm 6mm; border-radius:5mm; background:#FEF1C7; color:#5C3D00; font-size:11pt}
+  .small{font-size:10pt; color:#5F5B55; margin-top:8mm}
+</style>
+</head>
+<body>
+<div class="pg">
+  <h1>宿題を、家で撮って出すとき</h1>
+  <p class="lead">教室で先生に出す紙の宿題を、家から写真で出すこともできます。先生は、教室で集めた紙と同じように見て、赤を入れて返します。</p>
+
+  <h2>1. 撮る（iPhone・iPad）</h2>
+  <ol>
+    <li>「メモ」を開き、カメラの印 →「<b>書類をスキャン</b>」。</li>
+    <li>机の上に宿題のページを置き、枠に入れると自動で撮れます。次のページへめくって続けます。</li>
+    <li>全部撮ったら「保存」。PDF になります。</li>
+  </ol>
+  <p class="small" style="margin-top:3mm">Android なら「Google ドライブ」の「スキャン」でも同じです。ふつうの写真でも出せますが、まっすぐに撮れる「書類をスキャン」のほうが読みやすくなります。</p>
+
+  <h2>2. 出す（tubestudy）</h2>
+  <ol>
+    <li>tubestudy の「<b>宿題</b>」を開き、その回の「<b>出す</b>」（いくつかまとめて出す回は「<b>まとめて提出</b>」）を押す。</li>
+    <li>「<b>写真・PDFを選ぶ</b>」で、いま作った PDF（か写真）を選ぶ。</li>
+    <li>「<b>〇枚を送る</b>」を押す。6枚（PDF は 1つで1枚）まで出せます。</li>
+  </ol>
+
+  <h2>3. 返ってきたら</h2>
+  <ol>
+    <li>先生が赤を入れた答案は、tubestudy の「<b>先生から</b>」に出ます。保護者の方は、右上のメニューの「保護者の方へ」からも見られます。</li>
+  </ol>
+
+  <div class="box">
+    <b>名前は、ノートの表紙にだけ書いてください。</b>ページや写真には名前を入れないでください。
+    tubestudy は名前を持たない作りにしてあります（写真に名前が写ると、それが名前になってしまいます）。
+  </div>
+  <p class="small">「出す」が無く「紙で先生に提出」と出ている教科は、まだ写真では出せません。教室で先生に出してください。</p>
+</div>
+</body>
+</html>

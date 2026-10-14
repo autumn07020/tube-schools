@@ -1,0 +1,87 @@
+{
+ "id": "j2tr-english",
+ "name": "中2TR 英語",
+ "grade": "j2",
+ "subject": "english",
+ "materials": [
+  "sirius-j2",
+  "jack21",
+  "grit2500"
+ ],
+ "provisional": true,
+ "source": "講師の記憶（2026-09-11）で今週の単元を合わせ、前後の単元は学習指導要領の配列と教材の組み立てから推定した仮置き。本部の表・教材の目次が届いたら、同じ id で取り込んで置き換える。2026-09-12：8週ぶんの推移が見えるよう、anchor の前をさらにさかのぼって仮置きした",
+ "anchor": {
+  "unit": "第19回",
+  "week": "2026-09-07"
+ },
+ "units": [
+  {
+   "label": "",
+   "topic": "総復習",
+   "review": true
+  },
+  {
+   "label": "第13回",
+   "topic": "助動詞"
+  },
+  {
+   "label": "第14回",
+   "topic": "文型（SVOO・SVOC）"
+  },
+  {
+   "label": "第15回",
+   "topic": "接続詞"
+  },
+  {
+   "label": "第16回",
+   "topic": "There is／are の文"
+  },
+  {
+   "label": "",
+   "topic": "総復習",
+   "review": true
+  },
+  {
+   "label": "第17回",
+   "topic": "比較級・最上級"
+  },
+  {
+   "label": "第18回",
+   "topic": "as ～ as の文"
+  },
+  {
+   "label": "第19回",
+   "topic": "比較の重要構文"
+  },
+  {
+   "label": "第20回",
+   "topic": "受け身"
+  },
+  {
+   "label": "",
+   "topic": "総復習",
+   "review": true
+  },
+  {
+   "label": "第21回",
+   "topic": "受け身の疑問文・否定文"
+  },
+  {
+   "label": "第22回",
+   "topic": "文型（SVOO・SVOC）"
+  },
+  {
+   "label": "第23回",
+   "topic": "疑問詞＋to不定詞"
+  },
+  {
+   "label": "第24回",
+   "topic": "助動詞のまとめ"
+  },
+  {
+   "label": "",
+   "topic": "総復習",
+   "review": true
+  }
+ ]
+}

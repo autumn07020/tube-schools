@@ -1,0 +1,32 @@
+[
+  {
+    "id": "wt01",
+    "role": "teacher",
+    "label": "講師 wt01"
+  },
+  {
+    "id": "wt02",
+    "role": "teacher",
+    "label": "講師 wt02"
+  },
+  {
+    "id": "wt03",
+    "role": "teacher",
+    "label": "講師 wt03"
+  },
+  {
+    "id": "wt04",
+    "role": "teacher",
+    "label": "講師 wt04"
+  },
+  {
+    "id": "wt05",
+    "role": "teacher",
+    "label": "講師 wt05"
+  },
+  {
+    "id": "wt06",
+    "role": "teacher",
+    "label": "講師 wt06"
+  }
+]

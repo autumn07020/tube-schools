@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8">
+<title>tubestudy promo 52s</title>
+<style>
+  html,body{margin:0;width:1920px;height:1080px;overflow:hidden;background:#F2F4F8}
+  body{font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN",-apple-system,sans-serif;color:#17150F;-webkit-font-smoothing:antialiased}
+  #stage{position:relative;width:1920px;height:1080px;overflow:hidden;
+    background:
+      radial-gradient(60% 38% at 50% 10%, rgba(249,185,0,.22) 0%, rgba(249,185,0,0) 68%),
+      radial-gradient(70% 44% at 50% 92%, rgba(0,91,172,.16) 0%, rgba(0,91,172,0) 68%),
+      linear-gradient(180deg, #F2F4F8 0%, #F4F3F0 60%, #F6F3EC 100%)}
+  .layer{position:absolute;left:0;top:0;width:1920px;height:1080px;opacity:0}
+  .mark{position:absolute;left:50%;top:50%;width:240px;height:240px;margin:-150px 0 0 -120px;border-radius:22.4%;
+    background:linear-gradient(180deg,#0A6FC7,#004E93);box-shadow:0 40px 80px rgba(0,78,147,.28)}
+  .mark svg{display:block;width:100%;height:100%;overflow:visible}
+  .word{position:absolute;left:0;right:0;top:50%;margin-top:120px;text-align:center;font-size:88px;font-weight:800;letter-spacing:-.03em;line-height:1;color:#004E93}
+  .word i{font-style:normal;color:#F9B900}
+  .tag{position:absolute;left:0;right:0;top:50%;margin-top:236px;text-align:center;font-size:30px;font-weight:400;color:#5b5a55;letter-spacing:.06em}
+  .kicker{position:absolute;left:122px;top:70px;font-size:26px;font-weight:700;color:#004E93;letter-spacing:.08em}
+  .kicker.y{color:#9a6b00}
+  .h{position:absolute;left:120px;top:112px;font-size:72px;font-weight:800;letter-spacing:-.02em;line-height:1.18}
+  .sub{position:absolute;left:122px;top:300px;width:600px;font-size:26px;font-weight:400;color:#5b5a55;line-height:1.6}
+  .big{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);text-align:center;font-size:104px;font-weight:800;letter-spacing:-.02em;line-height:1.25}
+  .big small{display:block;font-size:34px;font-weight:400;color:#5b5a55;margin-top:30px;letter-spacing:.06em;line-height:1.6}
+  .big .kk{display:block;font-size:30px;font-weight:700;color:#004E93;letter-spacing:.1em;margin-bottom:26px}
+  .frame{position:absolute;border-radius:20px;overflow:hidden;background:#fff;box-shadow:0 50px 100px rgba(23,21,15,.22), 0 0 0 1px rgba(0,0,0,.06)}
+  .frame img{display:block;width:100%;height:auto}
+  .phone{position:absolute;border-radius:52px;overflow:hidden;background:#111;padding:12px;box-shadow:0 40px 90px rgba(23,21,15,.28)}
+  .phone img{display:block;width:100%;height:auto;border-radius:40px}
+  .cursor{position:absolute;width:44px;height:44px;filter:drop-shadow(0 4px 8px rgba(0,0,0,.3))}
+  .ring{position:absolute;border:4px solid #004E93;border-radius:16px;box-shadow:0 0 0 6px rgba(0,78,147,.15)}
+  .chip{position:absolute;padding:14px 26px;border-radius:999px;background:#004E93;color:#fff;font-size:34px;font-weight:700;box-shadow:0 18px 40px rgba(0,78,147,.35);white-space:nowrap}
+  .chip b{font-size:44px;margin-right:12px}
+  .chip.y{background:#F9B900;color:#1A1400}
+  .ink{position:absolute;pointer-events:none}
+  .tiles{position:absolute;left:0;right:0;top:50%;margin-top:228px;display:flex;justify-content:center;gap:28px}
+  .tile{padding:22px 34px;border-radius:22px;background:#fff;box-shadow:0 20px 50px rgba(23,21,15,.12);font-size:30px;font-weight:700;color:#17150F}
+  .tile i{font-style:normal;display:block;font-size:18px;font-weight:400;color:#5b5a55;margin-top:6px;letter-spacing:.04em}
+</style></head>
+<body><div id="stage">
+
+<!-- 印（最初と最後） -->
+<div class="layer" id="L1">
+  <div class="mark" id="mark"><svg viewBox="0 0 180 180"><rect x="34" y="45" width="112" height="14" rx="7" fill="#F9B900"/>
+    <circle id="ringc" cx="90" cy="96" r="40" fill="none" stroke="#fff" stroke-width="13" stroke-linecap="round" transform="rotate(-90 90 96)" stroke-dasharray="251.4 251.4" stroke-dashoffset="251.4"/></svg></div>
+  <div class="word" id="word"><b>tube</b><i>study</i></div>
+  <div class="tag" id="tag">宿題と成績を、仕組みにする。</div>
+</div>
+
+<!-- S2 紙のまま、写真で出す -->
+<div class="layer" id="L2">
+  <div class="kicker" id="k2">いつもの紙のまま</div>
+  <div class="h" id="h2">ノートも原稿用紙も、<br>そのまま。出すのは写真。</div>
+  <div class="sub" id="s2">家で解いて、撮って、送るだけ。6枚まで。<br>出したかどうかは、先生の画面にすぐ出ます。</div>
+  <div class="phone" id="p2a" style="left:1240px;top:296px;width:330px"><img src="shots2/s-home.png"></div>
+  <div class="phone" id="p2b" style="left:1240px;top:296px;width:330px;opacity:0"><img src="shots2/s-stage.png"></div>
+</div>
+
+<!-- S3 今日やること -->
+<div class="layer" id="L3">
+  <div class="kicker" id="k3">先生の朝</div>
+  <div class="h" id="h3">見るべき宿題が、<br>いちばん上に。</div>
+  <div class="sub" id="s3">期限が来て、写真が出ていて、評価がまだ。<br>その回だけが「今日やること」。教科は色で。</div>
+  <div class="frame" id="f3" style="left:700px;top:372px;width:1140px"><img src="shots2/t-home.png"></div>
+</div>
+
+<!-- S4 なぞるだけ -->
+<div class="layer" id="L4">
+  <div class="kicker" id="k4">宿題チェック</div>
+  <div class="h" id="h4">なぞるだけで、<br>評価がつく。</div>
+  <div class="sub" id="s4">マスに乗せると、大きく出る。<br>1〜5 を押して、ひとこと。<br>1人 10秒。</div>
+  <div class="frame" id="f4" style="left:600px;top:372px;width:1200px"><img id="v4a" src="shots2/t-check-a.png"><img id="v4b" src="shots2/t-check-b.png" style="position:absolute;left:0;top:0;opacity:0"><img id="v4c" src="shots2/t-check-c.png" style="position:absolute;left:0;top:0;opacity:0"></div>
+  <div class="ring" id="r4" style="opacity:0"></div>
+  <div class="chip" id="c4" style="opacity:0"><b>4</b>できた</div>
+  <svg class="cursor" id="cur4" viewBox="0 0 24 24" style="opacity:0"><path d="M5 3l14 9-6 1.5L16.5 21l-3 1.2-3.5-7.5L5 19z" fill="#fff" stroke="#111" stroke-width="1.6" stroke-linejoin="round"/></svg>
+</div>
+
+<!-- S5 iPad で赤を入れる -->
+<div class="layer" id="L5">
+  <div class="kicker" id="k5">これもできます</div>
+  <div class="h" id="h5">iPad で、<br>そのまま赤を入れる。</div>
+  <div class="sub" id="s5">印刷して赤ペンでも、画面にペンでも。<br>「返す」で、そのまま生徒に届きます。</div>
+  <div class="frame" id="f5" style="left:600px;top:340px;width:1200px"><img src="shots2/t-draw.png">
+    <svg class="ink" id="ink5" viewBox="0 0 1440 900" style="left:0;top:0;width:1200px;height:750px">
+      <path id="ink5a" d="M 700 380 c 40 -50 120 -40 130 20 c 8 55 -70 80 -110 40 c -30 -30 -5 -70 30 -80" fill="none" stroke="#D62828" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+      <path id="ink5b" d="M 560 610 l 180 6" fill="none" stroke="#D62828" stroke-width="7" stroke-linecap="round"/>
+      <path id="ink5c" d="M 840 690 l 20 30 l 50 -70" fill="none" stroke="#D62828" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg></div>
+  <svg class="cursor" id="cur5" viewBox="0 0 24 24" style="opacity:0"><path d="M5 3l14 9-6 1.5L16.5 21l-3 1.2-3.5-7.5L5 19z" fill="#fff" stroke="#111" stroke-width="1.6" stroke-linejoin="round"/></svg>
+  <div class="phone" id="p5" style="left:1470px;top:300px;width:330px;opacity:0"><img src="shots2/s-ret.png"></div>
+</div>
+
+<!-- S6 一人ひとりの宿題 -->
+<div class="layer" id="L6">
+  <div class="kicker" id="k6">そしてこんなことも</div>
+  <div class="h" id="h6">一人ひとりに、<br>最適な宿題を。</div>
+  <div class="sub" id="s6">苦手な単元は、自動で見つかる。<br>先生は、決まりとひとことを添えるだけ。<br>生徒には「わかった」「質問する」で届く。</div>
+  <div class="frame" id="f6" style="left:700px;top:372px;width:1000px"><img src="shots2/t-rule.png"></div>
+  <div class="phone" id="p6" style="left:1500px;top:330px;width:330px"><img src="shots2/s-notice.png"></div>
+</div>
+
+<!-- S7 保護者 -->
+<div class="layer" id="L7">
+  <div class="kicker y" id="k7">これもできちゃうんです</div>
+  <div class="h" id="h7">保護者と、<br>その場でやりとり。</div>
+  <div class="sub" id="s7">「保護者の方へ」から、先生へ。<br>担当の先生だけが読み、<br>返事は同じ場所に届きます。</div>
+  <div class="phone" id="p7a" style="left:700px;top:372px;width:300px"><img src="shots2/s-parent-msg.png"></div>
+  <div class="frame" id="f7" style="left:1040px;top:420px;width:780px"><img src="shots2/t-inbox.png"></div>
+  <div class="phone" id="p7b" style="left:1560px;top:330px;width:300px;opacity:0"><img src="shots2/s-parent-reply.png"></div>
+</div>
+
+<!-- S8 プライバシー -->
+<div class="layer" id="L8">
+  <div class="big" id="b8" style="margin-top:-70px"><span class="kk">でも、これも大事にしています</span>サーバに、氏名はありません。<small>あるのは「番号の子が、こう学んだ」だけ。<br>番号が誰かは、塾の手元の名簿にしか無い。</small></div>
+  <div class="tiles" id="t8">
+    <div class="tile">氏名なし<i>出席番号だけ</i></div>
+    <div class="tile">戻せない形<i>パスワードも合言葉も</i></div>
+    <div class="tile">消える<i>写真は180日、退塾で全部</i></div>
+  </div>
+</div>
+
+<!-- S9 アナログのまま -->
+<div class="layer" id="L9">
+  <div class="big" id="b9">紙も、赤ペンも、先生の目も、<br>そのまま。<small>変わるのは、集める・数える・配る手間だけ。</small></div>
+</div>
+
+<!-- S10 一言 -->
+<div class="layer" id="L10">
+  <div class="big" id="b10">先生の時間を、授業へ。<small>一人ひとりに向き合う「仕組み」を。</small></div>
+</div>
+
+</div>
+<script>
+'use strict';
+var $ = function(id){ return document.getElementById(id); };
+var clamp = function(x, a, b){ return Math.max(a, Math.min(b, x)); };
+var eo = function(p){ p = clamp(p, 0, 1); return 1 - Math.pow(1 - p, 3); };
+var eio = function(p){ p = clamp(p, 0, 1); return p < .5 ? 4*p*p*p : 1 - Math.pow(-2*p + 2, 3)/2; };
+var back = function(p){ p = clamp(p, 0, 1); var c = 1.4; return 1 + (c + 1) * Math.pow(p - 1, 3) + c * Math.pow(p - 1, 2); };
+var lin = function(t, a, b){ return clamp((t - a) / (b - a), 0, 1); };
+function set(el, o, x, y, s){
+  el.style.opacity = o;
+  el.style.transform = 'translate(' + (x||0) + 'px,' + (y||0) + 'px) scale(' + (s === undefined ? 1 : s) + ')';
+}
+function layer(id, on){ $(id).style.opacity = on ? 1 : 0; }
+function drawLogo(u, fadeOut){
+  var mark = $('mark'), word = $('word'), tag = $('tag');
+  var pop = back(lin(u, 0, .9));
+  var o = lin(u, 0, .35);
+  set(mark, o, 0, (1 - eo(lin(u,0,.9))) * 40, .55 + .45 * pop);
+  $('ringc').setAttribute('stroke-dashoffset', 251.4 * (1 - eo(lin(u, .5, 1.5))));
+  set(word, eo(lin(u, 1.2, 1.9)), 0, (1 - eo(lin(u, 1.2, 1.9))) * 30, 1);
+  set(tag, eo(lin(u, 1.9, 2.5)), 0, (1 - eo(lin(u, 1.9, 2.5))) * 16, 1);
+  if(fadeOut !== undefined){
+    var q = eio(fadeOut);
+    [mark, word, tag].forEach(function(el){ el.style.opacity = String(parseFloat(el.style.opacity) * (1 - q)); });
+    mark.style.transform += ' scale(' + (1 - .06*q) + ')';
+  }
+}
+function enterText(k, h, s, u){
+  if(k) set(k, eo(lin(u, 0, .45)), 0, (1 - eo(lin(u, 0, .45))) * 14, 1);
+  set(h, eo(lin(u, .1, .7)), 0, (1 - eo(lin(u, .1, .7))) * 28, 1);
+  set(s, eo(lin(u, .4, 1.0)), 0, (1 - eo(lin(u, .4, 1.0))) * 18, 1);
+}
+function enterFrame(f, u, delay, drift){
+  var p = eo(lin(u, delay, delay + .9));
+  var k = .96 + .04 * p + (drift || 0) * clamp(u - delay - .9, 0, 10) / 10 * .03;
+  set(f, p, 0, (1 - p) * 80, k);
+}
+function exitAll(ids, q){ ids.forEach(function(id){ var el = $(id); el.style.opacity = String(parseFloat(el.style.opacity || 1) * (1 - q)); }); }
+function pathAt(pts, u){
+  var x = pts[0][1], y = pts[0][2];
+  for(var i = 0; i < pts.length - 1; i++){
+    if(u >= pts[i][0]){ var p = eio(lin(u, pts[i][0], pts[i+1][0])); x = pts[i][1] + (pts[i+1][1] - pts[i][1]) * p; y = pts[i][2] + (pts[i+1][2] - pts[i][2]) * p; }
+  }
+  return [x, y];
+}
+/* 描いた線を「書いている途中」に見せる（dashoffset） */
+function inkProgress(id, p){
+  var el = $(id), L = el.getTotalLength();
+  el.setAttribute('stroke-dasharray', L + ' ' + L);
+  el.setAttribute('stroke-dashoffset', String(L * (1 - clamp(p, 0, 1))));
+}
+
+/* S4：チェック表（写しは 1440 幅 → 1200 幅で表示。マスの座標は撮ったときの実測） */
+var F4X = 600, F4Y = 372, F4K = 1200 / 1440;
+var CELLS4 = [[176, 528, 100, 159], [286, 528, 100, 159], [616, 528, 100, 159]];   /* 07・08・11 */
+var RATE4 = [1185, 739, 103, 59];
+function box4(c){ return [F4X + c[0] * F4K, F4Y + c[1] * F4K, c[2] * F4K, c[3] * F4K]; }
+/* S5：赤を入れる紙（写し 1440 幅 → 1200 幅）。canvas は (504,194) 432×576、「返す」は (1136,791) */
+var F5X = 600, F5Y = 340, F5K = 1200 / 1440;
+var SEND5 = [1136, 791, 70, 54];
+
+window.seek = function(t){
+  ['L1','L2','L3','L4','L5','L6','L7','L8','L9','L10'].forEach(function(id){ layer(id, false); });
+  if(t < 3.4){                                   /* S1 印 */
+    layer('L1', true); drawLogo(t, t > 2.9 ? lin(t, 2.9, 3.4) : undefined);
+  }else if(t < 8.4){                             /* S2 紙のまま、写真で */
+    layer('L2', true); var u = t - 3.4;
+    enterText($('k2'), $('h2'), $('s2'), u); enterFrame($('p2a'), u, .35, 0);
+    var sw = eo(lin(u, 2.2, 2.6));
+    $('p2b').style.opacity = String(parseFloat($('p2a').style.opacity) * sw);
+    $('p2b').style.transform = $('p2a').style.transform;
+    if(u > 4.5) exitAll(['k2','h2','s2','p2a','p2b'], lin(u, 4.5, 5));
+  }else if(t < 13.4){                            /* S3 今日やること */
+    layer('L3', true); var u = t - 8.4;
+    enterText($('k3'), $('h3'), $('s3'), u); enterFrame($('f3'), u, .35, 1);
+    if(u > 4.5) exitAll(['k3','h3','s3','f3'], lin(u, 4.5, 5));
+  }else if(t < 18.4){                            /* S4 なぞるだけ */
+    layer('L4', true); var u = t - 13.4;
+    enterText($('k4'), $('h4'), $('s4'), u); enterFrame($('f4'), u, .3, 1);
+    var c = $('cur4'), r = $('r4'), ch = $('c4');
+    if(u > 1.0){
+      var v = u - 1.0;
+      var pts = [[0, 160, 640], [.6, 226, 607], [1.3, 336, 607], [2.1, 666, 607], [3.0, 1237, 768], [3.4, 1237, 768]];
+      var xy = pathAt(pts, v);
+      c.style.left = (F4X + xy[0] * F4K) + 'px'; c.style.top = (F4Y + xy[1] * F4K) + 'px'; c.style.opacity = eo(lin(v, 0, .3));
+      var hi = v < 1.3 ? 0 : v < 2.1 ? 1 : 2, cb = box4(CELLS4[hi]);
+      r.style.left = (cb[0] - 6) + 'px'; r.style.top = (cb[1] - 6) + 'px'; r.style.width = (cb[2] + 12) + 'px'; r.style.height = (cb[3] + 12) + 'px';
+      r.style.opacity = eo(lin(v, .5, .8)) * (1 - eo(lin(v, 2.7, 3.0)));
+      var f1 = eo(lin(v, 1.3, 1.5)), f2 = eo(lin(v, 2.1, 2.3));
+      $('v4b').style.opacity = f1 * (1 - f2); $('v4c').style.opacity = f2;
+      var rb = box4(RATE4), q = eo(lin(v, 3.0, 3.35));
+      set(ch, q, 0, (1 - q) * 16, .9 + .1 * back(lin(v, 3.0, 3.5)));
+      ch.style.left = (rb[0] - 40) + 'px'; ch.style.top = (rb[1] - 110) + 'px';
+    }else{ c.style.opacity = 0; r.style.opacity = 0; ch.style.opacity = 0; $('v4b').style.opacity = 0; $('v4c').style.opacity = 0; }
+    if(u > 4.5) exitAll(['k4','h4','s4','f4','cur4','r4','c4'], lin(u, 4.5, 5));
+  }else if(t < 23.4){                            /* S5 iPad で赤 */
+    layer('L5', true); var u = t - 18.4;
+    enterText($('k5'), $('h5'), $('s5'), u); enterFrame($('f5'), u, .3, 0);
+    inkProgress('ink5a', lin(u, .9, 1.8)); inkProgress('ink5b', lin(u, 1.9, 2.3)); inkProgress('ink5c', lin(u, 2.4, 2.8));
+    var c5 = $('cur5');
+    if(u > 2.8){
+      var v = u - 2.8, pts = [[0, 900, 700], [.6, SEND5[0] + 35, SEND5[1] + 27], [1.0, SEND5[0] + 35, SEND5[1] + 27]];
+      var xy = pathAt(pts, v);
+      c5.style.left = (F5X + xy[0] * F5K) + 'px'; c5.style.top = (F5Y + xy[1] * F5K) + 'px'; c5.style.opacity = eo(lin(v, 0, .25)) * (1 - eo(lin(v, 1.2, 1.5)));
+      var press = v > .6 ? 1 - .06 * Math.sin(Math.PI * clamp((v - .6) / .3, 0, 1)) : 1;
+      $('f5').style.transform = 'translate(0px,0px) scale(' + (1) + ')';
+      $('f5').style.transform += press !== 1 ? '' : '';
+      var pp = eo(lin(v, .9, 1.7));
+      set($('p5'), pp, (1 - pp) * 60, 0, .96 + .04 * pp);
+    }else{ c5.style.opacity = 0; $('p5').style.opacity = 0; }
+    if(u > 4.5) exitAll(['k5','h5','s5','f5','cur5','p5'], lin(u, 4.5, 5));
+  }else if(t < 28.4){                            /* S6 一人ひとりの宿題 */
+    layer('L6', true); var u = t - 23.4;
+    enterText($('k6'), $('h6'), $('s6'), u); enterFrame($('f6'), u, .3, 1); enterFrame($('p6'), u, 1.2, 0);
+    if(u > 4.5) exitAll(['k6','h6','s6','f6','p6'], lin(u, 4.5, 5));
+  }else if(t < 33.4){                            /* S7 保護者 */
+    layer('L7', true); var u = t - 28.4;
+    enterText($('k7'), $('h7'), $('s7'), u); enterFrame($('p7a'), u, .3, 0); enterFrame($('f7'), u, 1.1, 0);
+    var p7 = eo(lin(u, 2.3, 3.1)); set($('p7b'), p7, (1 - p7) * 60, 0, .96 + .04 * p7);
+    if(u > 4.5) exitAll(['k7','h7','s7','p7a','f7','p7b'], lin(u, 4.5, 5));
+  }else if(t < 38.4){                            /* S8 プライバシー（静かに） */
+    layer('L8', true); var u = t - 33.4;
+    var b = $('b8'); var p = eo(lin(u, 0, 1.0));
+    b.style.opacity = p; b.style.transform = 'translateY(-50%) scale(' + (.97 + .03 * p) + ')';
+    var tp = eo(lin(u, 1.4, 2.2)); set($('t8'), tp, 0, (1 - tp) * 24, 1);
+    if(u > 4.5){ b.style.opacity = String(p * (1 - eio(lin(u, 4.5, 5)))); $('t8').style.opacity = String(tp * (1 - eio(lin(u, 4.5, 5)))); }
+  }else if(t < 43.4){                            /* S9 アナログのまま */
+    layer('L9', true); var u = t - 38.4;
+    var b9 = $('b9'); var p9 = eo(lin(u, 0, .9));
+    b9.style.opacity = p9; b9.style.transform = 'translateY(-50%) scale(' + (.97 + .03 * p9) + ')';
+    if(u > 4.5) b9.style.opacity = String(p9 * (1 - eio(lin(u, 4.5, 5))));
+  }else if(t < 46.9){                            /* S10 一言 */
+    layer('L10', true); var u = t - 43.4;
+    var b10 = $('b10'); var p10 = eo(lin(u, 0, .9));
+    b10.style.opacity = p10; b10.style.transform = 'translateY(-50%) scale(' + (.97 + .03 * p10) + ')';
+    if(u > 3.0) b10.style.opacity = String(p10 * (1 - eio(lin(u, 3.0, 3.5))));
+  }else{                                         /* S11 印で締める */
+    layer('L1', true); var u = t - 46.9;
+    drawLogo(u + .4, t > 51.4 ? lin(t, 51.4, 52) : undefined);
+  }
+};
+window.ready = Promise.all([].map.call(document.images, function(im){ return (im.decode ? im.decode() : Promise.resolve()).catch(function(){}); }));
+seek(0);
+</script></body></html>

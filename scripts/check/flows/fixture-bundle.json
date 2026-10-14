@@ -1,0 +1,2259 @@
+{
+"kind": "tubestudy-accounts",
+"v": 1,
+"made": "2026-09-30",
+"school": {
+"id": "waseaca-london",
+"name": "ロンドン校",
+"code": "w",
+"tz": "Europe/London"
+},
+"accounts": [
+{
+"alg": "pbkdf2-600k",
+"salt": "02a65a35a00b30912fbd575fcc323d63",
+"hash": "d3102bbb8ae7bcaed11cf08390be15be45e4a6bbcf4f79ec1480bba79d0e3ffb",
+"id": "wadmin01",
+"role": "admin",
+"seat": "A01",
+"classId": "",
+"level": ""
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "be98e0832706bfcbd3206474fc32dad4",
+"hash": "be1f50edbccb98bbee9a5fcacffd6315d23f5cab9f3d82d6e09ac82d37133abe",
+"id": "wt01",
+"role": "teacher",
+"seat": "T01",
+"classId": "",
+"level": ""
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "7942f95650544f98a6ac70232dd73af6",
+"hash": "1bdc08d159541cdf8ae5dd9a1a3266050ed9f322413adb42528a2feed6bc0144",
+"id": "wt02",
+"role": "teacher",
+"seat": "T02",
+"classId": "",
+"level": ""
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "655674f056af7d1666252fbfc2e14387",
+"hash": "8ab62786a2954e2e196ac017e2dbd8f1e2be838cf5dd265857197f74a1b9e5ed",
+"id": "we4a01",
+"role": "seat",
+"seat": "01",
+"classId": "e4a",
+"level": "e4"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "c7b2da1fca84053cf6828f2dc486aad4",
+"hash": "5f17b6f0d9b69c4e18b365af1ef6ce4306f7315e51f0be33d40d5d10048b1650",
+"id": "we4a02",
+"role": "seat",
+"seat": "02",
+"classId": "e4a",
+"level": "e4"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "7e35ced15ac5c95c36e95acc6da3ac4d",
+"hash": "3c0ef2444f14317da3f09470e644a058a0c941a1d35342deb96cd2ed2e5dc8f4",
+"id": "we4a03",
+"role": "seat",
+"seat": "03",
+"classId": "e4a",
+"level": "e4"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "e5b845fc3a94924626f564ad890784b2",
+"hash": "e991e94f60cd48ec4880e1a6c2341f54284ebdf7df8b76bfa74e456ed653d9a5",
+"id": "we4b01",
+"role": "seat",
+"seat": "01",
+"classId": "e4b",
+"level": "e4"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "ab3c9fe3f2b57c38164fdaf3351e1bd8",
+"hash": "c1d2c83bd6b9521d655d1437477712f31f8453296ef68a9de714e53ad7eeb0e8",
+"id": "we4b02",
+"role": "seat",
+"seat": "02",
+"classId": "e4b",
+"level": "e4"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "dab270eee95894dbb6ca8ee29c2718c6",
+"hash": "9655ed5741dc4bac7a6bc6d49cf4056c22429300b60c0d0cef260d9fb5e06836",
+"id": "we4b03",
+"role": "seat",
+"seat": "03",
+"classId": "e4b",
+"level": "e4"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "4e0f0b48d459cfe40a374e94c3c9d253",
+"hash": "82e317480b78470f3f1ec9b2e64db8ede4f46253ad10b8cabeb155c3f6b33656",
+"id": "we4k01",
+"role": "seat",
+"seat": "01",
+"classId": "e4k",
+"level": "e4"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "5d1ffdd93bb6d90010e985f8861128fb",
+"hash": "a4c2c8092f9152f3af47181c1efce8aacc8637b0d6b4639f4f8e09bbcf7e303f",
+"id": "we4k02",
+"role": "seat",
+"seat": "02",
+"classId": "e4k",
+"level": "e4"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "d8ef03b8ad9dadf3cbdc7da3d0f9393c",
+"hash": "2cb68352aa91fa206e57e8d81fcfed91e93fe8bae83ebc84ab2ca2e011d5e6ae",
+"id": "we4k03",
+"role": "seat",
+"seat": "03",
+"classId": "e4k",
+"level": "e4"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "c9fc9b923cafe3deecf0ebc28b105c81",
+"hash": "10efc959c85deb39fb635a148394dc9b82401ecde0b5becd10606284f1aac93f",
+"id": "we5a01",
+"role": "seat",
+"seat": "01",
+"classId": "e5a",
+"level": "e5"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "b3e6af9eb6c318892c31559f031ff029",
+"hash": "a3e2b77bbd29f528068d0fcebee5d9ebb19d2e3f273ef6e779ef6225d466fc75",
+"id": "we5a02",
+"role": "seat",
+"seat": "02",
+"classId": "e5a",
+"level": "e5"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "f6f28a9247348798eb87b18dbe45030f",
+"hash": "eab47c3340cf73893dade0572629c4147ce52adbe58560fd1a5f5f5a33c3386a",
+"id": "we5a03",
+"role": "seat",
+"seat": "03",
+"classId": "e5a",
+"level": "e5"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "09a8a33598221298c39c5ec2a4216ef8",
+"hash": "bff065d9d5224e9b34b5abca3aff7c6a71e0403356bbb071c96674f8a1069436",
+"id": "we5b01",
+"role": "seat",
+"seat": "01",
+"classId": "e5b",
+"level": "e5"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "b7732b6736a0362112405a6d3e3d7a55",
+"hash": "6657260c334ba5c20424e8ca806b78fa98da11f646f12c400291d8c1bbc86759",
+"id": "we5b02",
+"role": "seat",
+"seat": "02",
+"classId": "e5b",
+"level": "e5"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "a1da3747c9e75fe9df5d63d126fab08f",
+"hash": "04f07059c4a76919790b40e6a3eff03b1f2ab0b9ab1691aa6182c0a78b9f1611",
+"id": "we5b03",
+"role": "seat",
+"seat": "03",
+"classId": "e5b",
+"level": "e5"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "4c559c6e6379ed31e285b86029c81f31",
+"hash": "dfe144052d11cd849bae11bce97ef62ca78ca16202cf083d05ef14e3830330f8",
+"id": "we5k01",
+"role": "seat",
+"seat": "01",
+"classId": "e5k",
+"level": "e5"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "82c433972d7b460a749aefe2578648c4",
+"hash": "a5de018dd4c3fc3890448d8c278578011ad86a2845579767236c7b0e9959e685",
+"id": "we5k02",
+"role": "seat",
+"seat": "02",
+"classId": "e5k",
+"level": "e5"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "f7424dc313a00c171d6abc8b283b0656",
+"hash": "dabd259dcd9b11ef67518ae74e6f4e790dd9f865da89e99e3937c008cf9e2c6a",
+"id": "we5k03",
+"role": "seat",
+"seat": "03",
+"classId": "e5k",
+"level": "e5"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "b01501a8a24663128662723d31dd4114",
+"hash": "e4ccef1c3f148f67f306c861051f9f70c9ad1f0e302b79a65b56046d37d4b77f",
+"id": "we6a01",
+"role": "seat",
+"seat": "01",
+"classId": "e6a",
+"level": "e6"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "afafe39406766bffa542f904bd227118",
+"hash": "42d8e6b4fbd49c4482e5138ac87f32386bd2853d7bd8f00975197d7042fa399a",
+"id": "we6a02",
+"role": "seat",
+"seat": "02",
+"classId": "e6a",
+"level": "e6"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "629c94138c55c2cc53b4e8ea819f95ba",
+"hash": "bbc58cb727b3247b6903e8f99481db899a9d3c13edbd2454d9faa0e094b5e8f6",
+"id": "we6a03",
+"role": "seat",
+"seat": "03",
+"classId": "e6a",
+"level": "e6"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "37e766563a06786cf4e1375e6c0eb5c8",
+"hash": "e8dcbe2c8260549296f5e0941ac45d4615d6dd04e83bd34f5dcc19dbeec9ec4a",
+"id": "we6b01",
+"role": "seat",
+"seat": "01",
+"classId": "e6b",
+"level": "e6"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "479bea9e19a78920be766801068c9423",
+"hash": "d047ff841278d0e74423fb0c6fbbcb6e92df6cb4990a41281f4a5a36c50a45a1",
+"id": "we6b02",
+"role": "seat",
+"seat": "02",
+"classId": "e6b",
+"level": "e6"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "9745a78e666dd1e09f0e88f1bdeff854",
+"hash": "3e4c4f27ad4dfe8e641f4b1df033b03192c0227dedadd529d257f34ffe5c41bb",
+"id": "we6b03",
+"role": "seat",
+"seat": "03",
+"classId": "e6b",
+"level": "e6"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "c29cc523b5f310d0051c496c488e8888",
+"hash": "2bfe3e883ad7b42cbd416baa8877b5aca81209df470234fcabb790a83f9f9af2",
+"id": "we6k01",
+"role": "seat",
+"seat": "01",
+"classId": "e6k",
+"level": "e6"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "e1e190e88f6a116a44e5ba4228166d38",
+"hash": "4773e7946ec4bb4385642666276382044e8eb2889e979ca49f8bdfd9b565c05b",
+"id": "we6k02",
+"role": "seat",
+"seat": "02",
+"classId": "e6k",
+"level": "e6"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "35d7f90e4f57a037e93954c3d85069ff",
+"hash": "cc6991c7b330aa06f479a9cad26d5e01d4d9f00fca66912ba4e636236a4063af",
+"id": "we6k03",
+"role": "seat",
+"seat": "03",
+"classId": "e6k",
+"level": "e6"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "b99f1a0d9f9999c1a824763e5759526d",
+"hash": "0b2d5afb0fd7ea837c2eb05102a97cf9f3fd65a250f052d3a4c7c5e3ad98d7b0",
+"id": "wj1t01",
+"role": "seat",
+"seat": "01",
+"classId": "j1t",
+"level": "j1"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "b781b419e4652e72124a46105a17bb51",
+"hash": "70632a0b55f690cff88f0a18deb7a1b3bd85ba44937b808d49b51ba6fa280175",
+"id": "wj1t02",
+"role": "seat",
+"seat": "02",
+"classId": "j1t",
+"level": "j1"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "945cbbc71940884c9633b7fdf4a7b627",
+"hash": "461cf66976f577d91f4395d5efe99dad5e787c42ce94ce6523ae4311b8965e3b",
+"id": "wj1t03",
+"role": "seat",
+"seat": "03",
+"classId": "j1t",
+"level": "j1"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "e7c40641f4c5a66dcf1a60132f30cb54",
+"hash": "c58b18dc3794df945d1d200feb87f6c5b0c8e1d590aa44e7ed6777925c214aa8",
+"id": "wj1r01",
+"role": "seat",
+"seat": "01",
+"classId": "j1r",
+"level": "j1"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "a8f97a626f6b4cbf3e52ed8e8206340b",
+"hash": "a0d7381b700864c3e383f550495968b11fdab8665a2fe925fe10c446789f3972",
+"id": "wj1r02",
+"role": "seat",
+"seat": "02",
+"classId": "j1r",
+"level": "j1"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "253299c606e7cc74c253175b82131e19",
+"hash": "a56c3cbda10fd4940209602393e54aa6adfb5603a615f44d34a1ce350f5e65c4",
+"id": "wj1r03",
+"role": "seat",
+"seat": "03",
+"classId": "j1r",
+"level": "j1"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "67ad6456717ef6ee11bbd328652abc11",
+"hash": "175a089cf634f573daaa273c26814c9e116155381712b9b25a3ea586ff81bd9a",
+"id": "wj1d01",
+"role": "seat",
+"seat": "01",
+"classId": "j1d",
+"level": "j1"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "fc906cb63e7ff01a6f0c0558e0af7648",
+"hash": "16617421373548d003c33f015247d4d56c837161950feacac24154ebdb34e078",
+"id": "wj1d02",
+"role": "seat",
+"seat": "02",
+"classId": "j1d",
+"level": "j1"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "4d4ced2069145a92672b3cc3089da27c",
+"hash": "64efdca4c3c604968066058cf532463205ca7716d6df0ad3483e20680a8745d5",
+"id": "wj1d03",
+"role": "seat",
+"seat": "03",
+"classId": "j1d",
+"level": "j1"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "8442f58a1a36dda8661f6c4082ccb654",
+"hash": "c5551c98145b4e2d91dfe40d9203a8b185bc9e0d983bbe4a01aff6f2bc94347e",
+"id": "wj2t01",
+"role": "seat",
+"seat": "01",
+"classId": "j2t",
+"level": "j2"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "3f0ab7d2ccb8b8a82d1a49c188ff74aa",
+"hash": "6c2d19a13ac5e2e58ea5a042bfeb7825f94d8e2b6a84a8c46fabf6d6eed5531d",
+"id": "wj2t02",
+"role": "seat",
+"seat": "02",
+"classId": "j2t",
+"level": "j2"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "fafca33f5f317f7e1a33dfd433651de7",
+"hash": "a8f2323e4d982901a59182278ee3ac93dfc3c43df900e3c8816d3db36b03b53b",
+"id": "wj2t03",
+"role": "seat",
+"seat": "03",
+"classId": "j2t",
+"level": "j2"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "af4fd607cefec666ac006de55cd10fb0",
+"hash": "98a136bc64c1e5a51df4ea0231ec2cdf36662bb21b38966c91268ed2ff2418e5",
+"id": "wj2r01",
+"role": "seat",
+"seat": "01",
+"classId": "j2r",
+"level": "j2"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "403a5bed637cc5edabe4152693b698fd",
+"hash": "a463d14075e83d00bd937ffecf845ed7975e492a435a22596c908f2a6e357d57",
+"id": "wj2r02",
+"role": "seat",
+"seat": "02",
+"classId": "j2r",
+"level": "j2"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "39b0c933ac8fff7ed8ab98ec7059ea5b",
+"hash": "5cb982727eccfde7dd7eb7fda6e6c8ef5a9417caf0e18c5a332fa77bd72f283d",
+"id": "wj2r03",
+"role": "seat",
+"seat": "03",
+"classId": "j2r",
+"level": "j2"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "9093a6148710e112da9f5a26a7d2334d",
+"hash": "3d242b5a9e7a565922feade3b18e98dbc53433d3a2b50ac3649f807c7f1ee92b",
+"id": "wj2d01",
+"role": "seat",
+"seat": "01",
+"classId": "j2d",
+"level": "j2"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "d2b05d74c24c68567010d3a37ae9baf5",
+"hash": "bcffe4780c64b5c4b584408cf8a021c545491931868b1ecf91ca51cdd840ddcf",
+"id": "wj2d02",
+"role": "seat",
+"seat": "02",
+"classId": "j2d",
+"level": "j2"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "467fdc58dbf46e6d578060adfbd37846",
+"hash": "d3ccc7deb4be426097bcfed5c4264c2caa9de39b3750e5978a593ac03f7bc89c",
+"id": "wj2d03",
+"role": "seat",
+"seat": "03",
+"classId": "j2d",
+"level": "j2"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "ddfc22796405c3a919a1d2caf99c1818",
+"hash": "5f79fc0819b9d6ffbf1a1fccc7bde46760605614a70948338692b595aadf032a",
+"id": "wj3t01",
+"role": "seat",
+"seat": "01",
+"classId": "j3t",
+"level": "j3"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "8325a0ebe4c54ede125be738cd8f7b80",
+"hash": "10cbca472efed436ed7ea14ef03d8191b7cfc9016cd2dc915d5c54b436b1859e",
+"id": "wj3t02",
+"role": "seat",
+"seat": "02",
+"classId": "j3t",
+"level": "j3"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "da9716429c02476bd605ce85ccb95286",
+"hash": "5d3244af063c8a39a0f92ee243d7cb62e578d0bacc3456149a4b9c22cf599c72",
+"id": "wj3t03",
+"role": "seat",
+"seat": "03",
+"classId": "j3t",
+"level": "j3"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "89abf9c0e16725584736c53d59bcfb5d",
+"hash": "a9958c81437e14c5adcb2479b34c768d5d38329e7de59789696adbb831920338",
+"id": "wj3r01",
+"role": "seat",
+"seat": "01",
+"classId": "j3r",
+"level": "j3"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "9c4b37d0e92536955c4fdc1fa3d3797c",
+"hash": "280b617aed4064c438e7f8f48b9fbc96191f3d7865a94db9ed371ae2976fff7c",
+"id": "wj3r02",
+"role": "seat",
+"seat": "02",
+"classId": "j3r",
+"level": "j3"
+},
+{
+"alg": "pbkdf2-600k",
+"salt": "c79d347a6ad91ba80bdc802171a2a6a1",
+"hash": "4364e66111a3f737c2f5d6cb2b8d9afa3cbb3021cca2a8e279cd377cd93c4594",
+"id": "wj3r03",
+"role": "seat",
+"seat": "03",
+"classId": "j3r",
+"level": "j3"
+}
+],
+"courses": [
+[
+"e1j:japanese",
+{
+"name": "小1J 国語",
+"grade": "e1",
+"subject": "japanese",
+"teachers": [],
+"slots": [],
+"classes": [
+"e1j"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e1j:math",
+{
+"name": "小1J 算数",
+"grade": "e1",
+"subject": "math",
+"teachers": [],
+"slots": [],
+"classes": [
+"e1j"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e2j:japanese",
+{
+"name": "小2J 国語",
+"grade": "e2",
+"subject": "japanese",
+"teachers": [],
+"slots": [],
+"classes": [
+"e2j"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e2j:math",
+{
+"name": "小2J 算数",
+"grade": "e2",
+"subject": "math",
+"teachers": [],
+"slots": [],
+"classes": [
+"e2j"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e3j:japanese",
+{
+"name": "小3J 国語",
+"grade": "e3",
+"subject": "japanese",
+"teachers": [],
+"slots": [],
+"classes": [
+"e3j"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e3j:math",
+{
+"name": "小3J 算数",
+"grade": "e3",
+"subject": "math",
+"teachers": [],
+"slots": [],
+"classes": [
+"e3j"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e3j:science",
+{
+"name": "小3J 理科",
+"grade": "e3",
+"subject": "science",
+"teachers": [],
+"slots": [],
+"classes": [
+"e3j"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e3j:social",
+{
+"name": "小3J 社会",
+"grade": "e3",
+"subject": "social",
+"teachers": [],
+"slots": [],
+"classes": [
+"e3j"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e4a:japanese",
+{
+"name": "小4α 国語",
+"grade": "e4",
+"subject": "japanese",
+"teachers": [],
+"slots": [],
+"classes": [
+"e4a"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e4a:math",
+{
+"name": "小4α 算数",
+"grade": "e4",
+"subject": "math",
+"teachers": [],
+"slots": [
+{
+"day": 3,
+"start": "18:20",
+"end": "19:50"
+}
+],
+"classes": [
+"e4a"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e4b:japanese",
+{
+"name": "小4β 国語",
+"grade": "e4",
+"subject": "japanese",
+"teachers": [],
+"slots": [
+{
+"day": 3,
+"start": "16:40",
+"end": "18:10"
+}
+],
+"classes": [
+"e4b"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e4b:math",
+{
+"name": "小4β 算数",
+"grade": "e4",
+"subject": "math",
+"teachers": [],
+"slots": [],
+"classes": [
+"e4b"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e4:english",
+{
+"name": "小4 英語",
+"grade": "e4",
+"subject": "english",
+"teachers": [],
+"slots": [],
+"classes": [
+"e4a",
+"e4b",
+"e4k"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e4:science",
+{
+"name": "小4 理科",
+"grade": "e4",
+"subject": "science",
+"teachers": [],
+"slots": [],
+"classes": [
+"e4a",
+"e4b",
+"e4k"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e4:social",
+{
+"name": "小4 社会",
+"grade": "e4",
+"subject": "social",
+"teachers": [],
+"slots": [],
+"classes": [
+"e4a",
+"e4b",
+"e4k"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e4o:math",
+{
+"name": "小4 オンライン 算数",
+"grade": "e4",
+"subject": "math",
+"teachers": [],
+"slots": [],
+"classes": [],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e5a:japanese",
+{
+"name": "小5α 国語",
+"grade": "e5",
+"subject": "japanese",
+"teachers": [],
+"slots": [],
+"classes": [
+"e5a"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e5a:math",
+{
+"name": "小5α 算数",
+"grade": "e5",
+"subject": "math",
+"teachers": [],
+"slots": [],
+"classes": [
+"e5a"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e5b:japanese",
+{
+"name": "小5β 国語",
+"grade": "e5",
+"subject": "japanese",
+"teachers": [],
+"slots": [],
+"classes": [
+"e5b"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e5b:math",
+{
+"name": "小5β 算数",
+"grade": "e5",
+"subject": "math",
+"teachers": [],
+"slots": [
+{
+"day": 1,
+"start": "16:40",
+"end": "18:10"
+},
+{
+"day": 4,
+"start": "16:40",
+"end": "18:10"
+}
+],
+"classes": [
+"e5b"
+],
+"students": [],
+"unit": "week",
+"weekday": 1,
+"from": "",
+"to": ""
+}
+],
+[
+"e5k:japanese",
+{
+"name": "小5K 国語",
+"grade": "e5",
+"subject": "japanese",
+"teachers": [],
+"slots": [],
+"classes": [
+"e5k"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e5:english",
+{
+"name": "小5 英語",
+"grade": "e5",
+"subject": "english",
+"teachers": [],
+"slots": [],
+"classes": [
+"e5a",
+"e5b",
+"e5k"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e5:science",
+{
+"name": "小5 理科",
+"grade": "e5",
+"subject": "science",
+"teachers": [],
+"slots": [],
+"classes": [
+"e5a",
+"e5b",
+"e5k"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e5:social",
+{
+"name": "小5 社会",
+"grade": "e5",
+"subject": "social",
+"teachers": [],
+"slots": [],
+"classes": [
+"e5a",
+"e5b",
+"e5k"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e5o:japanese",
+{
+"name": "小5 オンライン 国語",
+"grade": "e5",
+"subject": "japanese",
+"teachers": [],
+"slots": [],
+"classes": [],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e5o:social",
+{
+"name": "小5 オンライン 社会",
+"grade": "e5",
+"subject": "social",
+"teachers": [],
+"slots": [],
+"classes": [],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e6a:japanese",
+{
+"name": "小6α 国語",
+"grade": "e6",
+"subject": "japanese",
+"teachers": [],
+"slots": [],
+"classes": [
+"e6a"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e6a:math",
+{
+"name": "小6α 算数",
+"grade": "e6",
+"subject": "math",
+"teachers": [],
+"slots": [],
+"classes": [
+"e6a"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e6b:japanese",
+{
+"name": "小6β 国語",
+"grade": "e6",
+"subject": "japanese",
+"teachers": [],
+"slots": [],
+"classes": [
+"e6b"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e6b:math",
+{
+"name": "小6β 算数",
+"grade": "e6",
+"subject": "math",
+"teachers": [],
+"slots": [],
+"classes": [
+"e6b"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e6k:japanese",
+{
+"name": "小6K 国語",
+"grade": "e6",
+"subject": "japanese",
+"teachers": [],
+"slots": [],
+"classes": [
+"e6k"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e6k:math",
+{
+"name": "小6K 算数",
+"grade": "e6",
+"subject": "math",
+"teachers": [],
+"slots": [
+{
+"day": 1,
+"start": "18:20",
+"end": "19:20"
+}
+],
+"classes": [
+"e6k"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e6:english",
+{
+"name": "小6 英語",
+"grade": "e6",
+"subject": "english",
+"teachers": [],
+"slots": [],
+"classes": [
+"e6a",
+"e6b",
+"e6k"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e6:science",
+{
+"name": "小6 理科",
+"grade": "e6",
+"subject": "science",
+"teachers": [],
+"slots": [],
+"classes": [
+"e6a",
+"e6b",
+"e6k"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e6:social",
+{
+"name": "小6 社会",
+"grade": "e6",
+"subject": "social",
+"teachers": [],
+"slots": [],
+"classes": [
+"e6a",
+"e6b",
+"e6k"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e6nanpro:japanese",
+{
+"name": "小6 難プロ 国語",
+"grade": "e6",
+"subject": "japanese",
+"teachers": [],
+"slots": [],
+"classes": [],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e6nanpro:math",
+{
+"name": "小6 難プロ 算数",
+"grade": "e6",
+"subject": "math",
+"teachers": [],
+"slots": [],
+"classes": [],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e6nanpro:science",
+{
+"name": "小6 難プロ 理科",
+"grade": "e6",
+"subject": "science",
+"teachers": [],
+"slots": [],
+"classes": [],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e6nanpro:social",
+{
+"name": "小6 難プロ 社会",
+"grade": "e6",
+"subject": "social",
+"teachers": [],
+"slots": [],
+"classes": [],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e6doku:japanese",
+{
+"name": "小6 土特 国語",
+"grade": "e6",
+"subject": "japanese",
+"teachers": [],
+"slots": [],
+"classes": [],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e6doku:math",
+{
+"name": "小6 土特 算数",
+"grade": "e6",
+"subject": "math",
+"teachers": [],
+"slots": [],
+"classes": [],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"e56bunpo:english",
+{
+"name": "中受英語 文法特講（5・6年）",
+"grade": "e5",
+"subject": "english",
+"teachers": [],
+"slots": [],
+"classes": [],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": "",
+"grades": [
+"e5",
+"e6"
+]
+}
+],
+[
+"e56chobun:english",
+{
+"name": "中受英語 長文特講（5・6年）",
+"grade": "e5",
+"subject": "english",
+"teachers": [],
+"slots": [],
+"classes": [],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": "",
+"grades": [
+"e5",
+"e6"
+]
+}
+],
+[
+"edoga:math",
+{
+"name": "小学 算数動画",
+"grade": "e1",
+"subject": "math",
+"teachers": [],
+"slots": [],
+"classes": [],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": "",
+"grades": [
+"e1",
+"e2",
+"e3",
+"e4",
+"e5",
+"e6"
+]
+}
+],
+[
+"j1t:math",
+{
+"name": "中1T 数学",
+"grade": "j1",
+"subject": "math",
+"teachers": [],
+"slots": [],
+"classes": [
+"j1t"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"j1r:math",
+{
+"name": "中1R 数学",
+"grade": "j1",
+"subject": "math",
+"teachers": [],
+"slots": [],
+"classes": [
+"j1r"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"j1tr:japanese",
+{
+"name": "中1TR 国語",
+"grade": "j1",
+"subject": "japanese",
+"teachers": [],
+"slots": [],
+"classes": [
+"j1t",
+"j1r"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"j1tr:english",
+{
+"name": "中1TR 英語",
+"grade": "j1",
+"subject": "english",
+"teachers": [],
+"slots": [],
+"classes": [
+"j1t",
+"j1r",
+"j1d"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"j1:science",
+{
+"name": "中1 理科",
+"grade": "j1",
+"subject": "science",
+"teachers": [],
+"slots": [
+{
+"day": 4,
+"start": "20:40",
+"end": "21:40"
+}
+],
+"classes": [
+"j1t",
+"j1r",
+"j1d"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"j1:social",
+{
+"name": "中1 社会",
+"grade": "j1",
+"subject": "social",
+"teachers": [],
+"slots": [],
+"classes": [
+"j1t",
+"j1r",
+"j1d"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"j1d:japanese",
+{
+"name": "中1D 国語",
+"grade": "j1",
+"subject": "japanese",
+"teachers": [],
+"slots": [
+{
+"day": 6,
+"start": "14:20",
+"end": "15:50"
+}
+],
+"classes": [
+"j1d"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"j1d:math",
+{
+"name": "中1D 数学",
+"grade": "j1",
+"subject": "math",
+"teachers": [],
+"slots": [],
+"classes": [
+"j1d"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"j2t:japanese",
+{
+"name": "中2T 国語",
+"grade": "j2",
+"subject": "japanese",
+"teachers": [],
+"slots": [],
+"classes": [
+"j2t"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"j2t:math",
+{
+"name": "中2T 数学",
+"grade": "j2",
+"subject": "math",
+"teachers": [],
+"slots": [],
+"classes": [
+"j2t"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"j2r:japanese",
+{
+"name": "中2R 国語",
+"grade": "j2",
+"subject": "japanese",
+"teachers": [],
+"slots": [],
+"classes": [
+"j2r"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"j2r:math",
+{
+"name": "中2R 数学",
+"grade": "j2",
+"subject": "math",
+"teachers": [],
+"slots": [
+{
+"day": 2,
+"start": "20:10",
+"end": "21:40"
+}
+],
+"classes": [
+"j2r"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"j2tr:english",
+{
+"name": "中2TR 英語",
+"grade": "j2",
+"subject": "english",
+"teachers": [],
+"slots": [
+{
+"day": 2,
+"start": "16:40",
+"end": "18:10"
+}
+],
+"classes": [
+"j2t",
+"j2r",
+"j2d"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"j2:science",
+{
+"name": "中2 理科",
+"grade": "j2",
+"subject": "science",
+"teachers": [],
+"slots": [
+{
+"day": 1,
+"start": "19:30",
+"end": "20:30"
+}
+],
+"classes": [
+"j2t",
+"j2r",
+"j2d"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"j2:social",
+{
+"name": "中2 社会",
+"grade": "j2",
+"subject": "social",
+"teachers": [],
+"slots": [],
+"classes": [
+"j2t",
+"j2r",
+"j2d"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"j2d:japanese",
+{
+"name": "中2D 国語",
+"grade": "j2",
+"subject": "japanese",
+"teachers": [],
+"slots": [
+{
+"day": 6,
+"start": "12:40",
+"end": "14:10"
+}
+],
+"classes": [
+"j2d"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"j2d:math",
+{
+"name": "中2D 数学",
+"grade": "j2",
+"subject": "math",
+"teachers": [],
+"slots": [],
+"classes": [
+"j2d"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"j2ttoku:math",
+{
+"name": "中2T 数学特講",
+"grade": "j2",
+"subject": "math",
+"teachers": [],
+"slots": [],
+"classes": [],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"jdoga:math",
+{
+"name": "中学 数学動画",
+"grade": "j1",
+"subject": "math",
+"teachers": [],
+"slots": [],
+"classes": [],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": "",
+"grades": [
+"j1",
+"j2",
+"j3"
+]
+}
+],
+[
+"j3t:japanese",
+{
+"name": "中3T 国語",
+"grade": "j3",
+"subject": "japanese",
+"teachers": [],
+"slots": [],
+"classes": [
+"j3t"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"j3t:math",
+{
+"name": "中3T 数学",
+"grade": "j3",
+"subject": "math",
+"teachers": [],
+"slots": [],
+"classes": [
+"j3t"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"j3t:english",
+{
+"name": "中3T 英語",
+"grade": "j3",
+"subject": "english",
+"teachers": [],
+"slots": [],
+"classes": [
+"j3t"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"j3r:japanese",
+{
+"name": "中3R 国語",
+"grade": "j3",
+"subject": "japanese",
+"teachers": [],
+"slots": [],
+"classes": [
+"j3r"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"j3r:math",
+{
+"name": "中3R 数学",
+"grade": "j3",
+"subject": "math",
+"teachers": [],
+"slots": [
+{
+"day": 2,
+"start": "18:20",
+"end": "19:50"
+},
+{
+"day": 4,
+"start": "18:20",
+"end": "19:50"
+}
+],
+"classes": [
+"j3r"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"j3r:english",
+{
+"name": "中3R 英語",
+"grade": "j3",
+"subject": "english",
+"teachers": [],
+"slots": [],
+"classes": [
+"j3r"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"j3tr:english",
+{
+"name": "中3TR 英語",
+"grade": "j3",
+"subject": "english",
+"teachers": [],
+"slots": [],
+"classes": [
+"j3t",
+"j3r"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"j3:science",
+{
+"name": "中3 理科",
+"grade": "j3",
+"subject": "science",
+"teachers": [],
+"slots": [],
+"classes": [
+"j3t",
+"j3r"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"j3:social",
+{
+"name": "中3 社会",
+"grade": "j3",
+"subject": "social",
+"teachers": [],
+"slots": [],
+"classes": [
+"j3t",
+"j3r"
+],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"j3doku:math",
+{
+"name": "中3 土特（RD特） 数学",
+"grade": "j3",
+"subject": "math",
+"teachers": [],
+"slots": [
+{
+"day": 6,
+"start": "16:00",
+"end": "17:10"
+}
+],
+"classes": [],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"j3doku:japanese",
+{
+"name": "中3 土特 国語",
+"grade": "j3",
+"subject": "japanese",
+"teachers": [],
+"slots": [],
+"classes": [],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"j3sokei:japanese",
+{
+"name": "中3 早慶必勝 国語",
+"grade": "j3",
+"subject": "japanese",
+"teachers": [],
+"slots": [],
+"classes": [],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"j3sokei:math",
+{
+"name": "中3 早慶必勝 数学",
+"grade": "j3",
+"subject": "math",
+"teachers": [],
+"slots": [],
+"classes": [],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"j3sokei:english",
+{
+"name": "中3 早慶必勝 英語",
+"grade": "j3",
+"subject": "english",
+"teachers": [],
+"slots": [],
+"classes": [],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+],
+[
+"j3o:english",
+{
+"name": "中3 オンライン 英語",
+"grade": "j3",
+"subject": "english",
+"teachers": [],
+"slots": [],
+"classes": [],
+"students": [],
+"unit": "lesson",
+"weekday": 0,
+"from": "",
+"to": ""
+}
+]
+],
+"materials": {
+"yos-e4-math": {
+"name": "予習シリーズ 小4下 算数",
+"subject": "math",
+"grades": [
+"e4"
+],
+"mode": "paper"
+},
+"yos-e4-jpn": {
+"name": "予習シリーズ 小4下 国語",
+"subject": "japanese",
+"grades": [
+"e4"
+],
+"mode": "paper"
+},
+"yos-e5-math": {
+"name": "予習シリーズ 小5下 算数",
+"subject": "math",
+"grades": [
+"e5"
+],
+"mode": "paper"
+},
+"enshu-e4-math": {
+"name": "演習問題集 小4下 算数",
+"subject": "math",
+"grades": [
+"e4"
+],
+"mode": "paper"
+},
+"enshu-e4-jpn": {
+"name": "演習問題集 小4下 国語",
+"subject": "japanese",
+"grades": [
+"e4"
+],
+"mode": "paper"
+},
+"enshu-e5-math": {
+"name": "演習問題集 小5下 算数",
+"subject": "math",
+"grades": [
+"e5"
+],
+"mode": "paper"
+},
+"keisan-yos": {
+"name": "計算テキスト（予習シリーズ）",
+"subject": "math",
+"grades": [
+"e4",
+"e5"
+],
+"mode": "paper",
+"graded": false
+},
+"kiso-print": {
+"name": "基礎力強化プリント",
+"subject": "math",
+"grades": [
+"e4",
+"e5"
+],
+"mode": "paper"
+},
+"kanji-kotoba": {
+"name": "漢字とことば",
+"subject": "japanese",
+"grades": [
+"e4"
+],
+"mode": "paper"
+},
+"shin-e6-math": {
+"name": "新小学問題集 小6 算数",
+"subject": "math",
+"grades": [
+"e6"
+],
+"mode": "paper"
+},
+"pyramid": {
+"name": "計算ピラミッド",
+"subject": "math",
+"grades": [
+"e6"
+],
+"mode": "paper",
+"graded": false
+},
+"shin-j1-jpn": {
+"name": "新中学問題集 中1 国語",
+"subject": "japanese",
+"grades": [
+"j1"
+],
+"mode": "paper"
+},
+"shin-j1-sci": {
+"name": "新中学問題集 中1 理科",
+"subject": "science",
+"grades": [
+"j1"
+],
+"mode": "paper"
+},
+"shin-j2-jpn": {
+"name": "新中学問題集 中2 国語",
+"subject": "japanese",
+"grades": [
+"j2"
+],
+"mode": "paper"
+},
+"shin-j2-sci": {
+"name": "新中学問題集 中2 理科",
+"subject": "science",
+"grades": [
+"j2"
+],
+"mode": "paper"
+},
+"shin-j2-math": {
+"name": "新中学問題集 中2 数学",
+"subject": "math",
+"grades": [
+"j2"
+],
+"mode": "paper"
+},
+"enshu-j2-math": {
+"name": "演習問題集 中2 数学",
+"subject": "math",
+"grades": [
+"j2"
+],
+"mode": "paper"
+},
+"kanji-note": {
+"name": "漢字練習帳",
+"subject": "japanese",
+"grades": [
+"j1",
+"j2"
+],
+"mode": "paper",
+"graded": false
+},
+"sirius-j2": {
+"name": "Sirius21 中2",
+"subject": "english",
+"grades": [
+"j2"
+],
+"mode": "paper"
+},
+"jack21": {
+"name": "Jack21",
+"subject": "english",
+"grades": [
+"j2"
+],
+"mode": "paper"
+},
+"grit2500": {
+"name": "Vocabulary GRIT 2500",
+"subject": "english",
+"grades": [
+"j1",
+"j2",
+"j3"
+],
+"mode": "paper",
+"graded": false
+},
+"joui-reg": {
+"name": "上位校の数学 レギュラー",
+"subject": "math",
+"grades": [
+"j3"
+],
+"mode": "paper"
+},
+"joui-adv": {
+"name": "上位校の数学 アドバンス",
+"subject": "math",
+"grades": [
+"j3"
+],
+"mode": "paper"
+},
+"joui-reg-test": {
+"name": "上位校の数学 レギュラー 確認テスト",
+"subject": "math",
+"grades": [
+"j3"
+],
+"mode": "paper"
+}
+}
+}

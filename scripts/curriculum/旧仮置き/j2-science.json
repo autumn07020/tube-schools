@@ -1,0 +1,85 @@
+{
+ "id": "j2-science",
+ "name": "中2 理科",
+ "grade": "j2",
+ "subject": "science",
+ "materials": [
+  "shin-j2-sci"
+ ],
+ "provisional": true,
+ "source": "講師の記憶（2026-09-11）で今週の単元を合わせ、前後の単元は学習指導要領の配列と教材の組み立てから推定した仮置き。本部の表・教材の目次が届いたら、同じ id で取り込んで置き換える。2026-09-12：8週ぶんの推移が見えるよう、anchor の前をさらにさかのぼって仮置きした",
+ "anchor": {
+  "unit": "第16回",
+  "week": "2026-09-07"
+ },
+ "units": [
+  {
+   "label": "",
+   "topic": "総復習",
+   "review": true
+  },
+  {
+   "label": "第10回",
+   "topic": "化学変化と原子"
+  },
+  {
+   "label": "第11回",
+   "topic": "化学変化と質量"
+  },
+  {
+   "label": "第12回",
+   "topic": "回路と電流"
+  },
+  {
+   "label": "第13回",
+   "topic": "電圧"
+  },
+  {
+   "label": "",
+   "topic": "総復習",
+   "review": true
+  },
+  {
+   "label": "第14回",
+   "topic": "オームの法則"
+  },
+  {
+   "label": "第15回",
+   "topic": "抵抗のつなぎ方"
+  },
+  {
+   "label": "第16回",
+   "topic": "電力"
+  },
+  {
+   "label": "第17回",
+   "topic": "電力量と熱量"
+  },
+  {
+   "label": "",
+   "topic": "総復習",
+   "review": true
+  },
+  {
+   "label": "第18回",
+   "topic": "電流と磁界"
+  },
+  {
+   "label": "第19回",
+   "topic": "電磁誘導"
+  },
+  {
+   "label": "第20回",
+   "topic": "静電気と電流"
+  },
+  {
+   "label": "第21回",
+   "topic": "気象の観測"
+  },
+  {
+   "label": "",
+   "topic": "総復習",
+   "review": true
+  }
+ ]
+}

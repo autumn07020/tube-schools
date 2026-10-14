@@ -1,0 +1,86 @@
+{
+ "id": "e6k-math",
+ "name": "小6K 算数",
+ "grade": "e6",
+ "subject": "math",
+ "materials": [
+  "shin-e6-math",
+  "pyramid"
+ ],
+ "provisional": true,
+ "source": "講師の記憶（2026-09-11）で今週の単元を合わせ、前後の単元は学習指導要領の配列と教材の組み立てから推定した仮置き。本部の表・教材の目次が届いたら、同じ id で取り込んで置き換える。2026-09-12：8週ぶんの推移が見えるよう、anchor の前をさらにさかのぼって仮置きした",
+ "anchor": {
+  "unit": "第18回",
+  "week": "2026-09-07"
+ },
+ "units": [
+  {
+   "label": "第10回",
+   "topic": "総復習",
+   "review": true
+  },
+  {
+   "label": "第11回",
+   "topic": "分数と比"
+  },
+  {
+   "label": "第12回",
+   "topic": "約数と倍数"
+  },
+  {
+   "label": "第13回",
+   "topic": "数の性質の応用"
+  },
+  {
+   "label": "第14回",
+   "topic": "規則性"
+  },
+  {
+   "label": "第15回",
+   "topic": "総復習",
+   "review": true
+  },
+  {
+   "label": "第16回",
+   "topic": "速さの応用"
+  },
+  {
+   "label": "第17回",
+   "topic": "割合の応用"
+  },
+  {
+   "label": "第18回",
+   "topic": "比の利用"
+  },
+  {
+   "label": "第19回",
+   "topic": "図形と比の応用"
+  },
+  {
+   "label": "第20回",
+   "topic": "総復習",
+   "review": true
+  },
+  {
+   "label": "下 第1回",
+   "topic": "平面図形の応用"
+  },
+  {
+   "label": "下 第2回",
+   "topic": "立体図形の応用"
+  },
+  {
+   "label": "下 第3回",
+   "topic": "場合の数"
+  },
+  {
+   "label": "下 第4回",
+   "topic": "文章題の応用"
+  },
+  {
+   "label": "下 第5回",
+   "topic": "総復習",
+   "review": true
+  }
+ ]
+}

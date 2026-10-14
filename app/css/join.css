@@ -1,0 +1,174 @@
+/* ============================================================
+   初回登録（js/ui-join.js）。名前は jn- で始める（app.css と重ねない）。
+   面と影で分ける（線を引かない）。色は青と黄。動きは transform と opacity だけ。
+   ============================================================ */
+.screen-join #chrome, .screen-join nav, .screen-join #foot{display:none}
+/* 広い画面でも、入口と同じ中央1列（app.css の縦タブぶんの余白を打ち消す） */
+body.screen-join #app{padding-left:0 !important; max-width:none; margin:0 auto}
+.screen-join main{display:block; max-width:560px; margin:0 auto; padding:max(20px, min(6vh, 52px)) 20px 56px}
+.jn{position:relative; display:flex; flex-direction:column; gap:22px; min-height:calc(100dvh - 120px)}
+/* 地の大きなぼかし（入口と同じ） */
+.jn::before{content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background:
+    radial-gradient(60% 38% at 50% 12%, rgba(249,185,0,.24) 0%, rgba(249,185,0,0) 68%),
+    radial-gradient(70% 44% at 50% 90%, rgba(0,91,172,.18) 0%, rgba(0,91,172,0) 68%)}
+.jn h1{font-size:24px; font-weight:700; letter-spacing:-.02em; line-height:1.35; margin:0 0 14px}
+.jn-rise{animation:jn-rise .6s cubic-bezier(.2,.8,.2,1) both}
+@keyframes jn-rise{from{opacity:0; transform:translateY(16px)} to{opacity:1; transform:none}}
+.jn-big{min-height:56px; font-size:17px; font-weight:600; border-radius:18px}
+.jn .btn + .btn{margin-top:10px}
+.jn-two{display:grid; grid-template-columns:1fr 1.6fr; gap:10px}
+.jn-two .btn + .btn{margin-top:0}
+
+/* ---- ようこそ・完了：大きな銘の動き ---- */
+.jn-welcome, .jn-done{justify-content:center; gap:34px}
+.jn-stage{display:flex; flex-direction:column; align-items:center; text-align:center; gap:14px; padding-top:4vh}
+.jn-logo{position:relative; width:148px; height:148px; margin-bottom:10px}
+.jn-mark{position:relative; width:148px; height:148px; display:block; border-radius:22.4%;
+  box-shadow:0 26px 48px -12px rgba(0,78,147,.45); overflow:visible}
+.jn-mark.jm-in{animation:jm-pop 1.05s cubic-bezier(.2,1.4,.3,1) both}
+@keyframes jm-pop{0%{opacity:0; transform:scale(.2) rotate(-18deg)} 55%{opacity:1; transform:scale(1.12) rotate(4deg)} 78%{transform:scale(.97) rotate(-1deg)} 100%{opacity:1; transform:none}}
+.jm-ring{stroke-dasharray:251.4; stroke-dashoffset:251.4; animation:jm-ring .9s .55s cubic-bezier(.6,0,.2,1) forwards}
+@keyframes jm-ring{to{stroke-dashoffset:0}}
+.jm-bar{transform-box:fill-box; transform-origin:50% 50%; transform:translateY(-64px) scaleX(.2); opacity:0;
+  animation:jm-bar .7s 1.15s cubic-bezier(.2,1.6,.35,1) forwards}
+@keyframes jm-bar{0%{transform:translateY(-64px) scaleX(.2); opacity:0} 60%{transform:translateY(5px) scaleX(1.08); opacity:1} 100%{transform:none; opacity:1}}
+/* はじける粒 */
+.jn-burst{position:absolute; left:50%; top:50%; width:0; height:0}
+.jb{position:absolute; left:calc(var(--sz) / -2); top:calc(var(--sz) / -2); width:var(--sz); height:var(--sz); border-radius:50%;
+  opacity:0; animation:jb-fly 1.25s calc(1.25s + var(--d)) cubic-bezier(.15,.8,.3,1) both}
+.jb-b{background:#0A6FC7} .jb-y{background:#F9B900} .jb-w{background:#fff; box-shadow:0 2px 8px rgba(0,78,147,.25)}
+.jb:nth-child(3n){border-radius:30%}
+@keyframes jb-fly{0%{opacity:0; transform:translate(0,0) scale(.2)} 18%{opacity:1} 70%{opacity:1}
+  100%{opacity:0; transform:translate(var(--dx), var(--dy)) scale(1) rotate(160deg)}}
+/* 銘の字が1つずつ立ち上がる */
+.jn-word{display:flex; font-family:-apple-system, "SF Pro Display", "Helvetica Neue", "Segoe UI", sans-serif;
+  font-size:40px; letter-spacing:-.035em; line-height:1.1}
+.jn-word b{font-weight:800; color:var(--accent)} .jn-word i{font-style:normal; font-weight:300; color:#F9B900}
+.jn-word b, .jn-word i{display:inline-block; opacity:0; animation:jn-letter .55s calc(1.55s + var(--i) * 55ms) cubic-bezier(.2,1.5,.4,1) both}
+@keyframes jn-letter{from{opacity:0; transform:translateY(22px) scale(.7)} to{opacity:1; transform:none}}
+.jn-hello{font-size:26px !important; margin:6px 0 0 !important; opacity:0; animation:jn-rise .7s 2.25s cubic-bezier(.2,.8,.2,1) both}
+.jn-sub{color:var(--text2); font-size:15px; line-height:1.7; margin:0; opacity:0; animation:jn-rise .7s 2.45s cubic-bezier(.2,.8,.2,1) both}
+.jn-welcome .jn-actions, .jn-done .jn-actions{animation-delay:2.7s}
+.jn-note{text-align:center; margin-top:14px}
+/* 押したら、動きを待たずに最後の形へ */
+.jn-fast *, .jn-fast{animation-duration:.01s !important; animation-delay:0s !important}
+.jn-donestage .jn-hello{animation-delay:1.7s}
+.jn-donestage .jn-sub{animation-delay:1.9s}
+.jn-done .jn-actions{animation-delay:2.1s}
+.jn-starts{display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:12px}
+.jn-starts .loginmsg{grid-column:1 / -1}
+.jn-start{display:flex; flex-direction:column; align-items:center; gap:4px}
+.jn-start .jn-id{font-size:22px; font-weight:700}
+.jn-start .btn{margin-top:8px}
+
+/* ---- 登録コード ---- */
+.jn-card{padding:28px 26px 24px; border-radius:24px; box-shadow:var(--card-hi), var(--card-shadow)}
+input.jn-code{   /* 段の包み（div.jn.jn-code）に当たらないよう input に限る（10-09） */
+display:block; width:100%; box-sizing:border-box; margin:6px 0 4px; padding:16px 12px; border:0; border-radius:16px;
+  background:var(--sunk); color:var(--text); font:700 30px/1.2 ui-monospace, Menlo, monospace; letter-spacing:.28em; text-align:center; text-transform:uppercase}
+input.jn-code:focus{outline:3px solid var(--accent-soft)}
+
+/* ---- できること（動画） ---- */
+.jn-intro{justify-content:center}
+.jn-vtitle{text-align:center}
+.jn-video{position:relative; border-radius:22px; overflow:hidden; background:#0B1220; aspect-ratio:16 / 9;
+  box-shadow:0 30px 60px -28px rgba(0,40,90,.55)}
+.jn-video video{display:block; width:100%; height:100%; object-fit:contain; background:#0B1220}
+.jn-sound{position:absolute; left:12px; bottom:12px; border:0; border-radius:999px; padding:8px 14px; font:inherit; font-size:13px;
+  color:#fff; background:rgba(0,0,0,.45); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px)}
+.jn-vfoot{display:flex; align-items:center; justify-content:space-between; margin-top:14px}
+.jn-skip{background:var(--sunk); color:var(--text)}
+
+/* ---- 学年・クラス・科目 ---- */
+.jn-kid{display:flex; flex-direction:column; gap:30px}
+.jn-kid + .jn-kid{margin-top:26px; padding-top:30px}
+.jn-kidhead{display:flex; align-items:center; justify-content:space-between}
+.jn-nth{display:inline-flex; align-items:center; min-height:28px; padding:0 12px; border-radius:999px; font-size:13px; font-weight:600;
+  background:var(--accent-soft); color:var(--accent)}
+.jn-q.jn-new, .jn-formfoot.jn-new, .jn-kid .jn-new{animation:jn-rise .55s cubic-bezier(.2,.8,.2,1) both}
+.jn-tiles{display:grid; gap:10px}
+.jn-g6{grid-template-columns:repeat(3, 1fr)}
+.jn-g3{grid-template-columns:repeat(3, 1fr)}
+.jn-tile{appearance:none; border:0; border-radius:20px; min-height:72px; padding:10px; font:inherit; font-size:20px; font-weight:600; color:var(--text);
+  background:var(--surface); box-shadow:var(--card-hi, 0 0 0 transparent), 0 10px 26px -18px rgba(23,21,15,.35);
+  transition:transform .18s cubic-bezier(.2,.8,.2,1), background .18s, color .18s, box-shadow .18s; cursor:pointer}
+.jn-tile:active{transform:scale(.96)}
+.jn-tile[aria-pressed="true"]{background:var(--accent); color:#fff; box-shadow:0 14px 28px -14px rgba(0,91,172,.7); transform:scale(1.02)}
+.jn-cls{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; min-height:92px}
+.jn-letter{font-size:30px; font-weight:700; line-height:1.1}
+.jn-small{font-size:12px; font-weight:500; opacity:.7}
+.jn-rows{display:flex; flex-direction:column; gap:10px}
+.jn-row{appearance:none; border:0; border-radius:18px; min-height:60px; padding:12px 18px; display:flex; align-items:center; justify-content:space-between; gap:12px;
+  font:inherit; font-size:17px; font-weight:600; text-align:left; color:var(--text); background:var(--surface);
+  box-shadow:0 10px 26px -18px rgba(23,21,15,.35); transition:transform .18s cubic-bezier(.2,.8,.2,1), background .18s, color .18s; cursor:pointer}
+.jn-row:active{transform:scale(.98)}
+.jn-row[aria-pressed="true"]{background:var(--accent); color:#fff; box-shadow:0 14px 28px -14px rgba(0,91,172,.7)}
+.jn-n{font-size:13px; font-weight:500; opacity:.7; white-space:nowrap}
+.jn-formfoot{margin-top:34px; display:flex; flex-direction:column; gap:12px}
+.jn-add{background:var(--accent-soft); color:var(--accent); font-weight:600}
+
+/* ---- 確かめる ---- */
+.jn-h{margin-bottom:16px !important}
+.jn-h2{font-size:15px; font-weight:600; color:var(--text2); margin:26px 0 10px}
+.jn-list{display:flex; flex-direction:column; gap:10px}
+.jn-item{display:grid; grid-template-columns:auto 1fr; grid-template-areas:"n c" "n s"; column-gap:14px; align-items:center;
+  padding:16px 18px; border-radius:18px; background:var(--surface); box-shadow:0 10px 26px -18px rgba(23,21,15,.35)}
+.jn-item .jn-nth{grid-area:n}
+.jn-cl{grid-area:c; font-size:19px; font-weight:700}
+.jn-sb{grid-area:s; font-size:14px; color:var(--text2)}
+.jn-points{display:grid; gap:10px}
+.jn-point{padding:14px 16px; border-radius:16px; background:var(--sunk)}
+.jn-point b{display:block; font-size:15px; margin-bottom:2px}
+.jn-point p{margin:0; font-size:13.5px; line-height:1.65; color:var(--text2)}
+.jn-termsbtn{display:block; margin:14px 0 0; color:var(--accent); font-size:15px}
+.jn-terms{margin-top:10px; padding:16px 18px; border-radius:16px; background:var(--surface); max-height:46vh; overflow:auto; -webkit-overflow-scrolling:touch}
+.jn-terms h3{font-size:14px; margin:14px 0 4px} .jn-terms h3:first-child{margin-top:0}
+.jn-terms p{font-size:13px; line-height:1.7; margin:0 0 6px; color:var(--text2)}
+.jn-agree{margin:18px 0 12px}
+
+/* ---- ID と合言葉 ---- */
+.jn-ids{gap:16px}
+.jn-lead{text-align:center; font-size:17px; color:var(--text2); margin:0}
+.jn-idone{text-align:center; font-size:64px; font-weight:800; letter-spacing:.02em; line-height:1.15; color:var(--accent); margin:6px 0;
+  animation:jm-pop .9s cubic-bezier(.2,1.4,.3,1) both}
+.jn-idlist{display:flex; flex-direction:column; gap:10px}
+.jn-idrow{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 18px; border-radius:18px;
+  background:var(--surface); box-shadow:0 10px 26px -18px rgba(23,21,15,.35)}
+.jn-idwho{display:flex; flex-direction:column; font-size:16px; font-weight:600}
+.jn-idwho small{font-size:13px; font-weight:400; color:var(--text2)}
+.jn-id{font-size:30px; font-weight:800; color:var(--accent); letter-spacing:.02em}
+.jn-twin{margin:12px 0 0; padding:12px 14px; border-radius:14px; background:var(--accent2-soft, #FFF6DA); font-size:14px; line-height:1.6}
+.jn-memo{margin:18px 0; padding:14px 16px; border-radius:16px; background:var(--accent2-soft, #FFF6DA); display:flex; flex-direction:column; gap:4px}
+.jn-memo b{font-size:16px} .jn-memo span{font-size:13px; line-height:1.6; color:var(--text2)}
+.jn-pwcard{padding:24px 24px 22px; border-radius:24px}
+.jn-pwcard h2{font-size:19px; margin:0 0 6px}
+.jn-pwcard > .tiny{margin-bottom:14px}
+.jn-hideuser{position:absolute; width:1px; height:1px; opacity:0; pointer-events:none; border:0; padding:0}
+
+@media (max-width:380px){ .jn-word{font-size:34px} .jn-idone{font-size:54px} .jn-tile{font-size:18px} }
+@media (prefers-reduced-motion:reduce){
+  .jn *, .jn{animation-duration:.01s !important; animation-delay:0s !important; transition:none !important}
+}
+:root[data-theme="dark"] .jn-tile, :root[data-theme="dark"] .jn-row, :root[data-theme="dark"] .jn-item, :root[data-theme="dark"] .jn-idrow{box-shadow:none}
+
+/* ふつうの入口の下の、小さな「初回登録する」 */
+.lg-join{display:block; margin:2px auto 0; color:var(--accent); font-size:14px}
+
+/* 設定から変える（登録と同じ部品。上の帯とタブは隠す） */
+.screen-place #chrome, .screen-place nav, .screen-place #foot{display:none}
+body.screen-place #app{padding-left:0 !important; max-width:none; margin:0 auto}
+.screen-place main{display:block; max-width:560px; margin:0 auto; padding:max(20px, min(6vh, 52px)) 20px 56px}
+.jn-place{min-height:0}
+.jn-pnote{margin:-6px 0 22px}
+.jn-ph{font-size:15px; font-weight:600; color:var(--text2); margin:0 0 10px}
+.jn-place .jn-kid{gap:24px}
+.jn-pfoot{margin-top:30px}
+
+/* 組分けの申告（ホームのいちばん上。登録と同じ札の形） */
+.pa-card{padding:22px 22px 18px}
+.pa-h{font-size:21px; font-weight:700; letter-spacing:-.01em; margin:6px 0 14px}
+.pa-tiles{display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; margin-bottom:14px}
+.pa-tile{background:var(--sunk); box-shadow:none}
+.pa-note{margin-top:10px; text-align:center}
+.pa-note.pa-left{text-align:left; font-size:15px; line-height:1.8; color:var(--text2)}

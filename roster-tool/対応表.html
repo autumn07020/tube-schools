@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>名簿の対応表 ―― 校舎のNASに置く道具</title>
+<!--
+  ============================================================
+  名簿の対応表
+
+  **これは学習アプリの一部ではありません。**
+  学習アプリには氏名を一切入れないので、「どの番号がだれか」を
+  結びつけるものが別に要ります。それがこのファイルです。
+
+  置き場所
+      早稲田アカデミー ロンドン校のNAS、または本部サーバ
+      （各校舎が自分のぶんだけを持つ）
+
+  なぜ分けるのか
+      学習アプリが破られても、出てくるのは
+      「中2A-07 が単語を51語やった」という事実だけ。
+      それが誰かは、このファイルを持っている人にしか分からない。
+      **2つが同じ場所にあった瞬間、この性質は失われる。**
+
+  この道具の作り
+      * 通信を一切しない。ネットワークに繋がっていなくても動く
+      * 入力は、開いているブラウザの中だけに置く
+      * 保存はファイルの書き出しのみ（自分で保存先を選ぶ）
+      * 外部のライブラリを読まない。1ファイルで完結する
+      * 保護者への連絡は、アプリの書き出し（名前もメールも無い）を
+        ここで開いて名簿の席と重ねる。重ねた結果はどこにも保存しない
+
+      ネットワークを使わないことは、開発者ツールの
+      「ネットワーク」タブを開いて確かめられます（何も出ません）。
+  ============================================================
+-->
+<style>
+  :root{
+    --ink:#17150F; --grey:#6B655D; --line:#E2DED7; --bg:#FBFAF8;
+    --paper:#FFFFFF; --blue:#005BAC; --blue-soft:#E7F0FA; --yellow:#F9B900;
+    --warn:#FFF6DA;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Hiragino Sans","Yu Gothic",system-ui,sans-serif;
+    font-size:15px; line-height:1.6;
+  }
+  .wrap{max-width:980px; margin:0 auto; padding:24px 20px 80px}
+  h1{font-size:22px; margin:0 0 4px; font-weight:600}
+  .sub{color:var(--grey); font-size:13px; margin-bottom:20px}
+
+  .box{background:var(--paper); border:1px solid var(--line); border-radius:10px;
+       padding:18px 20px; margin-bottom:16px}
+  .box h2{font-size:15px; margin:0 0 10px; font-weight:600;
+          padding-left:9px; border-left:4px solid var(--blue)}
+  .note{background:var(--warn); border:1px solid var(--yellow); border-radius:8px;
+        padding:14px 16px; margin-bottom:20px; font-size:13.5px}
+  .note b{display:block; margin-bottom:4px}
+
+  label{display:block; font-size:12px; color:var(--grey); margin-bottom:4px}
+  input,select,textarea{
+    font:inherit; width:100%; padding:9px 11px; border:1px solid var(--line);
+    border-radius:7px; background:var(--bg); color:var(--ink);
+  }
+  textarea{min-height:120px; font-family:ui-monospace,Menlo,monospace; font-size:13px}
+  .row{display:flex; gap:12px; flex-wrap:wrap}
+  .row>*{flex:1; min-width:140px}
+
+  button{
+    font:inherit; padding:10px 18px; border-radius:8px; border:1px solid var(--blue);
+    background:var(--blue); color:#fff; cursor:pointer; min-height:44px;
+  }
+  button.ghost{background:transparent; color:var(--blue)}
+  button.danger{border-color:#B33; color:#B33; background:transparent}
+  button:active{opacity:.75}
+  .btns{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
+
+  table{width:100%; border-collapse:collapse; margin-top:12px; font-size:14px}
+  th,td{border-bottom:1px solid var(--line); padding:8px 10px; text-align:left}
+  th{font-size:12px; color:var(--grey); font-weight:600; background:var(--blue-soft)}
+  td.id{font-family:ui-monospace,Menlo,monospace; font-size:13px}
+  tr.left td{opacity:.5}
+  .tag{font-size:11px; padding:2px 7px; border-radius:99px; background:var(--blue-soft);
+       color:var(--blue); white-space:nowrap}
+  .tag.left{background:#EEE; color:var(--grey)}
+  .count{color:var(--grey); font-size:13px; margin-top:10px}
+  .empty{color:var(--grey); padding:20px; text-align:center}
+
+  .scroll{overflow-x:auto}
+  input.cell{padding:6px 8px; min-width:150px; background:var(--paper)}
+  .hint{font-size:13px; color:var(--grey); margin:0 0 10px}
+  .warnlist{background:var(--warn); border:1px solid var(--yellow); border-radius:8px;
+            padding:10px 14px; margin-top:12px; font-size:13.5px}
+  .warnlist b{font-weight:600}
+  .mail{border:1px solid var(--line); border-radius:10px; padding:14px 16px;
+        margin-top:14px; background:var(--bg)}
+  .mail .mh{display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
+            font-size:13px; color:var(--grey)}
+  .mail .mh b{color:var(--ink); font-weight:600; font-size:15px}
+  .mail label{margin-top:12px}
+  .mail input,.mail textarea{background:var(--paper)}
+  .mail textarea{min-height:220px; font-family:inherit; font-size:14px; line-height:1.7}
+  .mail textarea.to{min-height:64px; font-family:ui-monospace,Menlo,monospace; font-size:13px}
+  a.btnlink{display:inline-flex; align-items:center; min-height:44px; padding:10px 18px;
+            border-radius:8px; border:1px solid var(--blue); color:var(--blue);
+            text-decoration:none}
+
+  /* 配布カードの印刷 */
+  .cards{display:none}
+  @media print{
+    body{background:#fff}
+    .wrap>*:not(.cards){display:none}
+    .cards{display:grid; grid-template-columns:1fr 1fr; gap:8mm; padding:10mm}
+    .card{border:1px dashed #999; border-radius:4mm; padding:6mm; break-inside:avoid}
+    .card .who{font-size:16pt; font-weight:600}
+    .card .lbl{font-size:8pt; color:#666; margin-top:4mm}
+    .card .val{font-family:ui-monospace,monospace; font-size:15pt}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>名簿の対応表</h1>
+  <div class="sub">早稲田アカデミー ロンドン校 ―― 校舎のNASに置いて使います</div>
+
+  <div class="note">
+    <b>このファイルは学習アプリとは別のものです。</b>
+    学習アプリには氏名を一切入れていません。だから「どの番号がだれか」は、
+    このファイルにしかありません。<br>
+    <b style="margin-top:8px">2つを同じ場所に置かないでください。</b>
+    同じ場所に置いた瞬間、「攻撃されても個人と成績が結びつかない」という
+    性質が失われます。このファイルは校舎のNASに、アプリはサーバに置きます。
+  </div>
+
+  <div class="box">
+    <h2>1. 生徒を足す</h2>
+    <div class="row">
+      <div><label>氏名</label><input id="fName" placeholder=""></div>
+      <div><label>クラス</label>
+        <select id="fClass"></select></div>
+      <div><label>出席番号</label><input id="fSeat" inputmode="numeric" placeholder="01"></div>
+      <div><label>アプリのID</label><input id="fId" placeholder="lj1r01"></div>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <div><label>あいことば（配布したもの）</label><input id="fPw" placeholder=""></div>
+      <div><label>保護者のメール（任意）</label><input id="fMail" type="email" placeholder="parent@example.com"></div>
+      <div style="flex:0 0 160px"><label>&nbsp;</label>
+        <button id="bAdd" style="width:100%">この生徒を足す</button></div>
+    </div>
+  </div>
+
+  <div class="box">
+    <h2>2. まとめて取り込む</h2>
+    <p style="font-size:13px;color:var(--grey);margin:0 0 10px">
+      アプリの一括登録で書き出した CSV（<code>id,password,classId,seat</code>）を
+      そのまま貼れます。5列目に保護者のメールを足しても読めます。
+      氏名の列は無いので、貼ったあとで下の表に書き足してください。
+    </p>
+    <textarea id="fPaste" placeholder="id,password,classId,seat,guardianEmail
+lj1r01,maple-1360,j1r,01,parent1@example.com
+lj1r02,otter-8197,j1r,02"></textarea>
+    <div class="btns">
+      <button class="ghost" id="bPaste">貼りつけた内容を取り込む</button>
+    </div>
+  </div>
+
+  <div class="box">
+    <h2>3. 名簿</h2>
+    <div class="row">
+      <div><label>さがす</label><input id="fFind" placeholder="氏名・番号・IDのどれでも"></div>
+      <div style="flex:0 0 180px"><label>表示</label>
+        <select id="fShow">
+          <option value="live">在籍中だけ</option>
+          <option value="all">在籍終了もふくめる</option>
+        </select></div>
+    </div>
+    <div id="list"></div>
+    <div class="count" id="count"></div>
+    <div class="btns">
+      <button class="ghost" id="bSave">ファイルに保存する</button>
+      <button class="ghost" id="bLoad">保存したファイルを開く</button>
+      <button class="ghost" id="bCards">配布カードを印刷する</button>
+      <button class="danger" id="bClear">画面の内容を消す</button>
+      <input type="file" id="fFile" accept=".json" hidden>
+    </div>
+    <p style="font-size:12px;color:var(--grey);margin-top:12px">
+      「ファイルに保存する」を押すまで、入力した内容はこのブラウザの中だけにあります。
+      保存先はNASの中の、限られた人しか開けないフォルダにしてください。
+    </p>
+  </div>
+
+  <div class="box">
+    <h2>4. 退塾したとき</h2>
+    <p style="font-size:13.5px;margin:0 0 10px">
+      名簿の「在籍終了」を押したら、<b>アプリの側でも同じ操作をしてください。</b>
+      両方やらないと、退塾した生徒がアプリに入れたままになります。
+    </p>
+    <p style="font-family:ui-monospace,Menlo,monospace;font-size:12.5px;
+              background:var(--bg);border:1px solid var(--line);
+              border-radius:6px;padding:10px 12px;margin:0">
+      python3 server/tube_server.py archive &lt;ID&gt; --school london
+    </p>
+    <p style="font-size:12.5px;color:var(--grey);margin-top:10px">
+      アプリ側の記録は、退塾から6か月で自動的に削除の対象になります。
+      この対応表からも、同じ時期に消してください。
+    </p>
+  </div>
+
+  <div class="box">
+    <h2>5. クラス替えのとき（組み分けのあと）</h2>
+    <p class="hint">
+      アプリの <code>move</code> に渡したのと同じ CSV を貼ります。見出しは
+      <code>id,classId,seat</code>（id はアプリのID）か <code>fromClass,fromSeat,classId,seat</code>。
+      生徒を探して<b>クラスと番号だけ</b>を書き換えます。氏名・あいことば・メールはそのまま。
+      書き換えたら「ファイルに保存する」を押してください。
+    </p>
+    <textarea id="fMove" placeholder="id,classId,seat
+lj4a07,e4b,12
+lj4b03,e4a,07"></textarea>
+    <div class="btns">
+      <button class="ghost" id="bMove">クラスと番号を書き換える</button>
+      <button class="ghost" id="bMoveUndo" hidden>いまの書き換えを取り消す</button>
+    </div>
+    <div id="moveSum" class="hint"></div>
+    <p style="font-family:ui-monospace,Menlo,monospace;font-size:12.5px;
+              background:var(--bg);border:1px solid var(--line);
+              border-radius:6px;padding:10px 12px;margin:10px 0 0">
+      python3 server/tube_server.py move 移動.csv --school london --yes
+    </p>
+  </div>
+
+  <div class="box">
+    <h2>6. 保護者に宿題を知らせる</h2>
+    <p class="hint">
+      アプリの「宿題」画面の下にある「保護者への連絡」で書き出したファイル
+      （<code>tube-outbox-….json</code>）を開きます。名簿の席と重ねて、
+      同じ内容になる生徒は1通にまとめます。宛先は BCC に入れてください。
+    </p>
+    <div class="btns" style="margin-top:0">
+      <button id="bOutbox">書き出したファイルを開く</button>
+      <input type="file" id="fOutbox" accept=".json" hidden>
+    </div>
+    <div id="mailSum"></div>
+    <div id="mails"></div>
+    <p style="font-size:12px;color:var(--grey);margin-top:12px">
+      開いたファイルと、作ったメールの文は、このページを閉じると消えます。どこにも保存しません。
+    </p>
+  </div>
+
+  <div class="cards" id="cards"></div>
+</div>
+
+<script>
+"use strict";
+/* --------------------------------------------------------------
+   通信は一切しない。fetch も XMLHttpRequest も使わない。
+   データは下の rows 配列（このページを閉じると消える）と、
+   利用者が自分で保存したファイルにしか存在しない。
+   -------------------------------------------------------------- */
+var rows = [];
+var $ = function(s){ return document.querySelector(s); };
+
+/* 在籍クラス（app/curriculum.js と同じもの）。 */
+var CLASSES = [['e1j','小1J'],['e2j','小2J'],['e3j','小3J'],['e4a','小4α'],['e4b','小4β'],['e4k','小4K'],['e5a','小5α'],['e5b','小5β'],['e5k','小5K'],['e6a','小6α'],['e6b','小6β'],['e6k','小6K'],['j1t','中1T'],['j1r','中1R'],['j1d','中1D'],['j2t','中2T'],['j2r','中2R'],['j2d','中2D'],['j3t','中3T'],['j3r','中3R']];
+var CLASS_NAME = {};
+CLASSES.forEach(function(c){ CLASS_NAME[c[0]] = c[1]; });
+$('#fClass').innerHTML = CLASSES.map(function(c){
+  return '<option value="'+c[0]+'">'+c[1]+'（'+c[0]+'）</option>'; }).join('');
+
+function esc(s){
+  return String(s==null?'':s).replace(/[&<>"]/g, function(m){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m];
+  });
+}
+
+function render(){
+  var q = ($('#fFind').value||'').trim().toLowerCase();
+  var show = $('#fShow').value;
+  var list = rows.filter(function(r){
+    if(show === 'live' && r.left) return false;
+    if(!q) return true;
+    return [r.name, r.seat, r.id, r.classId].join(' ').toLowerCase().indexOf(q) >= 0;
+  });
+
+  $('#list').innerHTML = list.length
+    ? '<div class="scroll"><table><thead><tr><th>氏名</th><th>クラス</th><th>番号</th>'+
+      '<th>保護者のメール</th><th>アプリのID</th><th>あいことば</th><th></th></tr></thead><tbody>'+
+      list.map(function(r){
+        var i = rows.indexOf(r);
+        return '<tr class="'+(r.left?'left':'')+'">'+
+          '<td><input class="cell" data-i="'+i+'" data-k="name" value="'+esc(r.name||'')+
+            '" placeholder="氏名を入れる" aria-label="氏名">'+
+            (r.left?' <span class="tag left">在籍終了</span>':'')+'</td>'+
+          '<td>'+esc(CLASS_NAME[r.classId]||r.classId||'')+'</td>'+
+          '<td>'+esc(r.seat||'')+'</td>'+
+          '<td><input class="cell" type="email" data-i="'+i+'" data-k="mail" value="'+
+            esc(r.mail||'')+'" placeholder="（任意）" aria-label="保護者のメール"></td>'+
+          '<td class="id">'+esc(r.id||'')+'</td>'+
+          '<td class="id">'+esc(r.pw||'')+'</td>'+
+          '<td><button class="ghost" style="padding:4px 10px;min-height:36px;font-size:12px" '+
+            'data-toggle="'+i+'">'+(r.left?'もどす':'在籍終了')+'</button></td>'+
+        '</tr>';
+      }).join('') + '</tbody></table></div>'
+    : '<div class="empty">まだ誰も入っていません。上から足してください。</div>';
+
+  var live = rows.filter(function(r){ return !r.left; }).length;
+  $('#count').textContent = '在籍中 ' + live + '名／在籍終了 ' + (rows.length-live) + '名';
+
+  /* 表の中で氏名とメールを直す。描き直さない（入力中の欄を失わないように）。 */
+  document.querySelectorAll('input.cell').forEach(function(x){
+    x.onchange = function(){ rows[+x.dataset.i][x.dataset.k] = x.value.trim(); };
+  });
+  document.querySelectorAll('[data-toggle]').forEach(function(b){
+    b.onclick = function(){
+      var r = rows[+b.dataset.toggle];
+      r.left = r.left ? null : new Date().toISOString().slice(0,10);
+      render();
+    };
+  });
+}
+
+$('#bAdd').onclick = function(){
+  var name = $('#fName').value.trim();
+  var seat = $('#fSeat').value.trim();
+  var id   = $('#fId').value.trim();
+  if(!name && !id){ alert('氏名かIDのどちらかは入れてください。'); return; }
+  rows.push({name:name, classId:$('#fClass').value, seat:seat,
+             id:id, pw:$('#fPw').value.trim(), mail:$('#fMail').value.trim(), left:null});
+  $('#fName').value = ''; $('#fSeat').value = '';
+  $('#fId').value = ''; $('#fPw').value = ''; $('#fMail').value = '';
+  $('#fName').focus();
+  render();
+};
+
+$('#bPaste').onclick = function(){
+  var text = $('#fPaste').value.trim();
+  if(!text){ return; }
+  var lines = text.split(/\r?\n/).filter(Boolean);
+  var head = lines[0].toLowerCase();
+  var start = /id\s*,/.test(head) ? 1 : 0;
+  var got = 0;
+  for(var i=start; i<lines.length; i++){
+    var c = lines[i].split(',');
+    if(c.length < 2) continue;
+    rows.push({name:'', id:(c[0]||'').trim(), pw:(c[1]||'').trim(),
+               classId:(c[2]||'').trim(), seat:(c[3]||'').trim(),
+               mail:(c[4]||'').trim(), left:null});
+    got++;
+  }
+  $('#fPaste').value = '';
+  alert(got + '名を取り込みました。氏名は表に書き足してください。');
+  render();
+};
+
+$('#fFind').oninput = render;
+$('#fShow').onchange = render;
+
+$('#bSave').onclick = function(){
+  var out = {kind:'tube-roster-map', school:'london',
+             savedAt:new Date().toISOString(), rows:rows};
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([JSON.stringify(out,null,1)],
+                               {type:'application/json'}));
+  a.download = '対応表-' + new Date().toISOString().slice(0,10) + '.json';
+  a.click();
+};
+
+$('#bLoad').onclick = function(){ $('#fFile').click(); };
+$('#fFile').onchange = function(e){
+  var f = e.target.files[0]; if(!f) return;
+  var fr = new FileReader();
+  fr.onload = function(){
+    try{
+      var d = JSON.parse(fr.result);
+      if(!d || !Array.isArray(d.rows)) throw new Error('形式がちがいます');
+      rows = d.rows; render();
+      alert(rows.length + '名を読み込みました。');
+    }catch(err){ alert('読めませんでした: ' + err.message); }
+  };
+  fr.readAsText(f);
+  e.target.value = '';
+};
+
+$('#bCards').onclick = function(){
+  var live = rows.filter(function(r){ return !r.left; });
+  if(!live.length){ alert('印刷する生徒がいません。'); return; }
+  $('#cards').innerHTML = live.map(function(r){
+    return '<div class="card">'+
+      '<div class="who">'+esc(r.name||r.classId+'-'+r.seat)+'</div>'+
+      '<div class="lbl">ID（1行め）</div><div class="val">'+esc(r.id||'')+'</div>'+
+      '<div class="lbl">あいことば（2行め）</div><div class="val">'+esc(r.pw||'')+'</div>'+
+    '</div>';
+  }).join('');
+  window.print();
+};
+
+/* --------------------------------------------------------------
+   5. クラス替え
+   アプリの move と同じ CSV で、クラスと番号だけを書き換える。前の席は r.moves に残す。
+   同じ席に2人になるなら、何も書き換えない（アプリの move と同じ決まり）。
+   -------------------------------------------------------------- */
+var lastMove = null;
+function today(){
+  var d = new Date();
+  return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+}
+$('#bMove').onclick = function(){
+  var text = $('#fMove').value.trim();
+  if(!text) return;
+  var lines = text.split(/\r?\n/).filter(function(x){ return x.trim(); });
+  var hl = lines[0].split(',').map(function(h){ return h.trim().toLowerCase(); });
+  if(hl.some(function(h){ return h === 'name' || h === '氏名' || h === '名前'; })){
+    alert('氏名の列があります。アプリには氏名を入れないので、列ごと消してから貼ってください。'); return;
+  }
+  var iId = hl.indexOf('id'), iFc = hl.indexOf('fromclass'), iFs = hl.indexOf('fromseat');
+  var iC = hl.indexOf('classid'), iS = hl.indexOf('seat');
+  if(iC < 0 || iS < 0 || (iId < 0 && (iFc < 0 || iFs < 0))){
+    alert('1行目に見出し（id,classId,seat か fromClass,fromSeat,classId,seat）を入れてください。'); return;
+  }
+  var changes = [], miss = [], bad = [];
+  for(var i = 1; i < lines.length; i++){
+    var c = lines[i].split(',').map(function(x){ return x.trim(); });
+    var r = null;
+    if(iId >= 0 && c[iId]){
+      var id = c[iId].toLowerCase();
+      r = rows.filter(function(x){ return !x.left && String(x.id || '').toLowerCase() === id; })[0];
+    }else if(iFc >= 0 && c[iFc]){
+      var k0 = seatKey(c[iFc], c[iFs]);
+      r = rows.filter(function(x){ return !x.left && seatKey(x.classId, x.seat) === k0; })[0];
+    }
+    if(!r){ miss.push(lines[i]); continue; }
+    if(!CLASS_NAME[c[iC]]){ bad.push(lines[i] + '（クラス ' + c[iC] + ' はありません）'); continue; }
+    if(seatKey(r.classId, r.seat) === seatKey(c[iC], c[iS])) continue;
+    changes.push({r:r, from:{classId:r.classId, seat:r.seat}, to:{classId:c[iC], seat:c[iS]}});
+  }
+  if(bad.length){ alert('直してから貼り直してください（何も書き換えていません）\n' + bad.join('\n')); return; }
+  var pos = {};
+  rows.forEach(function(x){
+    if(x.left) return;
+    var ch = changes.filter(function(k){ return k.r === x; })[0];
+    var t = ch ? ch.to : {classId:x.classId, seat:x.seat};
+    var k = seatKey(t.classId, t.seat);
+    (pos[k] = pos[k] || []).push(x.name || x.id || '');
+  });
+  var dup = Object.keys(pos).filter(function(k){ return pos[k].length > 1; });
+  if(dup.length){
+    alert('同じ席に2人になります（何も書き換えていません）\n' + dup.map(function(k){
+      var p = k.split('|'); return (CLASS_NAME[p[0]] || p[0]) + '-' + p[1] + '：' + pos[k].join('、'); }).join('\n'));
+    return;
+  }
+  var day = today();
+  changes.forEach(function(k){
+    (k.r.moves = k.r.moves || []).push({on:day, from:k.from, to:k.to});
+    k.r.classId = k.to.classId; k.r.seat = k.to.seat;
+  });
+  lastMove = changes;
+  $('#bMoveUndo').hidden = !changes.length;
+  $('#moveSum').textContent = changes.length + '名のクラスと番号を書き換えました。' +
+    (miss.length ? '名簿に見つからない行 ' + miss.length + '件：' + miss.join(' ／ ') + '。' : '') +
+    '「ファイルに保存する」を忘れずに。';
+  $('#fMove').value = '';
+  render();
+};
+$('#bMoveUndo').onclick = function(){
+  if(!lastMove) return;
+  lastMove.forEach(function(k){
+    k.r.classId = k.from.classId; k.r.seat = k.from.seat;
+    if(k.r.moves && k.r.moves.length) k.r.moves.pop();
+  });
+  $('#moveSum').textContent = lastMove.length + '名を元のクラスと番号に戻しました。';
+  lastMove = null;
+  $('#bMoveUndo').hidden = true;
+  render();
+};
+
+$('#bClear').onclick = function(){
+  if(!rows.length) return;
+  if(confirm('画面の内容を消します。保存していない分は戻りません。よろしいですか。')){
+    rows = []; render();
+  }
+};
+
+/* --------------------------------------------------------------
+   5. 保護者に宿題を知らせる
+   アプリの書き出し（名前もメールも無い）を、この名簿の席と重ねる。
+   重ねた結果は画面に出すだけ。rows にも保存ファイルにも入れない。
+   -------------------------------------------------------------- */
+var WD = ['日','月','火','水','木','金','土'];
+function md(iso){
+  var p = String(iso || '').split('-');
+  if(p.length !== 3) return '';
+  var d = new Date(+p[0], +p[1] - 1, +p[2]);
+  return (+p[1]) + '/' + (+p[2]) + '（' + WD[d.getDay()] + '）';
+}
+function seatKey(classId, seat){
+  var s = String(seat || '').trim();
+  return String(classId || '').trim() + '|' + (/^\d$/.test(s) ? '0' + s : s);
+}
+function mailBody(ob, lines){
+  var by = {}, order = [];
+  lines.forEach(function(x){
+    if(!by[x.course]){ by[x.course] = []; order.push(x.course); }
+    by[x.course].push(x);
+  });
+  var out = ['保護者の皆さま', '',
+    'いつもお世話になっております。早稲田アカデミー ロンドン校です。',
+    md(ob.from) + '〜' + md(ob.to) + 'に出した宿題をお知らせします。', ''];
+  order.forEach(function(c){
+    out.push('■ ' + c);
+    by[c].forEach(function(x){
+      out.push('・' + x.task + (x.extra ? '（追加）' : '') +
+               (x.due ? '　しめきり ' + md(x.due) : ''));
+    });
+    out.push('');
+  });
+  out.push('ご家庭でもお声がけいただけますと幸いです。', '', '早稲田アカデミー ロンドン校');
+  return out.join('\n');
+}
+function mergeOutbox(ob){
+  if(!ob || ob.kind !== 'tube-outbox' || !Array.isArray(ob.students))
+    throw new Error('アプリの「保護者への連絡」で書き出したファイルではありません');
+  var bySeat = {};
+  rows.forEach(function(r){ if(!r.left) bySeat[seatKey(r.classId, r.seat)] = r; });
+  var groups = {}, order = [], noRow = [], noMail = [];
+  ob.students.forEach(function(st){
+    var label = (CLASS_NAME[st.classId] || st.classId) + '-' + st.seat;
+    var r = bySeat[seatKey(st.classId, st.seat)];
+    if(!r){ noRow.push(label); return; }
+    var mail = (r.mail || '').trim();
+    if(!mail){ noMail.push(label); return; }
+    var body = mailBody(ob, st.lines || []);
+    if(!groups[body]){ groups[body] = []; order.push(body); }
+    if(groups[body].indexOf(mail) < 0) groups[body].push(mail);
+  });
+  return {subject:'【早稲田アカデミー ロンドン校】' + md(ob.from) + '〜' + md(ob.to) + 'の宿題',
+          groups:order.map(function(b){ return {body:b, to:groups[b]}; }),
+          noRow:noRow, noMail:noMail, total:ob.students.length};
+}
+function copyText(text, btn){
+  var label = btn.textContent;
+  var done = function(){
+    btn.textContent = 'コピーしました';
+    setTimeout(function(){ btn.textContent = label; }, 1600);
+  };
+  var fallback = function(){
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    var ok = false;
+    try{ ok = document.execCommand('copy'); }catch(e){}
+    document.body.removeChild(ta);
+    if(ok) done(); else alert('コピーできませんでした。文を選んでコピーしてください。');
+  };
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(text).then(done, fallback);
+  }else{
+    fallback();
+  }
+}
+var mailGroups = [];
+function renderMails(m){
+  mailGroups = m.groups;
+  var sent = m.groups.reduce(function(n, g){ return n + g.to.length; }, 0);
+  $('#mailSum').innerHTML =
+    '<p class="count">' + m.total + '名ぶんの宿題から、メール ' + m.groups.length +
+    '通（宛先 ' + sent + '件）を作りました。</p>' +
+    (m.noRow.length ? '<div class="warnlist"><b>名簿に無い席</b>　名簿に足してから、もう一度開いてください。<br>' +
+      esc(m.noRow.join('、')) + '</div>' : '') +
+    (m.noMail.length ? '<div class="warnlist"><b>保護者のメールが空の生徒</b>　表に入れてから、もう一度開いてください。<br>' +
+      esc(m.noMail.join('、')) + '</div>' : '');
+  $('#mails').innerHTML = m.groups.map(function(g, i){
+    var href = 'mailto:?bcc=' + encodeURIComponent(g.to.join(',')) +
+      '&subject=' + encodeURIComponent(m.subject) + '&body=' + encodeURIComponent(g.body);
+    return '<div class="mail">' +
+      '<div class="mh"><b>' + (i + 1) + '通目</b><span>宛先 ' + g.to.length + '件（BCC）</span></div>' +
+      '<label>件名</label><input readonly value="' + esc(m.subject) + '">' +
+      '<label>本文</label><textarea readonly>' + esc(g.body) + '</textarea>' +
+      '<label>宛先（BCC に入れる）</label><textarea readonly class="to">' + esc(g.to.join(', ')) + '</textarea>' +
+      '<div class="btns">' +
+        '<button data-copy="body" data-g="' + i + '">本文をコピー</button>' +
+        '<button class="ghost" data-copy="to" data-g="' + i + '">アドレスをコピー</button>' +
+        (href.length <= 1800
+          ? '<a class="btnlink" href="' + esc(href) + '">メールソフトで開く</a>'
+          : '<span class="hint" style="align-self:center;margin:0">長いのでメールソフトでは開けません。コピーして貼りつけてください。</span>') +
+      '</div></div>';
+  }).join('');
+  document.querySelectorAll('[data-copy]').forEach(function(b){
+    b.onclick = function(){
+      var g = mailGroups[+b.dataset.g];
+      copyText(b.dataset.copy === 'to' ? g.to.join(', ') : g.body, b);
+    };
+  });
+}
+$('#bOutbox').onclick = function(){
+  if(!rows.length){ alert('先に名簿を開いてください（3. の「保存したファイルを開く」）。'); return; }
+  $('#fOutbox').click();
+};
+$('#fOutbox').onchange = function(e){
+  var f = e.target.files[0]; if(!f) return;
+  var fr = new FileReader();
+  fr.onload = function(){
+    try{ renderMails(mergeOutbox(JSON.parse(fr.result))); }
+    catch(err){ alert('読めませんでした: ' + err.message); }
+  };
+  fr.readAsText(f);
+  e.target.value = '';
+};
+
+/* 保存せずに閉じようとしたら止める。対応表を作り直すのは大変なので。 */
+window.addEventListener('beforeunload', function(e){
+  if(rows.length){ e.preventDefault(); e.returnValue = ''; }
+});
+
+render();
+</script>
+</body>
+</html>

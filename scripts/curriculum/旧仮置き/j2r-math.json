@@ -1,0 +1,86 @@
+{
+ "id": "j2r-math",
+ "name": "中2R 数学",
+ "grade": "j2",
+ "subject": "math",
+ "materials": [
+  "shin-j2-math",
+  "enshu-j2-math"
+ ],
+ "provisional": true,
+ "source": "講師の記憶（2026-09-11）で今週の単元を合わせ、前後の単元は学習指導要領の配列と教材の組み立てから推定した仮置き。本部の表・教材の目次が届いたら、同じ id で取り込んで置き換える。2026-09-12：8週ぶんの推移が見えるよう、anchor の前をさらにさかのぼって仮置きした",
+ "anchor": {
+  "unit": "5章-3",
+  "week": "2026-09-07"
+ },
+ "units": [
+  {
+   "label": "",
+   "topic": "総復習",
+   "review": true
+  },
+  {
+   "label": "4章-1",
+   "topic": "平行線と角"
+  },
+  {
+   "label": "4章-2",
+   "topic": "多角形の角"
+  },
+  {
+   "label": "4章-3",
+   "topic": "三角形の合同条件"
+  },
+  {
+   "label": "4章-4",
+   "topic": "証明のすすめ方"
+  },
+  {
+   "label": "",
+   "topic": "総復習",
+   "review": true
+  },
+  {
+   "label": "5章-1",
+   "topic": "二等辺三角形"
+  },
+  {
+   "label": "5章-2",
+   "topic": "定理の逆と反例"
+  },
+  {
+   "label": "5章-3",
+   "topic": "直角三角形"
+  },
+  {
+   "label": "5章-4",
+   "topic": "平行四辺形"
+  },
+  {
+   "label": "",
+   "topic": "総復習",
+   "review": true
+  },
+  {
+   "label": "5章-5",
+   "topic": "特別な平行四辺形"
+  },
+  {
+   "label": "6章-1",
+   "topic": "確率の求め方"
+  },
+  {
+   "label": "6章-2",
+   "topic": "いろいろな確率"
+  },
+  {
+   "label": "7章-1",
+   "topic": "四分位数と箱ひげ図"
+  },
+  {
+   "label": "",
+   "topic": "総復習",
+   "review": true
+  }
+ ]
+}

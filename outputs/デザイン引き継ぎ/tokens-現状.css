@@ -1,0 +1,52 @@
+/* TUBE study ―― 現状の値（app/css/app.css の計算後。2026-10-04）。新しい指針ではなく、いまの事実。 */
+:root{
+  --bg: #EFEFF3;  /* 地（ページ）。上に淡いグラデーション（黄は左上、青は右下）が重なる。 */
+  --surface: #FFFFFF;  /* 札・紙の面。bg の上。 */
+  --surface2: #ECECF0;  /* 一段くぼんだ面。 */
+  --sunk: #E4E4EA;  /* 入力欄・灰のボタン・終わったもの。 */
+  --line: #E3E3E8;  /* 表の罫だけ。区切りには使わない（線を引かない決まり）。 */
+  --text: #1D1D1F;  /* 本文と見出し。 */
+  --text2: #6E6E73;  /* そえ書き。 */
+  --text3: #A1A1A6;  /* ラベル・注。白地で 2.5:1 しかない（弱い）。 */
+  --accent: #005BAC;  /* 青。進んでいる・選ばれている・押して先へ。ロゴの tube。 */
+  --accent-soft: #E7F0FA;  /* 青の地。 */
+  --accent-dim: #4A8BC7;  /* 弱い青。 */
+  --accent2: #F9B900;  /* 黄。今日・手を入れる所・達成。ロゴの study と印の横棒。白地の字には使わない（1.6:1）。 */
+  --accent2-fill: #FBCF52;  /* 黄の塗り（accent2 を 68% に薄めた）。 */
+  --accent2-soft: #FDEDBD;  /* 黄の地（26% に薄めた）。 */
+  --accent2-text: #8A5A00;  /* 黄の系統の字。白地で読める深さ。 */
+  --accent2-line: #EDBE45;  /* 黄の線。 */
+  --tint-blue: linear-gradient(160deg, #DCE9F9 0%, #FFFFFF 70%);            /* 進む・押して先へ */
+  --tint-warm: linear-gradient(160deg, #FFF0C9 0%, #FFF8E8 26%, #FFFFFF 58%); /* 手を入れる・祝う */
+  --tint-cool: linear-gradient(180deg, #FFFFFF 0%, #E9F0F9 100%);            /* 図の札 */
+  --card-shadow: 0 0 0 .5px rgba(23,21,15,.07), 0 1px 2px rgba(23,21,15,.07), 0 12px 30px -14px rgba(23,21,15,.32);
+  --card-hi: inset 0 1px 0 rgba(255,255,255,.9);
+  --shadow: 0 1px 2px rgba(23,21,15,.05), 0 8px 24px -12px rgba(23,21,15,.16);
+  --r: 14px; --r-lg: 20px;   /* 札は 22px、紙は 26px、カプセルは 999px（直書き） */
+  --gap: 18px; --tile: 300px;
+  --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Hiragino Sans", "Yu Gothic UI", "Noto Sans JP", sans-serif;
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace;
+}
+/* 暗い配色（値だけ。画面から選べない） */
+:root[data-theme="dark"]{
+  --bg: #000000;
+  --surface: #151413;
+  --surface2: #242220;
+  --sunk: #1C1B19;
+  --line: #26231F;
+  --text: #F5F2EE;
+  --text2: #98928B;
+  --text3: #5F5A55;
+  --accent: #2E86D6;
+  --accent-soft: #0A1B2B;
+  --accent-dim: #1F5C94;
+  --accent2: #F9B900;
+  --accent2-fill: #B88900;
+  --accent2-soft: #281E00;
+  --accent2-text: #F6C13A;
+  --accent2-line: #8A6A12;
+}
+/* 地：body::before に固定 */
+body::before{ background: radial-gradient(75% 55% at 6% 0%, rgba(249,185,0,.16) 0%, rgba(249,185,0,0) 62%), radial-gradient(70% 55% at 100% 100%, rgba(0,91,172,.11) 0%, rgba(0,91,172,0) 64%), linear-gradient(#F2F4F8 0%, #F4F3F0 60%, #F6F3EC 100%); }
+/* 動き */
+:root{ --ease: cubic-bezier(.2,.8,.2,1); --fade-out: .5s; --fade-in: .7s; --sheet-in: .55s; --sheet-out: .35s; --press: .45s; --hover: .3s; }

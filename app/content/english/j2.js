@@ -1,0 +1,115 @@
+/* 英語 中2 ―― 英→日・日→英・英語の設問・短い読解の4つ。すべて単元つき
+
+   **このファイルは app/tools/gen_content.py が書き出したもの。**
+   手で直さないこと。直すなら生成側を直して作り直す。
+   （手書きに戻すと他言語の字が混ざる。実際に35箇所まぎれ込んだ）
+
+   T（用語）  [表, 裏, 帯, 解説, 例, 例の補足]
+   Q（選択）  [問題文, 正解, 誤答(|区切り), 帯, 解説]  */
+(function(){
+"use strict";
+
+var T = [
+["chance（n）","機会","中2","","This is a good chance for you.","これは君にとってよい機会だ。"],
+["choice（n）","選択","中2","動詞は choose。","You have two choices.","選択肢は2つある。"],
+["difference（n）","ちがい","中2","","There is no difference between them.","その2つに違いはない。"],
+["experience（n）","経験","中2","","She has a lot of experience.","彼女は経験が豊富だ。"],
+["opinion（n）","意見","中2","in my opinion で「私の考えでは」。","Tell me your opinion.","あなたの意見を聞かせて。"],
+["reason（n）","理由","中2","","Tell me the reason for your absence.","欠席の理由を教えて。"],
+["result（n）","結果","中2","","The result was better than we expected.","結果は予想よりよかった。"],
+["society（n）","社会","中2","","Society is changing quickly.","社会は急速に変わっている。"],
+["environment（n）","環境","中2","the をつけて使うことが多い。","We must protect the environment.","私たちは環境を守らなければならない。"],
+["technology（n）","科学技術","中2","","Technology changes our lives.","科学技術は生活を変える。"],
+["common（adj）","共通の、よくある","中2","","This is a common mistake.","これはよくあるまちがいだ。"],
+["dangerous（adj）","危険な","中2","","Swimming here is dangerous.","ここで泳ぐのは危険だ。"],
+["expensive（adj）","高価な","中2","値段が高いのは high price ではなく expensive。","This watch is too expensive.","この時計は高すぎる。"],
+["foreign（adj）","外国の","中2","g は発音しない。","He studies a foreign language.","彼は外国語を勉強している。"],
+["necessary（adj）","必要な","中2","","It is necessary to book a seat.","座席を予約する必要がある。"],
+["possible（adj）","可能な","中2","反対は impossible。","Is it possible to change the date?","日付を変えることは可能ですか。"],
+["similar（adj）","似ている","中2","似ている相手には to。","Your bag is similar to mine.","君のかばんは私のと似ている。"],
+["useful（adj）","役に立つ","中2","","This map is very useful.","この地図はとても役に立つ。"],
+["agree（v）","同意する","中2","同意する相手には with。","I agree with you.","私はあなたに賛成だ。"],
+["appear（v）","現れる、〜に見える","中2","","A rainbow appeared in the sky.","空に虹が現れた。"],
+["continue（v）","続ける","中2","","He continued to speak.","彼は話し続けた。"],
+["depend（v）","たよる、次第だ","中2","depend on の形で使う。","It depends on the weather.","それは天気次第だ。"],
+["develop（v）","発展させる、成長する","中2","","The town developed quickly.","その町は急速に発展した。"],
+["expect（v）","予期する","中2","「期待する」より「〜だろうと思う」。","I expect he will come.","彼は来るだろうと思う。"],
+["improve（v）","上達する、改善する","中2","","My English improved a lot.","私の英語はとても上達した。"],
+["increase（v）","増える、増やす","中2","反対は decrease。","The number of visitors increased.","訪問者の数が増えた。"],
+["prepare（v）","準備する","中2","prepare for で「〜に備える」。","We prepared for the exam.","私たちは試験の準備をした。"],
+["realise（v）","気づく","中2","英国式の綴り。米国式は realize。","I realised my mistake.","私は自分のまちがいに気づいた。"],
+["succeed（v）","成功する","中2","名詞は success。","She succeeded in the test.","彼女はテストで成功した。"],
+["suggest（v）","提案する","中2","後ろは -ing か that の文。to do は使わない。","He suggested going by train.","彼は電車で行こうと提案した。"],
+["clearly（adv）","はっきりと","中2","","Please speak clearly.","はっきり話してください。"],
+["finally（adv）","ついに、最後に","中2","","Finally we reached the top.","ついに頂上に着いた。"],
+["probably（adv）","おそらく","中2","perhaps より確からしい。","He will probably win.","彼はおそらく勝つだろう。"],
+["suddenly（adv）","突然","中2","","Suddenly the light went out.","突然明かりが消えた。"],
+["although（conj）","〜だけれども","中2","but と同時には使わない。","Although it rained, we went out.","雨が降ったけれど出かけた。"],
+["while（conj）","〜する間に","中2","後ろは文。during の後ろは名詞。","He called while I was cooking.","料理をしている間に彼が電話してきた。"],
+];
+
+var Q = [
+["「機会」を英語で書くと？","chance","chanse|chence|chanche","中2","","不定詞"],
+["「ちがい」を英語で書くと？","difference","different|diffrence|differance","中2","different は形容詞。","比較"],
+["「経験」を英語で書くと？","experience","expirience|experiance|experince","中2","","現在完了への準備"],
+["「意見」を英語で書くと？","opinion","opinon|opinien|openion","中2","","接続詞"],
+["「理由」を英語で書くと？","reason","reeson|raison|resson","中2","","接続詞"],
+["「結果」を英語で書くと？","result","rezult|resalt|reslut","中2","","接続詞"],
+["「環境」を英語で書くと？","environment","enviroment|envirenment|environmant","中2","n を落としやすい。en-viron-ment。","動名詞"],
+["「危険な」を英語で書くと？","dangerous","dangeres|dangerus|dangerouse","中2","","比較"],
+["「高価な」を英語で書くと？","expensive","expencive|expensiv|expansive","中2","","比較"],
+["「外国の」を英語で書くと？","foreign","forein|foriegn|forign","中2","g は読まないが書く。","比較"],
+["「必要な」を英語で書くと？","necessary","neccessary|necesary|nessesary","中2","c は1つ、s は2つ。","不定詞"],
+["「似ている」を英語で書くと？","similar","simular|similer|simmilar","中2","","比較"],
+["「同意する」を英語で書くと？","agree","agri|aggree|agrre","中2","","接続詞"],
+["「続ける」を英語で書くと？","continue","contineu|continew|conitnue","中2","","動名詞"],
+["「発展させる」を英語で書くと？","develop","developp|devellop|divelop","中2","最後に e は付かない。","過去形"],
+["「上達する」を英語で書くと？","improve","inprove|improv|improove","中2","","比較"],
+["「増える」を英語で書くと？","increase","incries|increse|encrease","中2","","過去形"],
+["「準備する」を英語で書くと？","prepare","prepear|preapre|priepare","中2","","不定詞"],
+["「成功する」を英語で書くと？","succeed","succed|sucseed|succeeed","中2","名詞は success。","不定詞"],
+["「提案する」を英語で書くと？","suggest","sugest|suggeset|sugjest","中2","","動名詞"],
+["「ついに、最後に」を英語で書くと？","finally","finaly|finalley|fainally","中2","","過去形"],
+["「おそらく」を英語で書くと？","probably","probable|probaly|propably","中2","probable は形容詞。","未来形"],
+["「突然」を英語で書くと？","suddenly","sudenly|suddenley|saddenly","中2","","過去進行形"],
+["「〜だけれども」を英語で書くと？","although","altough|allthough|althogh","中2","but と一緒には使わない。","接続詞"],
+["I ___ to London last year.","went","go|have gone|was going","中2","last year は過去の一点。","過去形"],
+["She ___ her homework when I called.","was doing","did|does|has done","中2","電話したときの進行中。","過去進行形"],
+["It ___ rain tomorrow.","will","is|does|was","中2","","未来形"],
+["We ___ visit the museum next week.","are going to","go to|will to|are go to","中2","be going to の形。","未来形"],
+["I want ___ English harder.","to study","studying|study|studied","中2","","不定詞"],
+["He came here ___ his friend.","to see","seeing|for see|see","中2","目的を表す不定詞。","不定詞"],
+["It is important ___ every day.","to practise","practising|practise|practised","中2","","不定詞"],
+["He suggested ___ by train.","going","to go|go|went","中2","suggest の後ろは -ing。","動名詞"],
+["Avoid ___ long sentences.","using","to use|use|used","中2","","動名詞"],
+["This book is ___ than that one.","easier","more easy|easyer|easiest","中2","y を i に変えて er。","比較"],
+["She is the ___ student in her class.","tallest","taller|most tall|tall","中2","","比較"],
+["This watch is ___ expensive than mine.","more","much|very|most","中2","長い形容詞は more。","比較"],
+["My bag is similar ___ yours.","to","with|as|from","中2","","比較"],
+["___ it rained, we went out.","Although","But|However|Despite","中2","後ろに文が続くので Although。","接続詞"],
+["He called ___ I was cooking.","while","during|for|at","中2","後ろが文なので while。","接続詞"],
+["I agree ___ you.","with","to|on|for","中2","","接続詞"],
+["It depends ___ the weather.","on","of|to|with","中2","","接続詞"],
+["We prepared ___ the exam.","for","to|at|of","中2","","不定詞"],
+["You ___ finish it today.","must","must to|have|are must","中2","must の後ろは原形。","助動詞"],
+["You ___ not run in the corridor.","must","do|are|have","中2","must not で強い禁止。","助動詞"],
+["Read. Last summer Yuki stayed with a host family in Sydney. At first she could not understand fast English, but after two weeks she began to enjoy talking with them. Question: What happened after two weeks?","She began to enjoy talking with them.","She went back to Japan.|She stopped speaking English.|She moved to another family.","中2","","読む"],
+["Read. Our town started a plan to reduce plastic waste. Shops stopped giving free bags. As a result, the amount of waste decreased by 20%. Question: What was the result of the plan?","The waste decreased by 20%.","The waste increased.|Shops closed.|Nothing changed.","中2","","読む"],
+["Read. Ken is taller than his brother, but his brother is stronger. Question: Who is stronger?","Ken's brother.","Ken.|Both are the same.|We do not know.","中2","","読む"],
+["Read. The museum is free for children under twelve. Adults pay five pounds. Question: How much does a ten-year-old pay?","Nothing.","Five pounds.|Two pounds.|Ten pounds.","中2","","読む"],
+["Read. Although it was very cold, we decided to walk to the station. It took us twenty minutes. Question: How did they go to the station?","They walked.","By bus.|By taxi.|By train.","中2","","読む"],
+["Read. Emi practises the violin every day because she wants to join the school orchestra next year. Question: Why does Emi practise every day?","Because she wants to join the orchestra.","Because her teacher told her to.|Because she has a concert tomorrow.|Because she likes the violin more than sport.","中2","","読む"],
+["Read. If it rains tomorrow, the sports day will be held on Monday. Question: When will the sports day be held if it rains?","On Monday.","Tomorrow.|On Sunday.|It will be cancelled.","中2","","読む"],
+["Read. Tom finished his homework and then watched television for an hour. Question: What did Tom do first?","He finished his homework.","He watched television.|He went to bed.|He called his friend.","中2","","読む"],
+];
+
+TubeContent.register({
+  id:      'english/j2',
+  subject: 'english',
+  name:    '英語 中2',
+  note:    '英→日・日→英・英語の設問・短い読解の4つ。すべて単元つき',
+  bands:   ['中2'],
+  T:T, Q:Q
+});
+
+})();

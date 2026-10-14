@@ -1,0 +1,115 @@
+/* 英語 小6 ―― 英→日・日→英・英語の設問・短い読解の4つ。すべて単元つき
+
+   **このファイルは app/tools/gen_content.py が書き出したもの。**
+   手で直さないこと。直すなら生成側を直して作り直す。
+   （手書きに戻すと他言語の字が混ざる。実際に35箇所まぎれ込んだ）
+
+   T（用語）  [表, 裏, 帯, 解説, 例, 例の補足]
+   Q（選択）  [問題文, 正解, 誤答(|区切り), 帯, 解説]  */
+(function(){
+"use strict";
+
+var T = [
+["breakfast（n）","朝食","小6","食事名に the は付けない（have breakfast）。","I have breakfast at seven.","私は7時に朝食をとる。"],
+["station（n）","駅","小6","","The station is over there.","駅は向こうにある。"],
+["hospital（n）","病院","小6","","My mother works at a hospital.","母は病院で働いている。"],
+["library（n）","図書館","小6","","We study at the library.","私たちは図書館で勉強する。"],
+["country（n）","国","小6","複数形は countries（y を i に）。","Japan is a beautiful country.","日本は美しい国だ。"],
+["city（n）","都市","小6","","London is a big city.","ロンドンは大きな都市だ。"],
+["season（n）","季節","小6","","Spring is my favourite season.","春は私の好きな季節だ。"],
+["weather（n）","天気","小6","数えられない。a weather とは言わない。","The weather is nice today.","今日は天気がよい。"],
+["dream（n）","夢","小6","","My dream is to be a doctor.","私の夢は医者になることだ。"],
+["subject（n）","教科","小6","","My favourite subject is science.","私の好きな教科は理科だ。"],
+["beautiful（adj）","美しい","小6","","That flower is beautiful.","あの花は美しい。"],
+["famous（adj）","有名な","小6","","He is a famous singer.","彼は有名な歌手だ。"],
+["difficult（adj）","むずかしい","小6","","This question is difficult.","この問題はむずかしい。"],
+["easy（adj）","やさしい、簡単な","小6","","The test was easy.","そのテストは簡単だった。"],
+["busy（adj）","いそがしい","小6","","My father is busy today.","父は今日いそがしい。"],
+["kind（adj）","親切な","小6","名詞では「種類」。","She is kind to everyone.","彼女はだれにでも親切だ。"],
+["enjoy（v）","楽しむ","小6","後ろは -ing。enjoy to play とは言わない。","We enjoy playing tennis.","私たちはテニスを楽しむ。"],
+["visit（v）","訪れる","小6","","I visit my aunt every summer.","私は毎年夏におばを訪ねる。"],
+["help（v）","手伝う、助ける","小6","","Can you help me?","手伝ってくれますか。"],
+["make（v）","作る","小6","","She makes cakes on Sunday.","彼女は日曜日にケーキを作る。"],
+["want（v）","ほしい","小6","want to do で「〜したい」。","I want a new bag.","私は新しいかばんがほしい。"],
+["need（v）","必要とする","小6","","We need more time.","もっと時間が必要だ。"],
+["start（v）","始める、始まる","小6","","The class starts at nine.","授業は9時に始まる。"],
+["finish（v）","終える","小6","後ろは -ing。","I finished reading the book.","私はその本を読み終えた。"],
+["live（v）","住む","小6","住む場所には in を使う。","They live in Osaka.","彼らは大阪に住んでいる。"],
+["know（v）","知っている","小6","進行形にしない。","I know his name.","私は彼の名前を知っている。"],
+["think（v）","思う、考える","小6","","I think it is true.","私はそれは本当だと思う。"],
+["understand（v）","理解する","小6","","I understand your idea.","あなたの考えは分かる。"],
+["always（adv）","いつも","小6","be動詞の後、一般動詞の前に置く。","He is always late.","彼はいつも遅刻する。"],
+["sometimes（adv）","ときどき","小6","","I sometimes walk to school.","私はときどき歩いて学校へ行く。"],
+["never（adv）","一度も〜ない","小6","それだけで否定になる。not を重ねない。","She never eats meat.","彼女は肉を一切食べない。"],
+["together（adv）","いっしょに","小6","","Let us sing together.","いっしょに歌おう。"],
+["because（conj）","なぜなら","小6","","I stayed home because it rained.","雨が降ったので家にいた。"],
+["before（prep）","〜の前に","小6","","Wash your hands before lunch.","昼食の前に手を洗いなさい。"],
+["after（prep）","〜のあとに","小6","","We play after school.","私たちは放課後に遊ぶ。"],
+["between（prep）","〜の間に","小6","2つのものの間。3つ以上は among。","The shop is between the bank and the park.","店は銀行と公園の間にある。"],
+];
+
+var Q = [
+["「朝食」を英語で書くと？","breakfast","breakfirst|brekfast|breakfast time","小6","break（やぶる）＋fast（断食）。","学校生活のことば"],
+["「駅」を英語で書くと？","station","stasion|staition|statoin","小6","","身のまわりのことば"],
+["「図書館」を英語で書くと？","library","liblary|libary|librery","小6","l と r をまちがえやすい。","身のまわりのことば"],
+["「国」を英語で書くと？","country","contry|countly|coutry","小6","","身のまわりのことば"],
+["「天気」を英語で書くと？","weather","wether|whether|weathar","小6","whether（〜かどうか）と同じ発音。","身のまわりのことば"],
+["「教科」を英語で書くと？","subject","subjekt|sabject|subjuct","小6","","学校生活のことば"],
+["「美しい」を英語で書くと？","beautiful","beatiful|beautifull|buautiful","小6","beau-ti-ful と3つに切る。","ようすを表すことば"],
+["「むずかしい」を英語で書くと？","difficult","dificult|difficalt|difficulty","小6","difficulty は名詞（むずかしさ）。","ようすを表すことば"],
+["「いそがしい」を英語で書くと？","busy","bussy|bisy|buzy","小6","","ようすを表すことば"],
+["「親切な」を英語で書くと？","kind","kaind|kined|kindly","小6","kindly は副詞。","ようすを表すことば"],
+["「楽しむ」を英語で書くと？","enjoy","injoy|enjoi|enjoyed","小6","","一般動詞"],
+["「訪れる」を英語で書くと？","visit","bisit|vizit|visitt","小6","","一般動詞"],
+["「手伝う」を英語で書くと？","help","herp|healp|helpe","小6","","一般動詞"],
+["「ほしい」を英語で書くと？","want","wont|whant|wanto","小6","won't（will not）と混同しない。","一般動詞"],
+["「必要とする」を英語で書くと？","need","nead|knead|neid","小6","","一般動詞"],
+["「終える」を英語で書くと？","finish","finnish|finsh|fenish","小6","","一般動詞"],
+["「住む」を英語で書くと？","live","leave|liv|life","小6","leave（去る）、life（生活）と区別する。","一般動詞"],
+["「知っている」を英語で書くと？","know","now|no|knouw","小6","now（今）と同じ発音ではない。k は読まない。","一般動詞"],
+["「思う、考える」を英語で書くと？","think","thing|sink|thinck","小6","thing（もの）と1字ちがい。","一般動詞"],
+["「いつも」を英語で書くと？","always","allways|alway|olways","小6","","ひんどを表すことば"],
+["「ときどき」を英語で書くと？","sometimes","sometime|some times|somtimes","小6","sometime（いつか）とは別の語。","ひんどを表すことば"],
+["「一度も〜ない」を英語で書くと？","never","ever|nevar|not ever","小6","","ひんどを表すことば"],
+["「なぜなら」を英語で書くと？","because","becose|becouse|becuase","小6","","せつぞくのことば"],
+["「〜の間に（2つのものの）」を英語で書くと？","between","among|betwen|beetween","小6","3つ以上の間は among。","前置詞"],
+["He ___ tennis every Saturday.","plays","play|playing|played","小6","he が主語なので s を付ける。","一般動詞"],
+["___ she like dogs?","Does","Do|Is|Are","小6","she の疑問文は Does。動詞は原形に戻す。","一般動詞"],
+["She does not ___ milk.","drink","drinks|drank|drinking","小6","does の後ろは原形。","一般動詞"],
+["My father ___ a teacher.","is","are|am|be","小6","","be動詞"],
+["These books ___ mine.","are","is|am|was","小6","These は複数。","代名詞"],
+["This bag is ___.","hers","her|she|hers'","小6","「彼女のもの」は hers。her は「彼女の」。","代名詞"],
+["I know ___.","him","he|his|he is","小6","動詞の後ろは目的格。","代名詞"],
+["___ is your favourite subject?","What","Who|Which of|How","小6","","疑問文"],
+["___ do you go to school?","How","What|Who|Whose","小6","手段をたずねるのは How。","疑問文"],
+["I enjoy ___ books.","reading","read|to read|reads","小6","enjoy の後ろは -ing。","一般動詞"],
+["I want ___ a doctor.","to be","be|being|am","小6","want の後ろは to do。","一般動詞"],
+["He is always ___ at school.","kind","kindly|kindness|kinder","小6","be動詞の後ろは形容詞。","ようすを表すことば"],
+["She lives ___ Osaka.","in","at|on|to","小6","都市には in。","前置詞"],
+["We finished ___ lunch.","eating","eat|to eat|eaten","小6","finish の後ろは -ing。","一般動詞"],
+["I ___ go to bed early.","always","am always|always am|be always","小6","一般動詞の前に置く。","ひんどを表すことば"],
+["He is ___ late.","never","not never|never not|no never","小6","never だけで否定になる。","ひんどを表すことば"],
+["I stayed home ___ it rained.","because","so|but|or","小6","","せつぞくのことば"],
+["Wash your hands ___ lunch.","before","ago|front|early","小6","","前置詞"],
+["The shop is ___ the bank and the park.","between","among|into|through","小6","2つのものの間は between。","前置詞"],
+["There ___ many books in this room.","are","is|have|has","小6","books は複数なので are。","be動詞"],
+["Read. Ken lives in Osaka with his family. He has a sister and a dog. Every Sunday they walk in the park. Question: What do they do on Sunday?","They walk in the park.","They stay home.|They go to school.|They visit Osaka.","小6","","読む"],
+["Read. Our school festival is in October. Students sing and dance. Many parents come to watch. Question: Who comes to watch the festival?","Many parents.","Only teachers.|No one.|Students from Osaka.","小6","","読む"],
+["Read. Mary wants to be a nurse because she likes helping people. She studies science hard. Question: Why does Mary study science hard?","Because she wants to be a nurse.","Because she likes reading.|Because her father is a doctor.|Because she has a test tomorrow.","小6","","読む"],
+["Read. The library opens at ten. It closes at five on Saturday. It is closed on Sunday. Question: When is the library closed?","On Sunday.","On Saturday.|At ten.|Every day.","小6","","読む"],
+["Read. Yuki was tired, so she went to bed early. She slept for ten hours. Question: Why did Yuki go to bed early?","Because she was tired.","Because it was cold.|Because she was hungry.|Because she had a test.","小6","","読む"],
+["Read. In winter it snows a lot in this town. Children make snowmen. Question: What do children make in winter?","Snowmen.","Cakes.|Kites.|Boats.","小6","","読む"],
+["Read. Tom's birthday is in May. His sister's birthday is in June. Question: When is Tom's birthday?","In May.","In June.|In July.|In March.","小6","","読む"],
+["Read. We went to the zoo, but it was closed. We went to the park instead. Question: Where did we go in the end?","To the park.","To the zoo.|To school.|Home.","小6","","読む"],
+];
+
+TubeContent.register({
+  id:      'english/e6',
+  subject: 'english',
+  name:    '英語 小6',
+  note:    '英→日・日→英・英語の設問・短い読解の4つ。すべて単元つき',
+  bands:   ['小6'],
+  T:T, Q:Q
+});
+
+})();

@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>学習アプリ（試作）のご紹介 — 講師のみなさまへ</title>
+<style>
+  /* A4 表裏。ブラウザから直接印刷できます。 */
+  @page { size: A4; margin: 15mm 17mm 13mm; }
+  :root{
+    --ink:#17150F; --grey:#6B655D; --accent:#C2603E;
+    --soft:#F6EAE3; --line:#DDD8D1;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; background:#8f8b86;
+    font-family:"Yu Gothic","YuGothic","Hiragino Sans","Noto Sans JP",sans-serif;
+    color:var(--ink); font-size:10pt; line-height:1.5;
+  }
+  .sheet{
+    width:210mm; min-height:297mm; margin:12mm auto; padding:15mm 17mm 13mm;
+    background:#fff; box-shadow:0 2px 18px rgba(0,0,0,.28);
+  }
+  h1{ font-size:16pt; margin:.1em 0 .3em; letter-spacing:-.01em; font-weight:700; }
+  .org{ font-size:9pt; color:var(--grey); }
+  .lead{ color:var(--grey); margin:0 0 8px; }
+  hr{ border:none; border-top:1px solid var(--line); margin:11px 0 0; }
+  h2{
+    font-size:12.5pt; margin:10px 0 5px; padding-left:9px;
+    border-left:4px solid var(--accent); font-weight:700;
+  }
+  p{ margin:0 0 5px; }
+  .small{ font-size:9pt; color:var(--grey); }
+  .note{ font-size:8.5pt; color:var(--grey); margin:0 0 2px; }
+  strong{ font-weight:700; }
+
+  /* URLと、その場で読めるQRを1つの箱にまとめる。
+     URLは配布物でいちばん大事な一行なので、途中で折り返させない。 */
+  .access{ display:flex; gap:12px; align-items:stretch; margin-top:2px; }
+  .urlband{
+    flex:1; border:1.5px solid var(--accent); border-radius:4px; background:var(--soft);
+    padding:9px 12px; text-align:center;
+    display:flex; flex-direction:column; justify-content:center;
+  }
+  .urlband .lab{ font-size:8.5pt; color:var(--grey); margin-bottom:3px; }
+  .url{ font-size:12pt; font-weight:700; color:var(--accent);
+        letter-spacing:-.01em; white-space:nowrap; }
+  .press{ font-size:10.5pt; font-weight:700; margin:6px 0 0; }
+  .press .sub{ display:block; font-weight:400; font-size:8.5pt; color:var(--grey); margin-top:1px; }
+  .qr{
+    width:32mm; border:1px solid var(--line); border-radius:3px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:5px; text-align:center; color:var(--grey); font-size:8pt;
+  }
+  .qr .box{ width:19mm; height:19mm; border:1px dashed var(--line); margin:4px 0; }
+
+  /* 3コマの流れ */
+  .flow{ display:flex; align-items:stretch; }
+  .step{
+    flex:1; background:var(--soft); border:1px solid var(--accent);
+    border-radius:4px; padding:6px 7px; text-align:center;
+  }
+  .step .n{ font-size:14pt; font-weight:700; color:var(--accent); line-height:1.15; }
+  .step .t{ font-size:11pt; font-weight:700; margin:3px 0 4px; }
+  .step .d{ font-size:9pt; color:var(--grey); line-height:1.5; }
+  .arw{ width:26px; display:flex; align-items:center; justify-content:center;
+        color:var(--accent); font-size:14pt; }
+
+  /* 番号つきの利点 */
+  .merit{ display:flex; gap:8px; margin-bottom:3px; align-items:flex-start; }
+  .merit .no{
+    flex:none; width:18px; height:18px; border-radius:50%;
+    background:var(--accent); color:#fff; font-size:9pt; font-weight:700;
+    display:flex; align-items:center; justify-content:center; margin-top:1px;
+  }
+  .merit .t{ font-weight:700; line-height:1.4; }
+  .merit .d{ font-size:9pt; color:var(--grey); line-height:1.4; }
+
+  /* 2列の箇条 */
+  .grid{ display:grid; grid-template-columns:1fr 1fr; gap:5px 20px; margin-top:2px; }
+  .grid .t{ font-size:10.5pt; font-weight:700; margin-bottom:1px; }
+  .grid .d{ font-size:9pt; color:var(--grey); line-height:1.5; }
+
+  /* 端末の表 */
+  .dev{ width:100%; border-collapse:collapse; margin-top:3px; font-size:9.5pt; }
+  .dev th, .dev td{ border:1px solid var(--line); padding:4px 9px; text-align:left; }
+  .dev th{ background:var(--soft); font-weight:700; width:24%; }
+
+  /* 個人情報の箱 */
+  .guard{ border:1px solid var(--line); border-radius:4px; padding:9px 12px;
+          background:#FBFAF8; }
+  .guard .concl{ margin:6px 0 0; font-weight:700; color:var(--accent); }
+
+  ul{ margin:0; padding-left:1.1em; }
+  li{ margin-bottom:3px; }
+
+  /* 記入欄 */
+  .q{ font-weight:700; margin:10px 0 0; }
+  .rule{ border-bottom:1px dotted #9C958C; height:20px; }
+  .choices{ margin:6px 0 0; }
+
+  @media print{
+    body{ background:#fff; }
+    .sheet{ margin:0; box-shadow:none; width:auto; min-height:0; padding:0; }
+    .pagebreak{ break-before:page; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========================= 表 ========================= -->
+<div class="sheet">
+
+  <div class="org">早稲田アカデミー ロンドン校</div>
+  <h1>学習アプリ（試作）のご紹介と、ご意見のお願い</h1>
+  <p class="lead">生徒が、家でも電車でも、毎日少しずつ続けられる道具をつくっています。
+    まだ試作です。実際にさわっていただいて、「こうしてほしい」を教えてください。</p>
+  <hr>
+
+  <h2>まず、さわってみてください</h2>
+  <div class="access">
+    <div class="urlband">
+      <div class="lab">スマホかパソコンで、このアドレスを開いてください</div>
+      <div class="url">https://screenshot-naturals-willing-jury.trycloudflare.com</div>
+      <div class="press">ひらいたら「デモ用」のボタンを押すだけです。
+        <span class="sub">IDもあいことばも入力しません。生徒用と先生用があります。</span></div>
+    </div>
+    <div class="qr">
+      <div>QRコードを貼ります</div>
+      <div class="box"></div>
+      <div>カメラで読めます</div>
+    </div>
+  </div>
+
+  <h2>どんなふうに使うものか</h2>
+  <div class="flow">
+    <div class="step">
+      <div class="n">&#9312;</div>
+      <div class="t">先生が出す</div>
+      <div class="d">「単語帳の1000番から<br>1050番まで、金曜まで」</div>
+    </div>
+    <div class="arw">&rarr;</div>
+    <div class="step">
+      <div class="n">&#9313;</div>
+      <div class="t">生徒が家でやる</div>
+      <div class="d">1回20分で<br>終わる分量です</div>
+    </div>
+    <div class="arw">&rarr;</div>
+    <div class="step">
+      <div class="n">&#9314;</div>
+      <div class="t">先生に届く</div>
+      <div class="d">だれがどこまで終えたか<br>自動で一覧になります</div>
+    </div>
+  </div>
+  <table class="dev">
+    <tr><th>小学生</th><td>おうちのパソコン、または iPad で行う想定です</td></tr>
+    <tr><th>中学生</th><td>おうちのパソコン、iPad、あるいは自分のスマートフォン</td></tr>
+  </table>
+  <p class="small" style="margin-top:4px">アプリを入れる必要はありません。ブラウザで開くだけです。</p>
+
+  <h2>紙の宿題を、なくすものではありません</h2>
+  <p><strong>これまでどおりの宿題に、足すものだとお考えください。</strong>
+    もちろん既存の宿題形式も変わらず大切です。そのうえで、
+    <strong>暗記と反復が必要な単元</strong>では、紙ではできなかったことが5つできるようになります。</p>
+  <div style="margin-top:6px">
+    <div class="merit"><div class="no">1</div><div>
+      <div class="t">だれが、どこが苦手かを把握できます</div>
+      <div class="d">「単元まるごと」ではなく、「この問題」の単位で見えます。</div></div></div>
+    <div class="merit"><div class="no">2</div><div>
+      <div class="t">成績を、単元よりも細かい解像度で把握できます</div>
+      <div class="d">「漢字が苦手」ではなく「同音異義語でつまずく」まで分かります。</div></div></div>
+    <div class="merit"><div class="no">3</div><div>
+      <div class="t">その子に最適な宿題を、自動で生成できます</div>
+      <div class="d">まちがえた問題を中心に、生徒ごとに出し分けます。</div></div></div>
+    <div class="merit"><div class="no">4</div><div>
+      <div class="t">忘却曲線に沿って、効率よく復習させられます</div>
+      <div class="d">一度おぼえて終わりにせず、忘れそうなころに出し直します。</div></div></div>
+    <div class="merit"><div class="no">5</div><div>
+      <div class="t">生徒ごとの学習時間を把握できます</div>
+      <div class="d">どれだけ机に向かったかが、自動で残ります。</div></div></div>
+  </div>
+
+  <h2>いま、できること</h2>
+  <div class="grid">
+    <div><div class="t">きょうやることが1画面</div><div class="d">ひらくと「今日は何問」だけが出ます。迷わせません。</div></div>
+    <div><div class="t">宿題を出せます</div><div class="d">単語帳の番号を範囲で決め、期限をつけて出せます。</div></div>
+    <div><div class="t">クラスにも、1人にも</div><div class="d">クラス全員にも、特定の生徒だけにも出せます。</div></div>
+    <div><div class="t">「今日の目安」が出ます</div><div class="d">期限から逆算して、今日やる分を自動で示します。</div></div>
+    <div><div class="t">先生は担当だけ見えます</div><div class="d">ご自分の担当クラスの生徒だけが表示されます。</div></div>
+    <div><div class="t">来ていない生徒が分かります</div><div class="d">最近やっていない子が、ひと目で分かります。</div></div>
+  </div>
+  <p class="small" style="margin-top:5px">教科は<strong>英語・理科・社会・数学・国語（漢字）</strong>の5つ。
+    1日の量は、学年ごと・教科ごとに先生が画面で変えられます。</p>
+
+</div>
+
+<!-- ========================= 裏 ========================= -->
+<div class="sheet pagebreak">
+
+  <h2 style="margin-top:0">これから、広げていきたいこと</h2>
+  <p>いまは暗記が中心です。定着してきたら
+    <strong>記述問題・計算・リスニング・漢字の読み書き</strong>まで、
+    網羅的に扱えるようにしていきたいと考えています。</p>
+  <div class="grid" style="margin-top:6px">
+    <div><div class="t">ノートに解いて、カメラで撮る</div><div class="d">漢字の書き取りや計算は、これまでどおり手で書いてもらいます。</div></div>
+    <div><div class="t">自動で採点して記録する</div><div class="d">撮った紙をその場で採点し、まちがえた問題を残します。</div></div>
+    <div><div class="t">苦手をあぶり出す</div><div class="d">たまった記録から、その子の弱いところを見つけます。</div></div>
+    <div><div class="t">小テストを先生から出す</div><div class="d">いまは生徒が自分で「たしかめテスト」を押す形です。</div></div>
+    <div><div class="t">名簿をまとめて登録</div><div class="d">200名を一覧表から一度に登録できるようにします。</div></div>
+    <div><div class="t">ずっと動くサーバへ</div><div class="d">いまは私のパソコンで動かしています。</div></div>
+  </div>
+  <p class="small" style="margin-top:6px">どれを先にやるべきか、みなさんのご意見で決めたいと思っています。</p>
+
+  <h2>個人情報の守り方</h2>
+  <div class="guard">
+    <p style="margin:0">EUと英国の、子どものデータを守る決まりに沿って設計しています。</p>
+    <ul style="margin-top:4px">
+      <li>生徒には、<strong>名前と関係のない、でたらめなIDとあいことば</strong>を配ります。</li>
+      <li>アプリの画面に出るのは「中2A-07」のような番号だけです。名前はどこにも記録していません。</li>
+      <li>「どの番号がだれか」の対応表は、<strong>先生だけが見られる場所</strong>
+        （Google Cloud など）に、アプリとは分けて置きます。</li>
+    </ul>
+    <p class="concl">ですから、万一アプリが攻撃を受けても、個人と成績が結びつくことは原理的にありません。</p>
+  </div>
+  <p class="small" style="margin-top:4px">市販の単語帳の中身も、アプリには入れていません。
+    「1024番」とだけ出して、生徒は冊子を見て思い出します。</p>
+
+  <h2>ご意見をお聞かせください</h2>
+  <p class="small" style="margin-bottom:6px">全部でなくてかまいません。気づいたところだけで結構です。</p>
+
+  <div class="q">1.　生徒が1日にやる量は、どれくらいが現実的だと思われますか。</div>
+  <div class="rule"></div><div class="rule"></div>
+
+  <div class="q">2.　宿題は、どの教材・単元で出したいですか。</div>
+  <div class="rule"></div><div class="rule"></div>
+
+  <div class="q">3.　上の「これから」のうち、どれを先につくるべきだと思われますか。</div>
+  <div class="rule"></div><div class="rule"></div>
+
+  <div class="q">4.　さわってみて、分かりにくかった点・ご不安な点はありますか。</div>
+  <div class="rule"></div><div class="rule"></div>
+
+  <div class="q">5.　ご自分の担当クラスで、使ってみたいと思われますか。</div>
+  <div class="choices">　　□ 使ってみたい　　　□ 内容しだい　　　□ いまのままでは難しい</div>
+  <div class="rule"></div>
+
+  <hr style="margin-top:11px">
+  <p class="note" style="margin-top:7px">※ この試作は、私のパソコンで動かしています。夜間や移動中はつながらないことがあります。</p>
+  <p class="note">※ 入っているのは架空の生徒データだけです。実際の生徒の情報は入っていません。</p>
+  <p class="note">※ アドレスは試作用のもので、あとで変わります。</p>
+
+</div>
+
+</body>
+</html>

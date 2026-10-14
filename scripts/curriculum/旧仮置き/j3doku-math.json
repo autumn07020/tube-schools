@@ -1,0 +1,85 @@
+{
+ "id": "j3doku-math",
+ "name": "中3 土特（RD特） 数学",
+ "grade": "j3",
+ "subject": "math",
+ "materials": [
+  "joui-reg"
+ ],
+ "provisional": true,
+ "source": "講師の記憶（2026-09-11）で今週の単元を合わせ、前後の単元は学習指導要領の配列と教材の組み立てから推定した仮置き。本部の表・教材の目次が届いたら、同じ id で取り込んで置き換える。2026-09-12：8週ぶんの推移が見えるよう、anchor の前をさらにさかのぼって仮置きした",
+ "anchor": {
+  "unit": "平面図形",
+  "week": "2026-09-07"
+ },
+ "units": [
+  {
+   "label": "",
+   "topic": "総復習",
+   "review": true
+  },
+  {
+   "label": "",
+   "topic": "二次方程式"
+  },
+  {
+   "label": "",
+   "topic": "関数 y＝ax² の基本"
+  },
+  {
+   "label": "",
+   "topic": "平方根の応用"
+  },
+  {
+   "label": "",
+   "topic": "二次方程式の応用"
+  },
+  {
+   "label": "",
+   "topic": "総復習",
+   "review": true
+  },
+  {
+   "label": "",
+   "topic": "関数 y＝ax²"
+  },
+  {
+   "label": "",
+   "topic": "相似の応用"
+  },
+  {
+   "label": "",
+   "topic": "平面図形"
+  },
+  {
+   "label": "",
+   "topic": "円周角と相似"
+  },
+  {
+   "label": "",
+   "topic": "総復習",
+   "review": true
+  },
+  {
+   "label": "",
+   "topic": "三平方の定理"
+  },
+  {
+   "label": "",
+   "topic": "空間図形"
+  },
+  {
+   "label": "",
+   "topic": "関数と図形"
+  },
+  {
+   "label": "",
+   "topic": "確率と場合の数"
+  },
+  {
+   "label": "",
+   "topic": "総復習",
+   "review": true
+  }
+ ]
+}

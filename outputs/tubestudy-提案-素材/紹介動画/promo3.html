@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8">
+<title>tubestudy promo 62s v3</title>
+<style>
+  html,body{margin:0;width:1920px;height:1080px;overflow:hidden;background:#F2F4F8}
+  body{font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN",-apple-system,sans-serif;color:#17150F;-webkit-font-smoothing:antialiased}
+  #stage{position:relative;width:1920px;height:1080px;overflow:hidden;
+    background:
+      radial-gradient(60% 38% at 50% 10%, rgba(249,185,0,.22) 0%, rgba(249,185,0,0) 68%),
+      radial-gradient(70% 44% at 50% 92%, rgba(0,91,172,.16) 0%, rgba(0,91,172,0) 68%),
+      linear-gradient(180deg, #F2F4F8 0%, #F4F3F0 60%, #F6F3EC 100%)}
+  .layer{position:absolute;left:0;top:0;width:1920px;height:1080px;opacity:0;overflow:hidden}
+  /* 印 */
+  .mark{position:absolute;left:50%;top:50%;width:240px;height:240px;margin:-150px 0 0 -120px;border-radius:22.4%;
+    background:linear-gradient(180deg,#0A6FC7,#004E93);box-shadow:0 40px 80px rgba(0,78,147,.28)}
+  .mark svg{display:block;width:100%;height:100%;overflow:visible}
+  .word{position:absolute;left:0;right:0;top:50%;margin-top:120px;text-align:center;font-size:88px;font-weight:800;letter-spacing:-.03em;line-height:1;color:#004E93}
+  .word i{font-style:normal;color:#F9B900}
+  .tag{position:absolute;left:0;right:0;top:50%;margin-top:236px;text-align:center;font-size:30px;font-weight:400;color:#5b5a55;letter-spacing:.06em}
+  /* 画面（講師＝iPad の写し 1700 幅、生徒＝iPhone 462 幅） */
+  .scr{position:absolute;left:110px;top:9px;width:1700px;height:1062.5px;transform-origin:0 0;border-radius:18px;overflow:hidden;background:#fff;
+    box-shadow:0 40px 90px rgba(23,21,15,.22), 0 0 0 1px rgba(0,0,0,.06);opacity:0}
+  .scr img{position:absolute;left:0;top:0;width:1700px;height:auto}
+  .scr svg.ov, .ph svg.ov{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+  .ph{position:absolute;top:40px;width:462px;height:1000px;padding:12px;border-radius:54px;background:#111;transform-origin:0 0;opacity:0;
+    box-shadow:0 40px 90px rgba(23,21,15,.30)}
+  .ph .in{position:absolute;left:12px;top:12px;width:462px;height:1000px;border-radius:42px;overflow:hidden;background:#fff}
+  .ph .in img{position:absolute;left:0;top:0;width:462px;height:auto}
+  .ph svg.ov{left:12px;top:12px;width:462px;height:1000px}
+  /* 見出し（講師の場面は左上に飛ぶ／生徒の場面は左に置く） */
+  .band{position:absolute;left:0;top:0;width:1920px;height:320px;opacity:0;
+    background:linear-gradient(180deg, rgba(243,244,247,.98) 0%, rgba(243,244,247,.92) 40%, rgba(243,244,247,0) 100%)}
+  .cap{position:absolute;left:110px;top:64px;transform-origin:0 0;white-space:nowrap;opacity:0}
+  .cap .kk, .capL .kk{font-size:30px;font-weight:700;color:#004E93;letter-spacing:.1em;margin-bottom:12px}
+  .cap .hh{font-size:76px;font-weight:800;letter-spacing:-.02em;line-height:1.2}
+  .capL{position:absolute;left:120px;top:300px;width:700px}
+  .capL .hh{font-size:84px;font-weight:800;letter-spacing:-.02em;line-height:1.25}
+  .capL .ss{font-size:34px;color:#5b5a55;line-height:1.7;margin-top:30px}
+  .capL .kk, .capL .hh, .capL .ss{opacity:0}
+  /* 指・波紋・輪・札 */
+  .fg{fill:rgba(0,78,147,.30);stroke:#fff;stroke-width:2.5}
+  .rp{fill:none;stroke:#004E93;stroke-width:3}
+  .hl{fill:none;stroke:#004E93;stroke-width:3;rx:14}
+  .chip{position:absolute;padding:9px 20px;border-radius:999px;background:#004E93;color:#fff;font-size:25px;font-weight:700;white-space:nowrap;
+    box-shadow:0 12px 28px rgba(0,78,147,.35);opacity:0;transform-origin:0 100%}
+  .chip b{font-size:32px;margin-right:8px}
+  .chip.y{background:#F9B900;color:#1A1400;box-shadow:0 12px 28px rgba(249,185,0,.4)}
+  .typed{position:absolute;overflow:hidden;white-space:pre-wrap;word-break:break-all;line-height:1.55;color:#17150F}
+  .ink{fill:none;stroke:#D62828;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+  /* プライバシー（濃い青） */
+  .dark{background:
+      radial-gradient(rgba(255,255,255,.07) 1.6px, transparent 1.8px) 0 0/34px 34px,
+      radial-gradient(70% 70% at 30% 35%, #0B63B4 0%, #0A4C8C 45%, #06315E 100%)}
+  .rec{position:absolute;left:150px;top:190px;width:680px;border-radius:28px;background:#fff;padding:30px 36px 26px;box-shadow:0 50px 100px rgba(0,0,0,.35);opacity:0}
+  .rec .rh{font-size:24px;font-weight:700;color:#5b5a55;letter-spacing:.1em;margin-bottom:18px}
+  .rec .rr{position:relative;display:flex;align-items:center;gap:22px;height:72px;font-size:36px;border-top:1px solid #ECEAE4;overflow:hidden}
+  .rec .rr span{width:100px;color:#8a8880;font-size:26px;font-weight:700;flex:none}
+  .rec .rr b{font-weight:700;color:#17150F}
+  .rec .rr .bar{display:block;height:18px;border-radius:9px;background:#DAD8D1}
+  .rec .rr svg{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible}
+  .rec .rr svg line{stroke:#D62828;stroke-width:5;stroke-linecap:round}
+  .rec .badge{position:absolute;right:-26px;top:-26px;padding:12px 24px;border-radius:999px;background:#F9B900;color:#1A1400;font-size:26px;font-weight:800;box-shadow:0 14px 30px rgba(0,0,0,.25);opacity:0}
+  .capD{position:absolute;left:920px;top:280px;width:940px;color:#fff}
+  .capD .hh{font-size:88px;font-weight:800;letter-spacing:-.02em;line-height:1.3;opacity:0}
+  .capD .ss{font-size:36px;line-height:1.8;margin-top:36px;color:rgba(255,255,255,.82);opacity:0}
+  /* 締め */
+  .tile{position:absolute;width:460px;height:288px;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 30px 70px rgba(23,21,15,.2), 0 0 0 1px rgba(0,0,0,.06);opacity:0;transform-origin:50% 50%}
+  .tile img{display:block;width:460px;height:auto}
+  .big{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);text-align:center;font-size:112px;font-weight:800;letter-spacing:-.02em;line-height:1.25;white-space:nowrap}
+  .big i{font-style:normal;color:#004E93;display:inline-block}
+</style></head>
+<body><div id="stage">
+
+<!-- S1 / S11 印 -->
+<div class="layer" id="L1">
+  <div class="mark" id="mark"><svg viewBox="0 0 180 180"><rect x="34" y="45" width="112" height="14" rx="7" fill="#F9B900"/>
+    <circle id="ringc" cx="90" cy="96" r="40" fill="none" stroke="#fff" stroke-width="13" stroke-linecap="round" transform="rotate(-90 90 96)" stroke-dasharray="251.4 251.4" stroke-dashoffset="251.4"/></svg></div>
+  <div class="word" id="word"><b>tube</b><i>study</i></div>
+  <div class="tag" id="tag">宿題と成績を、仕組みにする。</div>
+</div>
+
+<!-- S2 出すのは、写真 -->
+<div class="layer" id="L2">
+  <div class="capL" id="cap2"><div class="kk">いつもの紙のまま</div><div class="hh">出すのは、<br>写真だけ。</div><div class="ss">ノートも原稿用紙も、そのまま。<br>撮って出せば、先生の画面にすぐ並ぶ。</div></div>
+  <div class="ph" id="p2" style="left:1180px"><div class="in"><img src="shots2/s-home.png"><img id="p2b" src="shots2/s-stage.png" style="opacity:0"></div>
+    <svg class="ov" viewBox="0 0 390 844"><circle class="rp" id="rp2" r="0" opacity="0"/><circle class="fg" id="fg2" r="15" opacity="0"/></svg>
+    <div class="chip y" id="ch2" style="left:250px;top:738px">出しました ✓</div></div>
+</div>
+
+<!-- S3 先生の朝 -->
+<div class="layer" id="L3">
+  <div class="scr" id="f3"><img src="shots2/t-home.png">
+    <svg class="ov" viewBox="0 0 1440 900"><circle id="pl3" cx="295.5" cy="355" r="106" fill="none" stroke="#F9B900" stroke-width="5" opacity="0"/>
+      <rect class="hl" id="hl3" x="1017" y="355" width="401" height="184" opacity="0"/><circle class="rp" id="rp3" r="0" opacity="0"/><circle class="fg" id="fg3" r="15" opacity="0"/></svg></div>
+  <div class="band" id="bd3"></div>
+  <div class="cap" id="cap3"><div class="kk">先生の朝</div><div class="hh">見るべき宿題が、いちばん上に。</div></div>
+</div>
+
+<!-- S4 宿題チェック -->
+<div class="layer" id="L4">
+  <div class="scr" id="f4"><img src="shots2/t-check-b.png"><img id="f4b" src="shots2/t-check-c.png" style="opacity:0">
+    <svg class="ov" viewBox="0 0 1440 900"><circle class="rp" id="rp4" r="0" opacity="0"/><circle class="fg" id="fg4" r="15" opacity="0"/></svg>
+    <div class="chip" id="ch4a" style="left:1380px;top:800px"><b>4</b>できた</div>
+    <div class="chip" id="ch4b" style="left:1510px;top:800px"><b>5</b>よくできた</div></div>
+  <div class="band" id="bd4"></div>
+  <div class="cap" id="cap4"><div class="kk">宿題チェック</div><div class="hh">写真を見て、数字を押すだけ。</div></div>
+</div>
+
+<!-- S5 添削 -->
+<div class="layer" id="L5">
+  <div class="scr" id="f5"><img src="shots2/t-draw.png">
+    <svg class="ov" viewBox="0 0 1440 900">
+      <path class="ink" id="ink5a" d="M 840 300 c 6 -26 41 -22 44 2 c 2 28 -35 28 -46 4"/>
+      <path class="ink" id="ink5b" d="M 913 383 c 6 10 -6 20 0 30 c 6 10 -6 20 0 30 c 6 10 -6 20 0 30 c 6 10 -6 20 0 30"/>
+      <path class="ink" id="ink5c" d="M 788 499 l 14 18 l 34 -44"/>
+      <path class="ink" id="ink5d" d="M 803 578 c 6 -24 38 -20 40 2 c 2 26 -32 26 -42 4"/>
+      <path class="ink" id="ink5e" d="M 757 652 c 4 -16 26 -14 28 1 c 1 18 -22 18 -29 2 M 749 652 c 6 -26 41 -22 44 2 c 2 28 -35 28 -46 4"/>
+      <circle class="fg" id="pen5" r="6" fill="#D62828" stroke="none" opacity="0"/>
+      <circle class="rp" id="rp5" r="0" opacity="0"/><circle class="fg" id="fg5" r="15" opacity="0"/></svg>
+    <div class="chip" id="ch5" style="left:1190px;top:905px">返しました ✓</div></div>
+  <div class="ph" id="p5" style="left:1300px"><div class="in"><img src="shots2/s-ret.png"></div></div>
+  <div class="band" id="bd5"></div>
+  <div class="cap" id="cap5"><div class="kk">添削</div><div class="hh">iPad で、そのまま赤を入れる。</div></div>
+</div>
+
+<!-- S6 個別の宿題 -->
+<div class="layer" id="L6">
+  <div class="scr" id="f6"><img src="shots2/t-rule.png">
+    <div class="typed" id="ty6"></div>
+    <svg class="ov" viewBox="0 0 1440 900"><circle class="rp" id="rp6" r="0" opacity="0"/><circle class="fg" id="fg6" r="15" opacity="0"/></svg>
+    <div class="chip" id="ch6" style="left:500px;top:734px">中2R-14 に届きました</div></div>
+  <div class="ph" id="p6" style="left:1400px"><div class="in"><img src="shots2/s-notice.png"></div>
+    <svg class="ov" viewBox="0 0 390 844"><circle class="rp" id="rp6b" r="0" opacity="0"/><circle class="fg" id="fg6b" r="15" opacity="0"/></svg>
+    <div class="chip y" id="ch6b" style="left:36px;top:400px">わかった ✓</div></div>
+  <div class="band" id="bd6"></div>
+  <div class="cap" id="cap6"><div class="kk">個別の宿題</div><div class="hh">一人ひとりに、最適な量を。</div></div>
+</div>
+
+<!-- S7 保護者 -->
+<div class="layer" id="L7">
+  <div class="capL" id="cap7"><div class="kk">保護者</div><div class="hh">保護者と、<br>その場で。</div><div class="ss">生徒の端末から、担当の先生へ。<br>返事も、同じところに届く。</div></div>
+  <div class="ph" id="p7a" style="left:800px"><div class="in"><img src="shots2/s-parent-msg.png"><div class="typed" id="ty7"></div></div>
+    <svg class="ov" viewBox="0 0 390 844"><circle class="rp" id="rp7" r="0" opacity="0"/><circle class="fg" id="fg7" r="15" opacity="0"/></svg>
+    <div class="chip" id="ch7" style="left:190px;top:645px">送りました ✓</div></div>
+  <div class="ph" id="p7b" style="left:1322px"><div class="in"><img src="shots2/s-parent-reply.png"></div>
+    <svg class="ov" viewBox="0 0 390 844"><rect class="hl" id="hl7" x="30" y="692" width="330" height="130" opacity="0"/></svg></div>
+</div>
+
+<!-- S8 個人情報 -->
+<div class="layer dark" id="L8">
+  <div class="rec" id="rec8"><div class="rh">サーバにあるもの</div>
+    <div class="rr" id="r8a"><span>氏名</span><i class="bar" style="width:200px"></i><svg><line id="st8a" x1="0" y1="32" x2="600" y2="32"/></svg></div>
+    <div class="rr" id="r8b"><span>住所</span><i class="bar" style="width:330px"></i><svg><line id="st8b" x1="0" y1="32" x2="600" y2="32"/></svg></div>
+    <div class="rr" id="r8c"><span>電話</span><i class="bar" style="width:240px"></i><svg><line id="st8c" x1="0" y1="32" x2="600" y2="32"/></svg></div>
+    <div class="rr" id="r8d"><span>番号</span><b>中2R-07</b></div>
+    <div class="rr" id="r8e"><span>宿題</span><b>数学 5章-2　評価 4</b></div>
+    <div class="rr" id="r8f"><span>提出</span><b>9/12　写真 1枚</b></div>
+    <div class="rr" id="r8g"><span>理解</span><b>68%</b></div>
+    <div class="badge" id="bg8">番号と、記録だけ</div></div>
+  <div class="capD" id="cap8"><div class="hh" id="h8">個人情報を、<br>一切保存しません。</div><div class="ss" id="s8">サーバにあるのは、番号と学びの記録だけ。<br>名前は、塾の手元の名簿にしかありません。</div></div>
+</div>
+
+<!-- S9 手間は減る -->
+<div class="layer" id="L9">
+  <div class="tile" id="t9a" style="left:940px;top:220px"><img src="shots2/t-check-b.png"></div>
+  <div class="tile" id="t9b" style="left:1420px;top:220px"><img src="shots2/t-draw.png"></div>
+  <div class="tile" id="t9c" style="left:940px;top:528px"><img src="shots2/t-rule.png"></div>
+  <div class="tile" id="t9d" style="left:1420px;top:528px"><img src="shots2/t-inbox.png"></div>
+  <div class="capL" id="cap9" style="top:320px;width:810px"><div class="hh" style="font-size:72px;opacity:1"><span id="h9a" style="display:block">手間は、減る。</span><span id="h9b" style="display:block">教える価値は、上がる。</span></div><div class="ss" id="s9" style="font-size:33px">紙も、赤ペンも、先生の目も、そのまま。</div></div>
+</div>
+
+<!-- S10 一言 -->
+<div class="layer" id="L10">
+  <div class="big" id="b10"><span id="b10a">先生の時間を、授業へ。</span><i id="b10b">もっと。</i></div>
+</div>
+
+</div>
+<script src="coords3.js"></script>
+<script>
+'use strict';
+var $ = function(id){ return document.getElementById(id); };
+var clamp = function(x, a, b){ return Math.max(a, Math.min(b, x)); };
+var eo = function(p){ p = clamp(p, 0, 1); return 1 - Math.pow(1 - p, 3); };
+var eio = function(p){ p = clamp(p, 0, 1); return p < .5 ? 4*p*p*p : 1 - Math.pow(-2*p + 2, 3)/2; };
+var back = function(p){ p = clamp(p, 0, 1); var c = 1.4; return 1 + (c + 1) * Math.pow(p - 1, 3) + c * Math.pow(p - 1, 2); };
+var lin = function(t, a, b){ return clamp((t - a) / (b - a), 0, 1); };
+var lerp = function(a, b, p){ return a + (b - a) * p; };
+function set(el, o, x, y, s){
+  el.style.opacity = o;
+  el.style.transform = 'translate(' + (x||0) + 'px,' + (y||0) + 'px) scale(' + (s === undefined ? 1 : s) + ')';
+}
+function layer(id, on){ $(id).style.opacity = on ? 1 : 0; }
+function drawLogo(u, fadeOut){
+  var mark = $('mark'), word = $('word'), tag = $('tag');
+  var pop = back(lin(u, 0, .9));
+  var o = lin(u, 0, .35);
+  set(mark, o, 0, (1 - eo(lin(u,0,.9))) * 40, .55 + .45 * pop);
+  $('ringc').setAttribute('stroke-dashoffset', 251.4 * (1 - eo(lin(u, .5, 1.5))));
+  set(word, eo(lin(u, 1.2, 1.9)), 0, (1 - eo(lin(u, 1.2, 1.9))) * 30, 1);
+  set(tag, eo(lin(u, 1.9, 2.5)), 0, (1 - eo(lin(u, 1.9, 2.5))) * 16, 1);
+  if(fadeOut !== undefined){
+    var q = eio(fadeOut);
+    [mark, word, tag].forEach(function(el){ el.style.opacity = String(parseFloat(el.style.opacity) * (1 - q)); });
+    mark.style.transform += ' scale(' + (1 - .06*q) + ')';
+  }
+}
+/* ---- 画面の寄り／引き ----
+   base: 要素の左上（stage px）。fx,fy: 注目点（要素内 px）。z: 倍率。ax,ay: 注目点を置く stage 上の位置 */
+var TK = 1700 / 1440, PK = 462 / 390;
+function tf(el, base, fx, fy, z, ax, ay){
+  el.style.transform = 'translate(' + (ax - base[0] - fx * z) + 'px,' + (ay - base[1] - fy * z) + 'px) scale(' + z + ')';
+}
+/* p=0 で寄り（z0、注目点は ax0,ay0）、p=1 で引き（等倍、元の位置＋shift） */
+function zoom(el, base, fx, fy, z0, ax0, ay0, p, shift){
+  var z = lerp(z0, 1, p), ax = lerp(ax0, base[0] + fx + (shift || 0), p), ay = lerp(ay0, base[1] + fy, p);
+  tf(el, base, fx, fy, z, ax, ay);
+}
+/* 寄りで現れる：少し大きめから沈む */
+function zoomIn(el, base, fx, fy, z0, ax0, ay0, q){
+  var e = eo(q); el.style.opacity = e;
+  tf(el, base, fx, fy, z0 * (1 + .07 * (1 - e)), ax0, ay0);
+}
+var TB = [110, 9];
+function tpx(x, y){ return [x * TK, y * TK]; }                 /* 講師画面の CSS px → 要素内 px */
+function ppx(x, y){ return [12 + x * PK, 12 + y * PK]; }       /* 生徒画面の CSS px → 要素内 px */
+/* 見出し：中央の大きい状態から左上へ飛ぶ（講師の場面） */
+function capFly(cap, band, u){
+  var w = cap.offsetWidth, h = cap.offsetHeight, S = 1.35;
+  var e = eo(lin(u, -.3, .4)), p = eio(lin(u, .9, 1.7));
+  var sx = 960 - 110 - w * S / 2, sy = 500 - 64 - h * S / 2;
+  cap.style.opacity = e;
+  cap.style.transform = 'translate(' + (sx * (1 - p)) + 'px,' + (sy * (1 - p) + (1 - e) * 30) + 'px) scale(' + lerp(S, 1, p) + ')';
+  band.style.opacity = eo(lin(u, 1.0, 1.6));
+}
+/* 見出し：左に置く（生徒の場面） */
+function capLeft(cap, u){
+  var ks = cap.querySelectorAll('.kk, .hh, .ss'), d = [-.3, -.15, .25];
+  for(var i = 0; i < ks.length; i++){ var p = eo(lin(u, d[i], d[i] + .6)); set(ks[i], p, 0, (1 - p) * 26, 1); }
+}
+function outro(id, u){ $(id).style.opacity = String(parseFloat($(id).style.opacity) * (1 - eio(lin(u, 4.7, 5.0)))); }
+function pathAt(pts, u){
+  var x = pts[0][1], y = pts[0][2];
+  for(var i = 0; i < pts.length - 1; i++){
+    if(u >= pts[i][0]){ var p = eio(lin(u, pts[i][0], pts[i+1][0])); x = pts[i][1] + (pts[i+1][1] - pts[i][1]) * p; y = pts[i][2] + (pts[i+1][2] - pts[i][2]) * p; }
+  }
+  return [x, y];
+}
+/* 指：pts（[時刻,x,y]…）に沿って動き、presses（時刻の配列）で押して波紋を出す */
+function finger(fg, rp, pts, v, presses, show){
+  var xy = pathAt(pts, v), vis = show ? eo(lin(v, pts[0][0], pts[0][0] + .25)) * (1 - eo(lin(v, show[0], show[1]))) : 1;
+  var sc = 1, rr = 0, ro = 0;
+  presses.forEach(function(t){
+    var p = (v - t) / .5;
+    if(p >= 0 && p <= 1){ sc = 1 - .18 * Math.sin(Math.PI * clamp(p * 2, 0, 1)); rr = 6 + 44 * eo(p); ro = (1 - p) * .85; }
+  });
+  fg.setAttribute('transform', 'translate(' + xy[0] + ' ' + xy[1] + ') scale(' + sc + ')'); fg.setAttribute('opacity', vis);
+  rp.setAttribute('cx', xy[0]); rp.setAttribute('cy', xy[1]); rp.setAttribute('r', rr); rp.setAttribute('opacity', ro * vis);
+}
+function chip(el, p){ var q = eo(p); el.style.opacity = q; el.style.transform = 'translate(0px,' + ((1 - q) * 12) + 'px) scale(' + (.85 + .15 * back(p)) + ')'; }
+function typed(el, text, p){ el.textContent = text.slice(0, Math.round(text.length * clamp(p, 0, 1))) + (p > 0 && p < 1 ? '｜' : ''); }
+function inkProgress(id, p){
+  var el = $(id), L = el.getTotalLength();
+  el.setAttribute('stroke-dasharray', L + ' ' + L);
+  el.setAttribute('stroke-dashoffset', String(L * (1 - clamp(p, 0, 1))));
+  return el;
+}
+function pulse(el, v, on){ el.setAttribute('opacity', on ? (.45 + .45 * Math.sin(v * 7)) : 0); }
+
+/* ---- 座標（CSS px、撮ったときの実測） ---- */
+var SUBC = [SUB2[0] + SUB2[2] / 2, SUB2[1] + SUB2[3] / 2];     /* 出す */
+var SEND2 = [132, 641];                                            /* 1まいを送る */
+var RING3 = [295.5, 355], LINK3 = [1342, 505];
+var RATE4 = [1237, 768], RATE5 = [1346, 768];
+var CANV5 = [504, 194, 432, 576], SEND5 = [1171, 818];
+var MSG6 = [294, 514, 852, 68], SAVE6 = [344, 649], OK6 = [82, 368];
+var TXT7 = [46, 512, 298, 122], SEND7 = [97, 674];
+var T6 = '計算ミスが続いているので、次の回だけ計算を5問足します。無理のない量にしてあります。';
+var T7 = '家では計算を急いで解いて、途中の式を飛ばしがちです。授業でも一言いただけると助かります。';
+(function(){  /* 入力欄の上に置く文字（写しの文字を隠して、打っている途中に見せる） */
+  var t6 = $('ty6'); t6.style.left = ((MSG6[0] + 2) * TK) + 'px'; t6.style.top = ((MSG6[1] + 2) * TK) + 'px';
+  t6.style.width = ((MSG6[2] - 4) * TK - 24) + 'px'; t6.style.height = ((MSG6[3] - 4) * TK - 16) + 'px'; t6.style.padding = '8px 12px';
+  t6.style.background = BG_RULE; t6.style.fontSize = (14 * TK) + 'px'; t6.style.borderRadius = '8px';
+  var t7 = $('ty7'); t7.style.left = ((TXT7[0] + 2) * PK) + 'px'; t7.style.top = ((TXT7[1] + 2) * PK) + 'px';
+  t7.style.width = ((TXT7[2] - 4) * PK - 24) + 'px'; t7.style.height = ((TXT7[3] - 4) * PK - 20) + 'px'; t7.style.padding = '10px 12px';
+  t7.style.background = BG_PAR; t7.style.fontSize = (15 * PK) + 'px'; t7.style.borderRadius = '10px';
+})();
+
+/* ---- 場面（1場面 6.25 秒＝10拍。押す・送るは拍の頭）---- */
+var SL = 6.25, OUT0 = 5.85, OUT1 = SL;
+function outro(id, u){ $(id).style.opacity = String(parseFloat($(id).style.opacity) * (1 - eio(lin(u, OUT0, OUT1)))); }
+function S2(u){                                  /* 出すのは、写真 */
+  capLeft($('cap2'), u);
+  var ph = $('p2'), b = [1180, 40], f = ppx(195, 430);
+  var pin = eio(lin(u, 3.9, 4.9));
+  if(u < 3.9) zoomIn(ph, b, f[0], f[1], 1.9, 1330, 540, lin(u, .5, 1.2)); else { ph.style.opacity = 1; zoom(ph, b, f[0], f[1], 1.9, 1330, 540, pin); }
+  $('p2b').style.opacity = eo(lin(u, 2.1, 2.4));
+  finger($('fg2'), $('rp2'), [[1.4, 250, 500], [1.8, SUBC[0], SUBC[1]], [2.6, SUBC[0], SUBC[1]], [3.0, SEND2[0], SEND2[1]]], u, [1.875, 3.125], [3.6, 3.9]);
+  chip($('ch2'), lin(u, 3.4, 3.75));
+  outro('L2', u);
+}
+function S3(u){                                  /* 先生の朝 */
+  capFly($('cap3'), $('bd3'), u);
+  var f = tpx(RING3[0], RING3[1]), pin = eio(lin(u, 2.8, 3.9));
+  if(u < 2.8) zoomIn($('f3'), TB, f[0], f[1], 2.3, 960, 560, lin(u, .8, 1.5)); else { $('f3').style.opacity = 1; zoom($('f3'), TB, f[0], f[1], 2.3, 960, 560, pin); }
+  pulse($('pl3'), u, u > 1.6 && u < 3.2);
+  finger($('fg3'), $('rp3'), [[4.0, 980, 720], [4.7, LINK3[0], LINK3[1]], [7, LINK3[0], LINK3[1]]], u, [5.0], [5.7, 6.0]);
+  $('hl3').setAttribute('opacity', eo(lin(u, 4.5, 4.8)) * (.5 + .5 * eo(lin(u, 5.0, 5.2))));
+  outro('L3', u);
+}
+function S4(u){                                  /* 宿題チェック */
+  capFly($('cap4'), $('bd4'), u);
+  var f = tpx(1034, 640), pin = eio(lin(u, 3.9, 4.9));
+  if(u < 3.9) zoomIn($('f4'), TB, f[0], f[1], 2.0, 960, 540, lin(u, .8, 1.5)); else { $('f4').style.opacity = 1; zoom($('f4'), TB, f[0], f[1], 2.0, 960, 540, pin); }
+  $('f4b').style.opacity = eo(lin(u, 2.7, 2.95));
+  finger($('fg4'), $('rp4'), [[1.45, 1000, 620], [1.8, RATE4[0], RATE4[1]], [2.7, RATE4[0], RATE4[1]], [3.05, RATE5[0], RATE5[1]], [7, RATE5[0], RATE5[1]]], u, [1.875, 3.125], [3.8, 4.1]);
+  chip($('ch4a'), lin(u, 2.1, 2.45) * (1 - lin(u, 2.7, 2.9)));
+  chip($('ch4b'), lin(u, 3.35, 3.7) * (1 - lin(u, 4.3, 4.6)));
+  outro('L4', u);
+}
+function S5(u){                                  /* 添削 */
+  capFly($('cap5'), $('bd5'), u);
+  var f = tpx(800, 490), pin = eio(lin(u, 3.05, 3.6));
+  if(u < 3.05) zoomIn($('f5'), TB, f[0], f[1], 1.9, 960, 560, lin(u, .8, 1.5)); else { $('f5').style.opacity = 1; zoom($('f5'), TB, f[0], f[1], 1.9, 960, 560, pin); }
+  var strokes = [['ink5a', 1.5, 1.9], ['ink5b', 1.95, 2.35], ['ink5c', 2.4, 2.6], ['ink5d', 2.65, 2.95], ['ink5e', 3.0, 3.35]];
+  var pen = $('pen5'), penOn = false;
+  strokes.forEach(function(s){
+    var p = lin(u, s[1], s[2]), el = inkProgress(s[0], p);
+    if(u >= s[1] && u < s[2]){ var pt = el.getPointAtLength(el.getTotalLength() * p); pen.setAttribute('cx', pt.x); pen.setAttribute('cy', pt.y); penOn = true; }
+  });
+  pen.setAttribute('opacity', penOn ? .9 : 0);
+  finger($('fg5'), $('rp5'), [[3.35, 1000, 700], [3.7, SEND5[0], SEND5[1]], [7, SEND5[0], SEND5[1]]], u, [3.75], [4.2, 4.5]);
+  chip($('ch5'), lin(u, 4.0, 4.35));
+  var q = eo(lin(u, 4.2, 4.85)); var ph = $('p5'); ph.style.opacity = q; ph.style.transform = 'translate(' + ((1 - q) * 420) + 'px,0px)';
+  outro('L5', u);
+}
+function S6(u){                                  /* 個別の宿題 */
+  capFly($('cap6'), $('bd6'), u);
+  var f = tpx(720, 450), pin = eio(lin(u, 3.4, 4.0));
+  if(u < 3.4) zoomIn($('f6'), TB, f[0], f[1], 1.7, 960, 560, lin(u, .8, 1.5)); else { $('f6').style.opacity = 1; zoom($('f6'), TB, f[0], f[1], 1.7, 960, 560, pin, -330 * eo(lin(u, 3.8, 4.4))); }
+  typed($('ty6'), T6, lin(u, 1.5, 2.85));
+  finger($('fg6'), $('rp6'), [[2.75, 700, 700], [3.05, SAVE6[0], SAVE6[1]], [7, SAVE6[0], SAVE6[1]]], u, [3.125], [3.6, 3.85]);
+  chip($('ch6'), lin(u, 3.35, 3.7));
+  var q = eo(lin(u, 3.9, 4.5)); var ph = $('p6'); ph.style.opacity = q; ph.style.transform = 'translate(' + ((1 - q) * 460) + 'px,0px)';
+  finger($('fg6b'), $('rp6b'), [[4.5, 200, 520], [4.9, OK6[0], OK6[1]], [8, OK6[0], OK6[1]]], u, [5.0], [5.6, 5.9]);
+  chip($('ch6b'), lin(u, 5.2, 5.5));
+  outro('L6', u);
+}
+function S7(u){                                  /* 保護者 */
+  capLeft($('cap7'), u);
+  var a = $('p7a'), b = [800, 40], f = ppx(195, 560), pin = eio(lin(u, 3.5, 4.3));
+  if(u < 3.5) zoomIn(a, b, f[0], f[1], 1.8, 1300, 540, lin(u, .5, 1.2)); else { a.style.opacity = 1; zoom(a, b, f[0], f[1], 1.8, 1300, 540, pin); }
+  typed($('ty7'), T7, lin(u, 1.3, 2.75));
+  finger($('fg7'), $('rp7'), [[2.65, 260, 600], [3.0, SEND7[0], SEND7[1]], [8, SEND7[0], SEND7[1]]], u, [3.125], [3.6, 3.85]);
+  chip($('ch7'), lin(u, 3.35, 3.7));
+  var q = eo(lin(u, 4.0, 4.6)); var pb = $('p7b'); pb.style.opacity = q; pb.style.transform = 'translate(' + ((1 - q) * 440) + 'px,0px)';
+  pulse($('hl7'), u, u > 4.6);
+  outro('L7', u);
+}
+function S8(u){                                  /* 個人情報 */
+  var rec = $('rec8'); var e = eo(lin(u, -.2, .6)); set(rec, e, 0, (1 - e) * 50, .97 + .03 * e);
+  var rows = ['r8a', 'r8b', 'r8c', 'r8d', 'r8e', 'r8f', 'r8g'];
+  rows.forEach(function(id, i){
+    var el = $(id), p = eo(lin(u, .3 + i * .14, .75 + i * .14));
+    el.style.opacity = p; el.style.transform = 'translate(' + ((1 - p) * 30) + 'px,0px)';
+  });
+  ['st8a', 'st8b', 'st8c'].forEach(function(id, i){
+    var el = $(id), p = eo(lin(u, 1.65 + i * .22, 2.0 + i * .22));
+    el.setAttribute('x2', String(640 * p)); el.setAttribute('opacity', p > 0 ? 1 : 0);
+  });
+  ['r8a', 'r8b', 'r8c'].forEach(function(id, i){
+    var el = $(id), q = eio(lin(u, 2.6 + i * .1, 3.1 + i * .1));
+    el.style.height = (72 * (1 - q)) + 'px'; el.style.opacity = String(parseFloat(el.style.opacity) * (1 - q)); el.style.transform = 'translate(' + (-60 * q) + 'px,0px)';
+    el.style.borderTopWidth = q > .95 ? '0px' : '1px';
+  });
+  chip($('bg8'), lin(u, 3.3, 3.65));
+  var h = $('h8'), s = $('s8'), hp = eo(lin(u, 2.5, 3.2)), sp = eo(lin(u, 3.1, 3.8));
+  set(h, hp, 0, (1 - hp) * 30, 1); set(s, sp, 0, (1 - sp) * 20, 1);
+  outro('L8', u);
+}
+function S9(u){                                  /* 手間は減る */
+  ['t9a', 't9b', 't9c', 't9d'].forEach(function(id, i){
+    var el = $(id), t0 = -.1 + i * .25, p = eo(lin(u, t0, t0 + .75)), d = clamp(u - 1.6, 0, 4.2) / 4.2;
+    el.style.opacity = p; el.style.transform = 'translate(' + ((1 - p) * 140 + d * 14) + 'px,' + ((1 - p) * 20) + 'px) scale(' + (lerp(1.06, 1, p) - .03 * d) + ')';
+  });
+  var a = eo(lin(u, .9, 1.5)), b = eo(lin(u, 1.9, 2.5)), c = eo(lin(u, 3.0, 3.6));
+  set($('h9a'), a, 0, (1 - a) * 26, 1); set($('h9b'), b, 0, (1 - b) * 26, 1); set($('s9'), c, 0, (1 - c) * 18, 1);
+  outro('L9', u);
+}
+function S10(u){                                 /* 先生の時間を、授業へ。もっと。 */
+  var a = eo(lin(u, 0, .8)), m = back(lin(u, 1.25, 1.7)), mo = eo(lin(u, 1.25, 1.5));
+  set($('b10a'), a, 0, (1 - a) * 24, 1);
+  $('b10b').style.opacity = mo; $('b10b').style.transform = 'translate(0px,' + ((1 - mo) * 20) + 'px) scale(' + (.8 + .2 * m) + ')';
+  $('b10').style.transform = 'translateY(-50%) scale(' + (1 + .012 * clamp(u, 0, 3.5)) + ')';
+  $('L10').style.opacity = 1 - eio(lin(u, 3.0, 3.5));
+}
+var SCENES = [['L2', S2], ['L3', S3], ['L4', S4], ['L5', S5], ['L6', S6], ['L7', S7], ['L8', S8], ['L9', S9]].map(function(s, i){ return [s[0], 3.4 + i * SL, s[1]]; });
+var T10 = 3.4 + 8 * SL, TLOGO = T10 + 3.5, TEND = TLOGO + 5.1;     /* 53.4 / 56.9 / 62.0 */
+window.seek = function(t){
+  ['L1','L2','L3','L4','L5','L6','L7','L8','L9','L10'].forEach(function(id){ layer(id, false); });
+  if(t < 3.4){ layer('L1', true); drawLogo(t, t > 2.9 ? lin(t, 2.9, 3.4) : undefined); }
+  SCENES.forEach(function(s){ var u = t - s[1]; if(u >= -.3 && u < SL){ layer(s[0], true); s[2](u); } });
+  if(t >= T10 - .3 && t < TLOGO){ layer('L10', true); S10(t - T10); }
+  if(t >= TLOGO){ layer('L1', true); var u = t - TLOGO; drawLogo(u + .4, t > TEND - .6 ? lin(t, TEND - .6, TEND) : undefined); }
+};
+window.ready = Promise.all([].map.call(document.images, function(im){ return (im.decode ? im.decode() : Promise.resolve()).catch(function(){}); }));
+seek(0);
+</script></body></html>

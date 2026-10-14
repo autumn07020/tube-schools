@@ -1,0 +1,115 @@
+/* 英語 中1 ―― 英→日・日→英・英語の設問・短い読解の4つ。すべて単元つき
+
+   **このファイルは app/tools/gen_content.py が書き出したもの。**
+   手で直さないこと。直すなら生成側を直して作り直す。
+   （手書きに戻すと他言語の字が混ざる。実際に35箇所まぎれ込んだ）
+
+   T（用語）  [表, 裏, 帯, 解説, 例, 例の補足]
+   Q（選択）  [問題文, 正解, 誤答(|区切り), 帯, 解説]  */
+(function(){
+"use strict";
+
+var T = [
+["answer（n）","答え","中1","動詞では「答える」。前置詞は要らない。","Your answer is correct.","あなたの答えは正しい。"],
+["question（n）","質問","中1","","May I ask a question?","質問してもいいですか。"],
+["world（n）","世界","中1","","He wants to travel around the world.","彼は世界中を旅したい。"],
+["problem（n）","問題、困ったこと","中1","試験の問題は question。","We solved the problem.","私たちはその問題を解決した。"],
+["idea（n）","考え、思いつき","中1","","That is a good idea.","それはよい考えだ。"],
+["place（n）","場所","中1","","This is a quiet place.","ここは静かな場所だ。"],
+["future（n）","未来","中1","","Think about your future.","自分の将来を考えなさい。"],
+["language（n）","言語","中1","","English is a world language.","英語は世界の言語だ。"],
+["member（n）","一員、部員","中1","","I am a member of the tennis club.","私はテニス部の部員だ。"],
+["holiday（n）","休日","中1","","We have a holiday tomorrow.","明日は休日だ。"],
+["careful（adj）","注意深い","中1","be careful of で「〜に気をつける」。","Be careful with the knife.","ナイフに気をつけて。"],
+["different（adj）","ちがう","中1","比べる相手には from を使う。","My idea is different from yours.","私の考えはあなたのとちがう。"],
+["important（adj）","大切な","中1","","Sleep is important for children.","睡眠は子どもに大切だ。"],
+["interesting（adj）","おもしろい","中1","人が「興味がある」は interested。","This story is interesting.","この話はおもしろい。"],
+["quiet（adj）","静かな","中1","","Please be quiet in the library.","図書館では静かにしてください。"],
+["ready（adj）","用意ができた","中1","","Are you ready to go?","行く準備はできましたか。"],
+["bring（v）","持ってくる","中1","take は持っていく。方向が逆。","Bring your notebook tomorrow.","明日ノートを持ってきなさい。"],
+["take（v）","取る、（時間が）かかる","中1","","It takes ten minutes by bus.","バスで10分かかる。"],
+["choose（v）","選ぶ","中1","過去形は chose。","Choose one from these three.","この3つから1つ選びなさい。"],
+["stay（v）","とどまる、泊まる","中1","","I stayed at my uncle's house.","私はおじの家に泊まった。"],
+["wait（v）","待つ","中1","待つ相手には for。wait me とは言わない。","Wait for me at the gate.","門のところで待っていて。"],
+["arrive（v）","着く","中1","大きな場所には in、狭い場所には at。","We arrived at the station at six.","私たちは6時に駅に着いた。"],
+["belong（v）","所属する","中1","belong to の形で使う。進行形にしない。","I belong to the brass band.","私は吹奏楽部に入っている。"],
+["borrow（v）","借りる","中1","lend は貸す。逆にしない。","May I borrow your pen?","ペンを借りてもいいですか。"],
+["carry（v）","運ぶ","中1","","He carried the heavy box.","彼は重い箱を運んだ。"],
+["decide（v）","決める","中1","後ろは to do。","She decided to study abroad.","彼女は留学することを決めた。"],
+["explain（v）","説明する","中1","説明する相手には to。explain me とは言わない。","Please explain this to me.","これを私に説明してください。"],
+["invite（v）","招く","中1","","They invited us to the party.","彼らは私たちをパーティーに招いた。"],
+["practise（v）","練習する","中1","英国式の綴り。米国式は practice。","We practise the piano every day.","私たちは毎日ピアノを練習する。"],
+["remember（v）","思い出す、覚えている","中1","","I remember his face.","私は彼の顔を覚えている。"],
+["almost（adv）","ほとんど","中1","","It is almost seven.","もうすぐ7時だ。"],
+["early（adv）","早く","中1","時刻が早い。速さが速いのは fast。","He gets up early.","彼は早く起きる。"],
+["enough（adv）","十分に","中1","形容詞の**後ろ**に置く（old enough）。","This room is big enough.","この部屋は十分に広い。"],
+["perhaps（adv）","たぶん","中1","","Perhaps she is at home.","たぶん彼女は家にいる。"],
+["during（prep）","〜の間ずっと","中1","後ろは名詞。while の後ろは文。","I read three books during the holiday.","休みの間に3冊読んだ。"],
+["without（prep）","〜なしで","中1","","He left without a word.","彼は何も言わずに去った。"],
+];
+
+var Q = [
+["「答え」を英語で書くと？","answer","anser|ansewr|answar","中1","w は読まないが書く。","一般動詞"],
+["「質問」を英語で書くと？","question","questoin|quesion|questien","中1","","疑問詞"],
+["「問題、困ったこと」を英語で書くと？","problem","ploblem|probrem|problum","中1","試験の問題は question。","一般動詞"],
+["「考え、思いつき」を英語で書くと？","idea","aidea|idia|ideea","中1","","一般動詞"],
+["「場所」を英語で書くと？","place","prace|plase|plece","中1","","be動詞"],
+["「言語」を英語で書くと？","language","langage|languege|langauge","中1","","一般動詞"],
+["「注意深い」を英語で書くと？","careful","carefull|carful|carefuly","中1","-ful の l は1つ。","be動詞"],
+["「ちがう」を英語で書くと？","different","diffrent|diferent|differrent","中1","","be動詞"],
+["「大切な」を英語で書くと？","important","inportant|importent|importante","中1","","be動詞"],
+["「おもしろい」を英語で書くと？","interesting","intresting|interested|interestting","中1","人が興味を持つのは interested。","be動詞"],
+["「持ってくる」を英語で書くと？","bring","take|bling|bringu","中1","take は持っていく。","一般動詞"],
+["「選ぶ」を英語で書くと？","choose","chose|choise|chuse","中1","chose は過去形。","一般動詞"],
+["「待つ」を英語で書くと？","wait","weit|wate|waite","中1","","一般動詞"],
+["「着く」を英語で書くと？","arrive","arive|arrave|ariive","中1","r を2つ重ねる。","一般動詞"],
+["「借りる」を英語で書くと？","borrow","lend|borow|barrow","中1","lend は貸す。逆にしない。","一般動詞"],
+["「運ぶ」を英語で書くと？","carry","cary|carrie|kerry","中1","","一般動詞"],
+["「決める」を英語で書くと？","decide","deside|deside|decid","中1","","一般動詞"],
+["「説明する」を英語で書くと？","explain","explane|expalin|exprain","中1","","一般動詞"],
+["「招く」を英語で書くと？","invite","invaite|invaite|envite","中1","","一般動詞"],
+["「思い出す、覚えている」を英語で書くと？","remember","rememver|remenber|remembar","中1","","一般動詞"],
+["「早く（時刻が）」を英語で書くと？","early","fast|erly|earlly","中1","速さが速いのは fast。","3人称単数のs"],
+["「十分に」を英語で書くと？","enough","enouph|enogh|inough","中1","gh は読まない。","be動詞"],
+["「〜の間ずっと」を英語で書くと？","during","while|dueing|durring","中1","後ろが名詞なら during、文なら while。","前置詞"],
+["「〜なしで」を英語で書くと？","without","with out|withought|witout","中1","","前置詞"],
+["She ___ to music now.","is listening","listens|listen|listened","中1","now があるので現在進行形。","現在進行形"],
+["They ___ soccer at three yesterday.","were playing","are playing|play|plays","中1","過去の一点なので過去進行形。","現在進行形"],
+["He ___ not have a bike.","does","do|is|are","中1","he なので does。","3人称単数のs"],
+["My brother ___ English very well.","speaks","speak|speaking|is speak","中1","","3人称単数のs"],
+["___ does she study?","Where","What|Who|Whose","中1","場所をたずねる。","疑問詞"],
+["___ bag is this?","Whose","Who|Who is|Which","中1","持ち主をたずねるのは Whose。","疑問詞"],
+["I have three ___.","boxes","boxs|box|boxies","中1","x で終わる語は es を付ける。","複数形"],
+["There are many ___ in the garden.","leaves","leafs|leafes|leaf","中1","f を v に変えて es。","複数形"],
+["I ___ swim when I was five.","could","can|am able|could to","中1","過去の能力は could。","助動詞can"],
+["___ I use your pen?","May","Do|Am|Are","中1","許可を求める言い方。","助動詞can"],
+["Wait ___ me at the gate.","for","to|at|on","中1","wait for が決まった形。","一般動詞"],
+["We arrived ___ the station at six.","at","to|in to|on","中1","狭い場所には at。","一般動詞"],
+["Please explain this ___ me.","to","for|at|with","中1","explain me とは言わない。","一般動詞"],
+["She decided ___ abroad.","to study","studying|study|studied","中1","decide の後ろは to do。","一般動詞"],
+["My idea is different ___ yours.","from","with|to|of","中1","","be動詞"],
+["This room is big ___.","enough","enough big|too|very","中1","enough は形容詞の後ろ。","be動詞"],
+["I read three books ___ the holiday.","during","while|when|for during","中1","後ろが名詞なので during。","前置詞"],
+["He left ___ a word.","without","with no|not|no","中1","","前置詞"],
+["She is good ___ playing the piano.","at","in|on|for","中1","","現在進行形"],
+["Look! It ___ outside.","is raining","rains|rained|rain","中1","Look! があるので今の話。","現在進行形"],
+["Read. Sam is a member of the tennis club. He practises after school every day except Wednesday. On Wednesday he helps at his father's shop. Question: What does Sam do on Wednesday?","He helps at his father's shop.","He practises tennis.|He stays at school.|He visits his uncle.","中1","","読む"],
+["Read. Our class went to a farm last week. We saw twenty cows and many chickens. The farmer explained how to milk a cow. Question: Who explained how to milk a cow?","The farmer.","Our teacher.|A student.|Sam's father.","中1","","読む"],
+["Read. Ken wanted to buy a new bike, but it was too expensive. He decided to save money for six months. Question: Why did Ken decide to save money?","Because the bike was too expensive.","Because he lost his bike.|Because his father told him to.|Because he wanted a new bag.","中1","","読む"],
+["Read. The train leaves at 7:15. It takes forty minutes to the city. Question: What time does the train arrive in the city?","At 7:55.","At 7:15.|At 8:15.|At 7:40.","中1","40分後なので 7:55。","読む"],
+["Read. Emi is learning the piano. She practises for thirty minutes every morning before school. Question: When does Emi practise the piano?","Before school in the morning.","After school.|At night.|Only on Sunday.","中1","","読む"],
+["Read. It was raining, so the game was cancelled. The players went home. Question: Why was the game cancelled?","Because it was raining.","Because the players were tired.|Because it was late.|Because nobody came.","中1","","読む"],
+["Read. Our school has 480 students. About half of them come by bus. Question: About how many students come by bus?","About 240.","About 480.|About 120.|About 80.","中1","","読む"],
+["Read. Mr Green is from Canada. He has taught English here for three years. Question: How long has Mr Green taught here?","For three years.","Since Canada.|For three months.|Since last year.","中1","","読む"],
+];
+
+TubeContent.register({
+  id:      'english/j1',
+  subject: 'english',
+  name:    '英語 中1',
+  note:    '英→日・日→英・英語の設問・短い読解の4つ。すべて単元つき',
+  bands:   ['中1'],
+  T:T, Q:Q
+});
+
+})();

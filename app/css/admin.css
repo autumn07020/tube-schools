@@ -1,0 +1,296 @@
+/* TUBE study 管理ページ。入口の app.css は読まない（名前の衝突を作らない）。
+   決めごとは同じ：線を引かない／面は地との明度差・影・上辺の光で立たせる／色は青と黄だけ／
+   見出しは日本語だけ／押せるものは 44px 以上で、押したら沈む。 */
+:root{
+  --bg:#EFEFF3; --surface:#FFFFFF; --sunk:#E4E4EA; --soft:#F5F5F8;
+  --text:#17150F; --text2:#6B655D; --text3:#98928B;
+  --accent:#005BAC; --accent-soft:#E7F0FA; --accent-dim:#4A8BC7;
+  --accent2:#F9B900; --accent2-soft:#FEF0C3; --accent2-text:#8A5A00;
+  --hi:inset 0 1px 0 rgba(255,255,255,.9);
+  --shadow:0 0 0 .5px rgba(23,21,15,.07), 0 1px 2px rgba(23,21,15,.07), 0 12px 30px -14px rgba(23,21,15,.32);
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","Hiragino Sans","Yu Gothic UI","Noto Sans JP",sans-serif;
+  --jp:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Yu Gothic","Noto Sans JP",-apple-system,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0; background:var(--bg)}
+body{color:var(--text); font-family:var(--jp); font-size:16px; line-height:1.6;
+  -webkit-text-size-adjust:100%; -webkit-font-smoothing:antialiased}
+body::before{content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background:radial-gradient(900px 520px at 0% 0%, rgba(249,185,0,.10), transparent 60%),
+             radial-gradient(1000px 640px at 100% 100%, rgba(0,91,172,.10), transparent 60%)}
+h1,h2,h3,p{margin:0}
+button,input,select,textarea{font:inherit; color:inherit}
+button{cursor:pointer; -webkit-tap-highlight-color:transparent}
+.num{font-family:var(--sans); font-variant-numeric:tabular-nums}
+.mono{font-family:var(--mono); font-size:.95em; letter-spacing:.01em}
+.dim{color:var(--text2)}
+.small{font-size:13px; color:var(--text2)}
+
+/* 上の帯 */
+#top{position:sticky; top:0; z-index:20; background:rgba(239,239,243,.86);
+  -webkit-backdrop-filter:saturate(1.6) blur(16px); backdrop-filter:saturate(1.6) blur(16px)}
+.bar{max-width:1180px; margin:0 auto; padding:14px 20px 0; display:flex; align-items:flex-end; gap:14px; flex-wrap:wrap}
+.brand{font-size:24px; letter-spacing:-.03em; line-height:1; font-family:var(--sans)}
+.brand b{font-weight:700; color:var(--accent)}
+.brand i{font-style:normal; font-weight:300; color:var(--accent2)}
+.bar .where{font-size:15px; font-weight:600; line-height:1}
+.bar .who{margin-left:auto; display:flex; align-items:center; gap:4px; font-size:13px; color:var(--text2); line-height:1}
+.tabs{max-width:1180px; margin:0 auto; padding:12px 20px 18px; display:flex; gap:6px; overflow-x:auto; scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none; border:0; background:transparent; min-height:44px; padding:0 16px; border-radius:999px;
+  font-size:15px; font-weight:500; color:var(--text2); white-space:nowrap; transition:transform .25s, background .25s, color .25s}
+.tab.on{background:var(--surface); color:var(--accent); font-weight:600; box-shadow:var(--hi), var(--shadow)}
+.tab .n{display:inline-block; min-width:20px; margin-left:6px; padding:0 6px; border-radius:999px; font-size:12px;
+  line-height:20px; background:var(--accent2); color:var(--text); font-family:var(--sans); font-weight:600}
+
+main{max-width:1180px; margin:0 auto; padding:2px 20px 96px}
+.sect{margin:26px 0 12px; display:flex; align-items:baseline; gap:12px; flex-wrap:wrap}
+.sect h2{font-size:26px; font-weight:600; letter-spacing:-.03em; line-height:1.2}
+.sect h3{font-size:18px; font-weight:600; letter-spacing:-.02em}
+.sect .right{margin-left:auto}
+
+/* 面 */
+.card{background:var(--surface); border-radius:22px; padding:20px 22px; box-shadow:var(--hi), var(--shadow)}
+.grid{display:grid; gap:14px; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr))}
+.grid.wide{grid-template-columns:repeat(auto-fill, minmax(320px, 1fr))}
+button.card{border:0; text-align:left; width:100%; display:flex; flex-direction:column; align-items:flex-start; justify-content:flex-start; transition:transform .3s}
+@media (hover:hover){ button.card:hover{transform:scale(1.02)} }
+button.card:active, .btn:active, .tab:active, .step:active{transform:scale(.97)}
+
+/* 次にやること（画面に1つだけの濃い面） */
+.hero{border-radius:26px; padding:26px 28px; color:#17150F; display:flex; align-items:center; gap:20px; flex-wrap:wrap;
+  background:linear-gradient(135deg, #FFE38A 0%, #FCEFC2 26%, #DCEBFA 62%, #B9D7F5 100%);
+  box-shadow:var(--hi), 0 0 0 .5px rgba(10,79,143,.18), 0 1px 2px rgba(10,79,143,.16), 0 16px 36px -18px rgba(10,79,143,.5)}
+.hero .k{font-size:13px; font-weight:600; color:var(--accent)}
+.hero .t{font-size:24px; font-weight:600; letter-spacing:-.02em; line-height:1.35; margin-top:2px}
+.hero .s{font-size:14px; color:#4a4438; margin-top:4px}
+.hero .go{margin-left:auto}
+.hero.calm{background:var(--surface); box-shadow:var(--hi), var(--shadow)}
+
+/* 数の札 */
+.tile .k{font-size:13px; color:var(--text2)}
+.tile .v{font-family:var(--sans); font-size:40px; font-weight:600; letter-spacing:-.03em; line-height:1.1; margin-top:4px}
+.tile .v small{font-size:15px; font-weight:500; color:var(--text2); letter-spacing:0; margin-left:4px}
+.tile .s{font-size:13px; color:var(--text2); margin-top:4px}
+
+/* 席の点（1席＝1点）。塗り＝使っている、輪＝まだ、薄い＝在籍終了 */
+.dots{display:flex; flex-wrap:wrap; gap:4px; margin-top:12px}
+.dots i{width:10px; height:10px; border-radius:50%; background:var(--sunk)}
+.dots i.live{background:var(--accent)}
+.dots i.left{background:transparent; box-shadow:inset 0 0 0 1.5px var(--sunk)}
+.key{display:flex; gap:14px; flex-wrap:wrap; font-size:12px; color:var(--text2); margin:4px 0 0}
+.key span{display:inline-flex; align-items:center; gap:6px}
+.key i{width:10px; height:10px; border-radius:50%; background:var(--sunk); display:inline-block}
+.key i.live{background:var(--accent)}
+.key i.left{background:transparent; box-shadow:inset 0 0 0 1.5px var(--sunk)}
+.cls .nm{font-size:20px; font-weight:600; letter-spacing:-.02em}
+.cls .ct{font-family:var(--sans); font-size:15px; color:var(--text2)}
+.cls .ct b{font-size:30px; font-weight:600; color:var(--text); letter-spacing:-.03em; margin-right:2px}
+
+/* ボタン */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:44px; padding:0 18px;
+  border:0; border-radius:14px; background:var(--accent); color:#fff; font-size:15px; font-weight:600;
+  transition:transform .3s, background .2s; white-space:nowrap}
+.btn.soft{background:var(--sunk); color:var(--text)}
+.btn.warm{background:var(--accent2); color:var(--text)}
+.btn.arm{background:#17150F; color:#fff}
+.btn[disabled]{background:var(--sunk); color:var(--text3); cursor:default}
+.btn.sm{min-height:44px; padding:0 14px; font-size:14px; border-radius:12px}
+.lnk{border:0; background:none; min-height:44px; padding:0 10px; font-size:14px; font-weight:600; color:var(--accent); border-radius:12px}
+.lnk:active{background:var(--accent-soft)}
+
+/* 行（面の中。影は付けない） */
+.rows{display:grid; gap:6px; margin-top:12px}
+.row{background:var(--soft); border-radius:16px; padding:8px 8px 8px 16px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; min-height:56px}
+.row .no{font-family:var(--sans); font-size:18px; font-weight:600; width:34px}
+.row .id{min-width:92px}
+.row .grow{flex:1; min-width:120px}
+.row .acts{display:flex; gap:6px; flex-wrap:wrap; margin-left:auto}
+.row.left{opacity:.6}
+.word{display:inline-flex; align-items:center; min-height:26px; padding:0 10px; border-radius:999px; font-size:13px; font-weight:600;
+  background:var(--sunk); color:var(--text2); white-space:nowrap}
+.word.live, .word.u2, .word.u3, .word.u4{background:var(--accent-soft); color:var(--accent)}
+.word.u4{background:var(--accent); color:#fff}
+.word.u1{background:var(--accent-soft); color:var(--accent-dim)}
+.word.warm{background:var(--accent2-soft); color:var(--accent2-text)}
+.more{flex-basis:100%; display:flex; gap:6px; flex-wrap:wrap; padding:4px 0 6px}
+
+/* 表（コース） */
+.tbl{display:grid; gap:6px; margin-top:12px}
+.tr{background:var(--surface); border-radius:16px; padding:6px 8px 6px 18px; min-height:56px; display:grid; align-items:center; gap:12px;
+  grid-template-columns:minmax(150px,1.2fr) minmax(120px,1fr) minmax(200px,1.6fr); box-shadow:var(--hi), var(--shadow)}
+.tr.prov{grid-template-columns:minmax(120px,1fr) 130px minmax(140px,1fr) minmax(150px,1.2fr) minmax(110px,1fr)}
+.tr .nm{font-weight:600}
+.th{padding:0 10px 0 18px; display:grid; gap:12px; font-size:12px; color:var(--text2);
+  grid-template-columns:minmax(150px,1.2fr) minmax(120px,1fr) minmax(200px,1.6fr)}
+.th.prov{grid-template-columns:minmax(120px,1fr) 130px minmax(140px,1fr) minmax(150px,1.2fr) minmax(110px,1fr)}
+.chips{display:flex; gap:6px; flex-wrap:wrap; align-items:center}
+.chipx{display:inline-flex; align-items:center; gap:6px; min-height:44px; padding:0 6px 0 12px; border-radius:999px;
+  background:var(--accent-soft); color:var(--accent); font-size:14px; font-weight:600; border:0}
+.chipx::after{content:"外す"; font-size:11px; font-weight:600; color:var(--accent-dim); background:#fff; border-radius:999px; padding:3px 8px}
+select, input[type="text"], input[type="password"], input[type="number"], textarea{
+  border:0; background:var(--sunk); border-radius:12px; min-height:44px; padding:0 12px; font-size:16px; outline:none}
+select:focus, input:focus, textarea:focus{box-shadow:0 0 0 3px rgba(0,91,172,.22)}
+textarea{width:100%; min-height:220px; padding:12px; font-family:var(--mono); font-size:13px; line-height:1.6; resize:vertical}
+input[type="number"]{width:84px; text-align:center; font-family:var(--sans)}
+@media (max-width:820px){
+  .tr, .tr.prov{grid-template-columns:1fr; gap:6px; padding:14px 16px}
+  .th, .th.prov{display:none}
+}
+
+/* 紙 */
+.shade{position:fixed; inset:0; z-index:40; background:rgba(23,21,15,.34); -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px);
+  animation:fade .3s both}
+.sheet{position:fixed; z-index:41; left:50%; top:50%; width:min(760px, calc(100vw - 24px)); max-height:min(86vh, 900px);
+  transform:translate(-50%,-50%); background:var(--bg); border-radius:26px; overflow:auto; padding:22px 22px 26px;
+  box-shadow:0 0 0 .5px rgba(23,21,15,.08), 0 24px 70px rgba(0,0,0,.24); animation:sheet .45s cubic-bezier(.2,.8,.2,1) both}
+.sheet .hd{display:flex; align-items:center; gap:12px; margin-bottom:6px}
+.sheet .hd h2{font-size:24px; font-weight:600; letter-spacing:-.03em}
+.sheet .hd .x{margin-left:auto; min-height:44px; padding:0 16px; border:0; border-radius:999px; background:var(--sunk); font-size:14px; font-weight:600; color:var(--text2); white-space:nowrap}
+.tool{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:14px 0 4px}
+@keyframes fade{from{opacity:0} to{opacity:1}}
+@keyframes sheet{from{opacity:0; transform:translate(-50%,-50%) scale(.94)} to{opacity:1; transform:translate(-50%,-50%) scale(1)}}
+@media (max-width:640px){
+  .sheet{left:0; right:0; top:auto; bottom:0; width:100%; max-height:92vh; transform:none; border-radius:26px 26px 0 0; animation:up .45s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes up{from{opacity:0; transform:scale(.96)} to{opacity:1; transform:none}}
+}
+
+/* いま作った合言葉（この画面を閉じると、もう読めない） */
+.fresh{background:linear-gradient(135deg, #FFF3C9, #FFFBEA 60%); border-radius:22px; padding:18px 20px; margin:12px 0;
+  box-shadow:var(--hi), 0 0 0 .5px rgba(138,90,0,.18), 0 12px 30px -16px rgba(138,90,0,.45)}
+.fresh h3{font-size:18px; font-weight:600}
+.fresh table{border-collapse:collapse; margin:10px 0; width:100%}
+.fresh td{padding:6px 12px 6px 0; font-size:15px; vertical-align:baseline}
+.fresh td.pw{font-family:var(--mono); font-size:16px; font-weight:600; letter-spacing:.02em; word-break:break-all}
+
+/* 入口 */
+.gate{max-width:420px; margin:9vh auto 0}
+.gate .brand{font-size:34px; text-align:center; display:block; margin-bottom:6px}
+.gate .sub{text-align:center; color:var(--text2); font-size:14px; margin-bottom:18px}
+.gate label{display:block; margin-bottom:14px}
+.gate label span{display:block; font-size:13px; color:var(--text2); margin-bottom:6px}
+.gate input{width:100%}
+.gate .btn{width:100%; margin-top:4px}
+.msg{margin-top:12px; padding:12px 14px; border-radius:14px; background:var(--accent2-soft); color:var(--accent2-text); font-size:14px; white-space:pre-wrap}
+
+/* 報告 */
+.rep{display:flex; gap:14px; align-items:flex-start; flex-wrap:wrap}
+.rep .tx{flex:1; min-width:220px; font-size:16px; white-space:pre-wrap; word-break:break-word}
+.rep .mt{font-size:12px; color:var(--text2); margin-top:6px}
+.rep.done{opacity:.55}
+.seg{display:inline-flex; background:var(--sunk); border-radius:999px; padding:3px}
+.seg button{border:0; background:transparent; min-height:44px; padding:0 14px; border-radius:999px; font-size:14px; font-weight:600; color:var(--text2)}
+.seg button.on{background:var(--surface); color:var(--accent); box-shadow:var(--shadow)}
+.off{opacity:.55}
+.empty{padding:40px 10px; text-align:center; color:var(--text2)}
+
+#toast{position:fixed; left:50%; bottom:28px; transform:translate(-50%,14px); z-index:90; opacity:0; pointer-events:none;
+  background:#17150F; color:#fff; padding:12px 18px; border-radius:14px; font-size:14px; max-width:min(560px, calc(100vw - 32px));
+  transition:opacity .3s, transform .3s; white-space:pre-wrap}
+#toast.on{opacity:1; transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){ *{animation:none !important; transition:none !important} }
+
+/* まだ席のないクラス（小さく、下に） */
+.spares{display:flex; gap:8px; flex-wrap:wrap}
+.main-pad{height:8px}
+.paperline{display:flex; gap:10px; align-items:center; flex-wrap:wrap; padding:8px 4px 0}
+/* 電話の幅では、札を2列に（1列だと10人ぶんで長くなる） */
+@media (max-width:520px){
+  .grid{grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:10px}
+  .grid.wide{grid-template-columns:1fr}
+  .card{padding:16px 16px}
+  .hero{padding:20px}
+  .hero .t{font-size:20px}
+  .hero .go{margin-left:0}
+  .tile .v{font-size:32px}
+  main{padding:2px 14px 96px}
+  .bar, .tabs{padding-left:14px; padding-right:14px}
+}
+
+/* リンク（長い。折り返す） */
+.fresh td.pw.lk{font-size:12.5px; font-weight:500; letter-spacing:0; line-height:1.5}
+.cls .word{margin-top:8px}
+
+/* ==== カード（切って配る。A4 に 2列×5段） ==== */
+#print{display:none}
+.cprev{margin-top:10px; overflow-x:auto}
+.pcards{display:grid; grid-template-columns:repeat(2, 90mm); gap:4mm; width:max-content}
+.pcard{width:90mm; height:54mm; box-sizing:border-box; padding:5mm 5mm 4mm 6mm; background:#fff; border-radius:3mm; display:flex; gap:4mm;
+  color:#17150F; box-shadow:var(--shadow); break-inside:avoid; page-break-inside:avoid; overflow:hidden}
+.pc-l{flex:1; min-width:0; display:flex; flex-direction:column}
+.pc-b{display:flex; align-items:baseline; gap:3mm; margin-bottom:2mm}
+.pc-b .brand{font-size:5mm}
+.pc-lab{font-size:3.2mm; font-weight:600; color:#6B655D; white-space:nowrap}
+.pc-k{font-size:2.6mm; color:#6B655D; margin-top:1.4mm}
+.pc-v{font-family:var(--mono); font-size:4.6mm; font-weight:700; line-height:1.25; word-break:normal; overflow-wrap:normal}
+.pc-pw{font-size:3.9mm}
+.pc-pw.long{font-size:3.3mm}
+.pc-u{margin-top:auto; font-size:2.8mm; color:#005BAC; font-weight:600; font-family:var(--sans)}
+.pc-r{width:30mm; flex:none; display:flex; flex-direction:column; align-items:center; justify-content:center}
+.pc-r svg{width:30mm; height:30mm}
+.pc-h{font-size:2.4mm; line-height:1.4; color:#6B655D; text-align:center; margin-top:1mm}
+@media print{
+  @page{size:A4 portrait; margin:12mm 13mm}
+  html, body{background:#fff !important}
+  body::before{display:none}
+  body > *:not(#print){display:none !important}
+  #print{display:block !important}
+  .pcard{box-shadow:none; border:0.2mm dashed #9a9a9a; border-radius:0}      /* 切る所だけ、点線（刷るときだけ） */
+  .pcards{gap:0}
+}
+textarea.short{min-height:120px}
+
+/* 登録コード（いまの様子の下） */
+.card.join{padding:22px 24px}
+.join-in{display:flex; gap:22px; align-items:center; flex-wrap:wrap}
+.join-qr svg{display:block; width:148px; height:148px; border-radius:12px}
+.join-tx{flex:1; min-width:240px}
+.join-code{font-size:34px; font-weight:700; letter-spacing:.18em; color:var(--accent); margin-bottom:6px}
+.join-tx p{margin:0 0 8px}
+/* 配る紙（刷るときだけ） */
+.jsheet{font-family:var(--sans); color:#1c1c1e; text-align:center; padding:8mm 6mm}
+.jsheet .brand{font-size:11mm}
+.jsheet h1{font-size:8mm; margin:8mm 0 3mm}
+.js-lead{font-size:4.4mm; line-height:1.7; margin:0 auto 8mm; max-width:150mm}
+.js-qr svg{width:78mm; height:78mm}
+.js-code{font-size:6mm; margin:6mm 0 8mm} .js-code b{font-family:var(--mono); font-size:9mm; letter-spacing:.2em; color:#005BAC}
+.jsheet ol{text-align:left; max-width:150mm; margin:0 auto 6mm; font-size:4.4mm; line-height:1.9}
+.js-note{font-size:3.6mm; color:#6B655D; max-width:150mm; margin:0 auto; line-height:1.7}
+
+/* 生徒のタブ：ID でさがす・科目・最近の動き */
+.tool.find{align-items:center; gap:10px; margin:6px 0 4px}
+.tool.find label{font-size:13px; color:var(--text2)}
+.tool.find input{width:140px; padding:8px 12px; border:0; border-radius:10px; background:var(--sunk); font-size:15px}
+.row .subs{margin-left:8px; font-size:14px; font-weight:600; color:var(--text2); letter-spacing:.06em}
+.row.hit{box-shadow:0 0 0 3px var(--accent-soft) inset}
+.card.recent{padding:10px 18px}
+.rc{display:flex; align-items:center; gap:12px; padding:9px 0; flex-wrap:wrap}
+.rc .when{width:92px; font-size:13px; color:var(--text2)}
+.rc .id{min-width:64px; font-weight:600}
+.rc .tx{flex:1; min-width:160px; font-size:14px; color:var(--text2)}
+
+/* 組分けテストの日程 */
+.card.exams{padding:20px 24px}
+.card.exams p{margin:0 0 10px}
+.ex-ask{font-size:15px}
+.exchip{display:inline-flex; align-items:center; gap:8px; padding:6px 6px 6px 14px; border-radius:999px; background:var(--sunk); font-family:var(--mono); font-size:14px}
+.exchip.past{opacity:.55}
+.exchip .lnk{font-family:var(--sans); font-size:12px}
+.card.exams .tool{margin-top:12px; align-items:center; gap:10px}
+.card.exams .tool label{font-size:13px; color:var(--text2)}
+.card.exams .tool input{padding:8px 10px; border:0; border-radius:10px; background:var(--sunk); font:inherit}
+.card.exams #exDays{width:64px}
+.card.idle{padding:20px 24px}
+.card.idle p{margin:0 0 10px}
+.card.loose .lz{font-family:var(--sans); font-size:13px; color:var(--text2)}
+.card.exams #yrDate{min-height:44px}
+
+/* Mac の Safari は、素の <select> に高さも余白も背景も当てない（27px の小さな部品になる。Chrome と Edge は当てる）。
+   部品の見た目を外して、矢印は自分で描く。2026-10-01、WebKit（Safari のエンジン）の検査で見つかった。
+   !important は、あとから background をまとめて書く決まり（.field select など）に矢印を消させないため。 */
+select{-webkit-appearance:none; appearance:none; padding-right:34px !important;
+  background-image:linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%) !important;
+  background-position:calc(100% - 19px) 50%, calc(100% - 14px) 50% !important;
+  background-size:5px 5px, 5px 5px !important; background-repeat:no-repeat !important}

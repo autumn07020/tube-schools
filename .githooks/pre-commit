@@ -1,0 +1,11 @@
+#!/bin/sh
+# commit の前に、機械で止められるものを止める：秘密・他言語の字・知識の目次。
+ROOT=$(git rev-parse --show-toplevel); cd "$ROOT" || exit 1
+staged=$(git diff --cached --name-only --diff-filter=ACMR)
+[ -n "$staged" ] || exit 0
+echo "$staged" | tr '\n' '\0' | xargs -0 python3 scripts/check/secrets.py || { echo "× 秘密らしいものがあるので commit しません"; exit 1; }
+python3 app/tools/check-source.py >/dev/null 2>&1 || { python3 app/tools/check-source.py | tail -5; echo "× ソースに他言語の字があるので commit しません"; exit 1; }
+if [ -f scripts/brain/lint.py ] && echo "$staged" | grep -q '^knowledge/'; then
+  python3 scripts/brain/lint.py || { echo "× knowledge/ の決まりに合わないので commit しません"; exit 1; }
+fi
+exit 0

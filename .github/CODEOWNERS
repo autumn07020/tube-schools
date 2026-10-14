@@ -1,4 +1,5 @@
 # 担当の線（knowledge/20-決まり/作業の作法.md）。GitHub の「Require review from Code Owners」と組で効く。
+# 2026-10-14：GitHub は無料で使うと決めた。無料の私有リポジトリではこのファイルは記録として置くだけ（自動の承認依頼は出ない）。
 # @OWNER は本人の GitHub の ID に置き換える（人が 1 人のあいだは全部 @OWNER＝本人の承認）。
 # チームごとの場所は、将来 GitHub の team（@org/code など）に置き換えられるよう、ここに書いておく。
 *                               @OWNER

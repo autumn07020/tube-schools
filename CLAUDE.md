@@ -4,7 +4,7 @@
 > 起動したらまず `knowledge/INDEX.md`（外部脳：軸・現状・決まり・仕様・運用・法務・デザイン・決定録・用語・種）を読み、次にこの文書の「絶対に守ること」を読む。
 > チームは 5 つ（`.claude/agents/code|design|ops|legal|docs.md`。`/team-code 題` のように始める）。知識は全チーム同じ、違うのは触ってよい場所と道具だけ（`knowledge/20-決まり/作業の作法.md`）。
 > 番人 `.claude/hooks/guard.py` が、本番への SSH・`scripts/accounts/make.py`・合言葉の表・`../myenglish/` への変更・`deploy/*.sh` の実行を機械的に止める。本番は読むだけ。反映は本人が置き場から `sh deploy/更新.sh`。
-> 検査は PR のたびに GitHub Actions（`.github/workflows/check.yml` が必須、`flows.yml` は画面とサーバに触る PR だけ）。commit の前に `.githooks/pre-commit`（秘密・他言語の字・知識の目次）。講師の名字は Git に入れない（ID で書く）。
+> 検査は PR のたびに GitHub Actions（`.github/workflows/check.yml` は毎回、`flows.yml` は画面とサーバに触る PR だけ）。GitHub は無料：main を守る鍵は無いので、main に直接 push しない（番人が止める）・merge は本人が ✓ を見てから。commit の前に `.githooks/pre-commit`（秘密・他言語の字・知識の目次）。講師の名字は Git に入れない（ID で書く）。
 
 
 学習塾の生徒向け受験英語アプリ。個人用アプリ「Tube English」の後継プロジェクト。

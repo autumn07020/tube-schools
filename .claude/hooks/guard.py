@@ -4,10 +4,10 @@
 文章の決まりを仕組みにする（knowledge/20-決まり/権限の線.md）：
   本番への SSH・scp・rsync／scripts/accounts/make.py／合言葉の表.nosync／../myenglish への変更／
   本番を変える deploy/*.sh の実行（読むのは通す）／~/myAcady/demo-accounts.json と deploy/accounts/ への書き込み／
-  合言葉の表を読む道具（Read・Grep・Glob）。
+  合言葉の表を読む道具（Read・Grep・Glob）／main への直接の push と --force の push（無料の私有リポジトリでは GitHub が止めないため）。
 標準入力の JSON（tool_name・tool_input）を読み、止めるときだけ permissionDecision: deny を出す。通すときは何も出さない。
 手で確かめる：  echo '{"tool_name":"Bash","tool_input":{"command":"sh deploy/更新.sh"}}' | python3 .claude/hooks/guard.py"""
-import json, re, sys
+import json, os, re, subprocess, sys
 
 PROD = ("18.130.10.188", "tube-study.uk", "ubuntu@", "lightsail.pem")
 REMOTE = re.compile(r"(^|[\s;&|(`])(ssh|scp|sftp|rsync)\b")
@@ -15,6 +15,29 @@ RUN_WITH_SH = re.compile(r"(^|[\s;&|(`])(sh|bash|zsh|source|\.)\s+(\S*/)?deploy/
 RUN_DIRECT = re.compile(r"(^|[;&|(`]\s*)\.?/?(\S*/)?deploy/[^\s]+\.sh(\s|$)")                    # ./deploy/更新.sh
 # 命令の位置（行の頭・; && || | ( ` $( のあと、sudo を挟んでも）に ssh・scp・sftp があるとき
 CMD_SSH = re.compile(r"(^|[;&|(`]|\$\()\s*(sudo\s+)?(ssh|scp|sftp)\b")
+# git push：無料の私有リポジトリでは GitHub が main を守れないので、Claude のセッションは番人が止める（2026-10-14）
+GIT_PUSH = re.compile(r"(^|[;&|(`]|\$\()\s*git\s+(-C\s+\S+\s+)?push\b([^;&|]*)")
+
+def current_branch():
+    try:
+        root = os.environ.get("CLAUDE_PROJECT_DIR") or "."
+        return subprocess.run(["git", "-C", root, "rev-parse", "--abbrev-ref", "HEAD"],
+                              capture_output=True, text=True, timeout=5).stdout.strip()
+    except Exception:
+        return ""
+
+def check_push(c):
+    for m in GIT_PUSH.finditer(c):
+        toks = m.group(3).split()
+        if any(t in ("-f", "--force") or t.startswith("--force") or t.startswith("+") for t in toks):
+            deny("履歴を上書きする push（--force）は Claude のセッションではしない。要るときは本人が手で")
+        args = [t for t in toks if not t.startswith("-")]
+        refs = args[1:]
+        if any(r in ("main", "HEAD:main") or r.endswith(":main") or r.endswith(":refs/heads/main") for r in refs):
+            deny("main に直接 push しない。ブランチ（code/… など）に push して PR にする")
+        if not refs and current_branch() == "main":
+            deny("いまの枝は main。main に直接 push しない。ブランチを切って PR にする")
+
 READ_ONLY = re.compile(r"^\s*(cat|less|more|ls|grep|rg|head|tail|find|wc|diff|cmp|stat|file|du|open|git\s+(log|show|diff|status|blame))\b")
 
 def deny(why):
@@ -33,6 +56,7 @@ def main():
         c = inp.get("command") or ""
         if REMOTE.search(c) and any(p in c for p in PROD):
             deny("本番サーバへの SSH・scp・rsync は絶対にしない（本番は読むだけ）。反映は本人が deploy/更新.sh を流す")
+        check_push(c)
         if CMD_SSH.search(c):   # 命令として流すときだけ（grep ssh のような読むだけの命令は通す）
             deny("この仕事で Claude が SSH を使う場面は無い（本番は読むだけ・反映は本人）")
         if "accounts/make.py" in c and not READ_ONLY.match(c):   # 読むのは通す。流すのは止める

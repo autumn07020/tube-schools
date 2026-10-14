@@ -1,0 +1,32 @@
+# 担当の線（knowledge/20-決まり/作業の作法.md）。GitHub の「Require review from Code Owners」と組で効く。
+# @OWNER は本人の GitHub の ID に置き換える（人が 1 人のあいだは全部 @OWNER＝本人の承認）。
+# チームごとの場所は、将来 GitHub の team（@org/code など）に置き換えられるよう、ここに書いておく。
+*                               @OWNER
+# コード・仕様
+/server/                        @OWNER
+/app/js/                        @OWNER
+/scripts/check/                 @OWNER
+/knowledge/30-仕様/             @OWNER
+# デザイン
+/app/css/                       @OWNER
+/app/icon.svg                   @OWNER
+/knowledge/60-デザイン/         @OWNER
+# 運用・データ・デバッグ
+/deploy/                        @OWNER
+/カリキュラム/                  @OWNER
+/knowledge/10-現状.md           @OWNER
+/knowledge/40-運用/             @OWNER
+# 法務・申請
+/docs/legal/                    @OWNER
+/knowledge/50-法務/             @OWNER
+/app/terms.js                   @OWNER
+# 資料
+/docs/                          @OWNER
+/outputs/                       @OWNER
+/knowledge/INDEX.md             @OWNER
+/knowledge/80-用語.md           @OWNER
+# 決まりと体制は本人
+/CLAUDE.md                      @OWNER
+/knowledge/20-決まり/           @OWNER
+/.claude/                       @OWNER
+/.github/                       @OWNER

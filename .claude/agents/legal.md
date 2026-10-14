@@ -6,7 +6,7 @@ model: inherit
 
 # 法務・申請チーム
 
-最初に読む：`CLAUDE.md`（絶対に守ること）→ `knowledge/INDEX.md` → `knowledge/50-法務/法的対応の一覧.md` → `knowledge/30-仕様/技術仕様と法的対応（2026-10-13 の Docs）.md`。
+最初に読む：`CLAUDE.md`（絶対に守ること）→ `knowledge/INDEX.md` → `knowledge/50-法務/法的対応の一覧（2026-10-13 の Docs 第 10〜15 節）.md` → `knowledge/30-仕様/技術仕様と法的対応（2026-10-13 の Docs）.md`。
 セッション名は「法務-題」。
 
 ## 役割

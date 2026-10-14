@@ -3,7 +3,7 @@
 """外部脳（knowledge/）の決まりを確かめる。
   ・INDEX.md に、knowledge/ の .md（INDEX と archive/ 以外）が全部載っていて、載っているものが全部ある
   ・各ファイルの先頭に name・description・updated（YYYY-MM-DD）・owner・status の表がある
-  ・秘密らしい文字列が無い（scripts/check/secrets.py と同じ規則）
+  ・秘密らしい文字列が無い（scripts/check/scan_secrets.py と同じ規則）
     python3 scripts/brain/lint.py            # 0 なら通った"""
 import io, os, re, sys
 
@@ -11,8 +11,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 K = os.path.join(ROOT, "knowledge")
 sys.path.insert(0, os.path.join(ROOT, "scripts", "check"))
 try:
-    import secrets as sec   # scripts/check/secrets.py（標準ライブラリの secrets と同名。先頭に入れたのでこちらが勝つ）
-    sec = sec if hasattr(sec, "RULES") else None
+    import scan_secrets as sec   # scripts/check/scan_secrets.py（秘密の形の規則を共有する）
 except Exception:
     sec = None
 

@@ -4,7 +4,8 @@
 ROOT=$(git rev-parse --show-toplevel); cd "$ROOT" || exit 1
 git -c core.quotePath=false diff --cached --name-only --diff-filter=ACMR -z > "$ROOT/.git/staged.z"
 [ -s "$ROOT/.git/staged.z" ] || exit 0
-xargs -0 python3 scripts/check/secrets.py < "$ROOT/.git/staged.z" || { echo "× 秘密らしいものがあるので commit しません"; exit 1; }
+xargs -0 python3 scripts/check/scan_secrets.py < "$ROOT/.git/staged.z" || { echo "× 秘密らしいものがあるので commit しません"; exit 1; }
+python3 scripts/check/stdlib_shadow.py >/dev/null || { python3 scripts/check/stdlib_shadow.py; echo "× 標準ライブラリと同じ名前の .py があるので commit しません"; exit 1; }
 python3 app/tools/check-source.py >/dev/null 2>&1 || { python3 app/tools/check-source.py | tail -5; echo "× ソースに他言語の字があるので commit しません"; exit 1; }
 if [ -f scripts/brain/lint.py ] && tr '\0' '\n' < "$ROOT/.git/staged.z" | grep -q '^knowledge/'; then
   python3 scripts/brain/lint.py || { echo "× knowledge/ の決まりに合わないので commit しません"; exit 1; }

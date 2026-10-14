@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 """履歴に入れてはいけないものが混ざっていないか調べる（鍵・合言葉・本物の束・講師の名字の表）。
 
-    python3 scripts/check/secrets.py            # git に入るファイル全部（git が無ければ作業ツリー）
-    python3 scripts/check/secrets.py a.py b.sh  # 指定したファイルだけ（pre-commit が使う）
+    python3 scripts/check/scan_secrets.py            # git に入るファイル全部（git が無ければ作業ツリー）
+    python3 scripts/check/scan_secrets.py a.py b.sh  # 指定したファイルだけ（pre-commit が使う）
 
 見つけたら 1 で終わる。わざと置いてあるもの（検査用の束・検査用の合言葉）は ALLOW に書く。"""
 import io, os, re, subprocess, sys

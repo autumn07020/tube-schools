@@ -24,7 +24,9 @@ jobs:
       - name: 他言語の字が無いこと
         run: python3 app/tools/check-source.py
       - name: 秘密らしいものが無いこと
-        run: python3 scripts/check/secrets.py
+        run: python3 scripts/check/scan_secrets.py
+      - name: 標準ライブラリと同じ名前の .py が無いこと
+        run: python3 scripts/check/stdlib_shadow.py
       - name: 知識の目次と先頭の表
         run: python3 scripts/brain/lint.py
       - name: サーバの検査（server/test_*.py を全部）

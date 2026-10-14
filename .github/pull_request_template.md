@@ -6,7 +6,7 @@
 
 ## 検査
 - [ ] サーバの検査（test_admin・test_trial・test_submissions）
-- [ ] check-source.py・secrets.py
+- [ ] check-source.py・scan_secrets.py
 - [ ] 画面を変えた：flows（6・13・15・16）と、4 つの役×3 幅の写し（WebKit）
 - [ ] 本番を読むだけの検査（expect.py）は反映のあとで
 

@@ -39,5 +39,8 @@ outputs/**/*.pptx
 outputs/**/*.m4a
 outputs/**/*.zip
 
+# 外部脳のまとめ（bundle.py が作る写し）
+knowledge/_全部.md
+
 # 講師の名字入り（build.py が「Claude outputs/」に作る。Git に入れない）
 outputs/時間割の確認.html

@@ -71,7 +71,7 @@ Cloudflare の DNS 画面に CNAME が1行足されます。
 
 ### 4. 動かす
 
-    cd ~/Library/Mobile\ Documents/com~apple~CloudDocs/tube-schools
+    cd ~/Projects/tube-schools
     MYACADY_ROOT=/tmp/myacady-migrate CF_NAME=tube CF_HOST=tube-study.uk \
       sh deploy/run.sh
 

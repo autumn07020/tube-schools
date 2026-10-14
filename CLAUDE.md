@@ -1,8 +1,15 @@
 # Tube for Schools — 作業指示
+<!-- 置き場と外部脳（2026-10-14） -->
+> **置き場は `~/Projects/tube-schools`（Git。2026-10-14 から）。iCloud の tube-schools は読むだけの控え。**
+> 起動したらまず `knowledge/INDEX.md`（外部脳：軸・現状・決まり・仕様・運用・法務・デザイン・決定録・用語・種）を読み、次にこの文書の「絶対に守ること」を読む。
+> チームは 5 つ（`.claude/agents/code|design|ops|legal|docs.md`。`/team-code 題` のように始める）。知識は全チーム同じ、違うのは触ってよい場所と道具だけ（`knowledge/20-決まり/作業の作法.md`）。
+> 番人 `.claude/hooks/guard.py` が、本番への SSH・`scripts/accounts/make.py`・合言葉の表・`../myenglish/` への変更・`deploy/*.sh` の実行を機械的に止める。本番は読むだけ。反映は本人が置き場から `sh deploy/更新.sh`。
+> 検査は PR のたびに GitHub Actions（`.github/workflows/check.yml`）。commit の前に `.githooks/pre-commit`（秘密・他言語の字・知識の目次）。
+
 
 学習塾の生徒向け受験英語アプリ。個人用アプリ「Tube English」の後継プロジェクト。
 
-**圧縮のあと・着手前に `outputs/北極星-目的とデザイン哲学.md` を読むこと。** 大目標・わかりやすさ・美しさ・単純な論理の軸。
+**圧縮のあと・着手前に `knowledge/00-北極星.md` を読むこと。** 大目標・わかりやすさ・美しさ・単純な論理の軸。
 文脈が圧縮されるたびに薄れるので、要約から再開したら最初に読み直す（2026-09-24 本人）。
 
 **自律の範囲（2026-09-24 本人）：** 指示の範囲内は聞かずに完了まで進める。範囲外・権限の拡張・本番への操作は
@@ -73,7 +80,7 @@
 - `python3 server/test_syllabus.py` … シラバス（syllabus.py）
 
 通らないものを配らない。**数が減っていたら、理由を言えるまで写さない。**
-作業の最後に `outputs/改良の種.md` へ気づきを1つ以上書き、効果が大きく手間の小さいものを1つ提案する。
+作業の最後に `knowledge/90-種.md` へ気づきを1つ以上書き、効果が大きく手間の小さいものを1つ提案する。
 
 ### なぜ check-runtime.js が要るか
 

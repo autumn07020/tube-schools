@@ -25,14 +25,14 @@
 **このMacをサーバにして、ID・パスワードで使う**（推奨）。
 
 ```bash
-cd "/Users/aki/Library/Mobile Documents/com~apple~CloudDocs/tube-schools/server" && python3 tube_server.py seed
+cd "/Users/aki/Projects/tube-schools/server" && python3 tube_server.py seed
 ```
 
 アカウントとパスワードの一覧が表示される。**この一度しか表示されない**（保存されて
 いるのはハッシュだけ）。控えたら起動する。
 
 ```bash
-cd "/Users/aki/Library/Mobile Documents/com~apple~CloudDocs/tube-schools/server" && python3 tube_server.py serve
+cd "/Users/aki/Projects/tube-schools/server" && python3 tube_server.py serve
 ```
 
 → ブラウザで `http://127.0.0.1:8765/`
@@ -73,7 +73,7 @@ cd app && python3 -m http.server 8765
 Macで2つ動かすだけです。ルータの設定もポート開放も要りません。
 
 ```bash
-cd "/Users/aki/Library/Mobile Documents/com~apple~CloudDocs/tube-schools/server" && python3 tube_server.py serve --demo
+cd "/Users/aki/Projects/tube-schools/server" && python3 tube_server.py serve --demo
 ```
 
 別のターミナルで:

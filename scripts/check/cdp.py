@@ -10,7 +10,8 @@
 import base64, json, os, socket, shutil, struct, subprocess, tempfile, time, urllib.request
 
 # どのブラウザで流すか：TUBE_BROWSER=chrome（既定）／edge／webkit（Safari と同じエンジン。wk.py）
-BROWSERS = {"chrome": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+# TUBE_CHROME で Chrome の場所を変えられる（GitHub Actions の Ubuntu は /usr/bin/google-chrome）
+BROWSERS = {"chrome": os.environ.get("TUBE_CHROME") or "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
             "edge": "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge"}
 BROWSER = (os.environ.get("TUBE_BROWSER") or "chrome").lower()
 CHROME = BROWSERS.get(BROWSER, BROWSERS["chrome"])

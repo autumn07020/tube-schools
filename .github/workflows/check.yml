@@ -1,0 +1,69 @@
+name: 検査
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "0 2 * * *"   # 毎晩 2:00 UTC（ロンドン 3:00）
+  workflow_dispatch:
+
+jobs:
+  kensa:
+    name: サーバの検査・字・秘密・知識
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 他言語の字が無いこと
+        run: python3 app/tools/check-source.py
+      - name: 秘密らしいものが無いこと
+        run: python3 scripts/check/secrets.py
+      - name: 知識の目次と先頭の表
+        run: python3 scripts/brain/lint.py
+      - name: サーバの検査
+        run: |
+          set -e
+          for t in test_trial test_submissions test_admin; do
+            python3 "server/$t.py" > "$t.out" 2>&1 || true
+            tail -3 "$t.out"
+            grep -q "すべて通った" "$t.out" || { echo "× $t"; exit 1; }
+          done
+
+  nagare:
+    name: Chrome の流れ（6・13・15・16）
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    if: github.event_name != 'push'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 日本語の書体
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq fonts-noto-cjk > /dev/null
+      - name: 土台を作って流す
+        env:
+          TUBE_CHROME: /usr/bin/google-chrome
+        run: |
+          set -e
+          S="$RUNNER_TEMP/W"; mkdir -p "$S"; cp -R "$GITHUB_WORKSPACE" "$S/tube"
+          fail=0
+          for n in adm_flow6 adm_flow13 adm_flow15 adm_flow16; do
+            sh scripts/check/flows/reset.sh "$S" > "$S/reset-$n.log" 2>&1 || { tail -5 "$S/reset-$n.log"; exit 1; }
+            python3 "scripts/check/flows/$n.py" "$S" > "$S/$n.out" 2>&1 || true
+            last=$(tail -1 "$S/$n.out"); echo "$n: $last"
+            case "$last" in すべて通った*) ;; *) fail=$((fail+1)); tail -15 "$S/$n.out";; esac
+          done
+          pkill -f "tube_server.py serve --port 8949" || true
+          [ "$fail" = 0 ]
+      - name: 写しを残す
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: 写し
+          path: ${{ runner.temp }}/W/shots*
+          if-no-files-found: ignore

@@ -94,10 +94,13 @@ class Chrome:
         self.ws = None
 
     def __enter__(self):
-        self.proc = subprocess.Popen([CHROME, "--headless=new", "--disable-gpu", "--no-first-run", "--no-default-browser-check",
-                                      "--remote-debugging-port=%d" % self.port, "--user-data-dir=%s" % self.prof,
-                                      "--window-size=%d,%d" % (self.width, self.height), "--hide-scrollbars",
-                                      "--disable-features=TranslateUI", "about:blank"],
+        args = [CHROME, "--headless=new", "--disable-gpu", "--no-first-run", "--no-default-browser-check",
+                "--remote-debugging-port=%d" % self.port, "--user-data-dir=%s" % self.prof,
+                "--window-size=%d,%d" % (self.width, self.height), "--hide-scrollbars",
+                "--disable-features=TranslateUI", "about:blank"]
+        if os.environ.get("CI"):   # GitHub Actions の Ubuntu 24.04 は Chrome の sandbox が使えないことがある（手元の Mac では付けない）
+            args.insert(1, "--no-sandbox")
+        self.proc = subprocess.Popen(args,
                                      stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         for _ in range(100):
             try:

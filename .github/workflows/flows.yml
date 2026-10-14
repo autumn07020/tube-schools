@@ -1,0 +1,70 @@
+name: 画面の流れ
+
+# 画面とサーバに触る PR のときだけ、Chrome で流れを押して確かめる（30 分ほど。無料枠を食うので毎晩は流さない）。
+# WebKit（Safari と同じエンジン）と動画は Mac だけ。
+on:
+  pull_request:
+    paths:
+      - "app/**"
+      - "server/**"
+      - "scripts/check/**"
+      - "カリキュラム/**"
+  workflow_dispatch:
+
+concurrency:
+  group: nagare-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  nagare:
+    name: Chrome の流れ（6・13・15・16）
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 日本語の書体
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq fonts-noto-cjk > /dev/null
+      - name: 土台を作って流す
+        env:
+          TUBE_CHROME: /usr/bin/google-chrome
+        run: |
+          set +e +o pipefail   # 1 本が落ちても残りを流し、最後の段でまとめて赤にする
+          S="$RUNNER_TEMP/W"; mkdir -p "$S"; cp -R "$GITHUB_WORKSPACE" "$S/tube"
+          fail=0; : > "$S/結果.md"
+          for n in adm_flow6 adm_flow13 adm_flow15 adm_flow16; do
+            sh scripts/check/flows/reset.sh "$S" > "$S/reset-$n.log" 2>&1 || { tail -5 "$S/reset-$n.log"; }
+            python3 "scripts/check/flows/$n.py" "$S" > "$S/$n.out" 2>&1
+            last=$(tail -1 "$S/$n.out")
+            echo "$n: $last"; echo "- $n：$last" >> "$S/結果.md"
+            case "$last" in すべて通った*) ;; *) fail=$((fail+1)); tail -15 "$S/$n.out";; esac
+          done
+          pkill -f "tube_server.py serve --port 8949" || true
+          echo "FAIL=$fail" >> "$GITHUB_ENV"
+      - name: 写しを残す
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: 写し
+          path: ${{ runner.temp }}/W/shots*
+          if-no-files-found: ignore
+      - name: 結果を PR に書く
+        if: always() && github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          {
+            echo "### 画面の流れ（Chrome）"
+            cat "$RUNNER_TEMP/W/結果.md" 2>/dev/null || echo "（結果が無い。土台を作れなかった可能性）"
+            echo ""
+            echo "写しは この実行の Artifacts「写し」（${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}）。WebKit と Safari の目視は Mac で。"
+          } > comment.md
+          gh pr comment "${{ github.event.pull_request.number }}" --body-file comment.md || true
+      - name: 失敗があれば赤に
+        run: '[ "${FAIL:-1}" = 0 ]'

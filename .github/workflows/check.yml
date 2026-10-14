@@ -1,12 +1,15 @@
 name: 検査
 
+# PR と main への push で、速い検査を流す（数分）。main の保護で「必須」にするのはこの job。
 on:
   pull_request:
   push:
     branches: [main]
-  schedule:
-    - cron: "0 2 * * *"   # 毎晩 2:00 UTC（ロンドン 3:00）
   workflow_dispatch:
+
+concurrency:
+  group: kensa-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   kensa:
@@ -24,46 +27,16 @@ jobs:
         run: python3 scripts/check/secrets.py
       - name: 知識の目次と先頭の表
         run: python3 scripts/brain/lint.py
-      - name: サーバの検査
+      - name: サーバの検査（server/test_*.py を全部）
         run: |
-          set -e
-          for t in test_trial test_submissions test_admin; do
-            python3 "server/$t.py" > "$t.out" 2>&1 || true
-            tail -3 "$t.out"
-            grep -q "すべて通った" "$t.out" || { echo "× $t"; exit 1; }
-          done
-
-  nagare:
-    name: Chrome の流れ（6・13・15・16）
-    runs-on: ubuntu-latest
-    timeout-minutes: 50
-    if: github.event_name != 'push'
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - name: 日本語の書体
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq fonts-noto-cjk > /dev/null
-      - name: 土台を作って流す
-        env:
-          TUBE_CHROME: /usr/bin/google-chrome
-        run: |
-          set -e
-          S="$RUNNER_TEMP/W"; mkdir -p "$S"; cp -R "$GITHUB_WORKSPACE" "$S/tube"
+          set +e +o pipefail   # 1 本が落ちても残りを流し、最後にまとめて赤にする
           fail=0
-          for n in adm_flow6 adm_flow13 adm_flow15 adm_flow16; do
-            sh scripts/check/flows/reset.sh "$S" > "$S/reset-$n.log" 2>&1 || { tail -5 "$S/reset-$n.log"; exit 1; }
-            python3 "scripts/check/flows/$n.py" "$S" > "$S/$n.out" 2>&1 || true
-            last=$(tail -1 "$S/$n.out"); echo "$n: $last"
-            case "$last" in すべて通った*) ;; *) fail=$((fail+1)); tail -15 "$S/$n.out";; esac
+          for t in server/test_*.py; do
+            n=$(basename "$t" .py)
+            python3 "$t" > "$n.out" 2>&1; rc=$?
+            last=$(tail -1 "$n.out")
+            echo "$n exit=$rc | $last"
+            # 判定は終わりの番号（各検査は失敗のとき 0 以外で終わる。test_syllabus は「問題 0」と書いて 0 で終わる）
+            if [ "$rc" != 0 ] || grep -q "Traceback" "$n.out"; then fail=$((fail+1)); tail -20 "$n.out"; fi
           done
-          pkill -f "tube_server.py serve --port 8949" || true
           [ "$fail" = 0 ]
-      - name: 写しを残す
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: 写し
-          path: ${{ runner.temp }}/W/shots*
-          if-no-files-found: ignore

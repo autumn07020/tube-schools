@@ -4,10 +4,7 @@
       "Bash(ssh *)",
       "Bash(scp *)",
       "Bash(python3 scripts/accounts/make.py*)",
-      "Read(合言葉の表.nosync/**)",
-      "Edit(合言葉の表.nosync/**)",
-      "Edit(../myenglish/**)",
-      "Edit(deploy/accounts/**)"
+      "Edit(/deploy/accounts/**)"
     ]
   },
   "hooks": {
@@ -33,6 +30,29 @@
             "timeout": 10,
             "onFailure": "block",
             "statusMessage": "番人が見ています"
+          }
+        ]
+      },
+      {
+        "matcher": "Read|Grep|Glob",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/guard.py\"",
+            "timeout": 10,
+            "onFailure": "block",
+            "statusMessage": "番人が見ています"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "git -C \"${CLAUDE_PROJECT_DIR:-.}\" config core.hooksPath .githooks 2>/dev/null || true",
+            "timeout": 10
           }
         ]
       }

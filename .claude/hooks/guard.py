@@ -3,7 +3,8 @@
 """番人：Claude のセッションが「絶対ダメ」を踏まないよう、道具を使う前に止める（.claude/settings.json の PreToolUse）。
 文章の決まりを仕組みにする（knowledge/20-決まり/権限の線.md）：
   本番への SSH・scp・rsync／scripts/accounts/make.py／合言葉の表.nosync／../myenglish への変更／
-  本番を変える deploy/*.sh の実行（読むのは通す）／~/myAcady/demo-accounts.json と deploy/accounts/ への書き込み。
+  本番を変える deploy/*.sh の実行（読むのは通す）／~/myAcady/demo-accounts.json と deploy/accounts/ への書き込み／
+  合言葉の表を読む道具（Read・Grep・Glob）。
 標準入力の JSON（tool_name・tool_input）を読み、止めるときだけ permissionDecision: deny を出す。通すときは何も出さない。
 手で確かめる：  echo '{"tool_name":"Bash","tool_input":{"command":"sh deploy/更新.sh"}}' | python3 .claude/hooks/guard.py"""
 import json, re, sys
@@ -44,6 +45,11 @@ def main():
             deny("~/myAcady/demo-accounts.json は読むだけ（書かない・写さない）")
         return
     p = str(inp.get("file_path") or inp.get("path") or inp.get("notebook_path") or "")
+    pat = str(inp.get("pattern") or inp.get("glob") or "")
+    if tool in ("Read", "Grep", "Glob"):   # 読む道具：合言葉の表だけを止める（ほかは通す）
+        if "合言葉の表" in p or "合言葉の表" in pat:
+            deny("合言葉の表.nosync は読まない・送らない・写さない")
+        return
     if not p:
         return
     if "合言葉の表" in p:

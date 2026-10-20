@@ -18,6 +18,7 @@ import sys
 ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 DIR = os.path.join(ROOT, ".claude", "routines")
 TEAMS = ["コード", "デザイン", "運用", "法務", "資料"]
+ALONE = ["全般"]      # 共通の頭を付けない（1 枚で完結する指示文）
 
 
 def common():
@@ -30,14 +31,19 @@ def common():
 
 def prompt(team):
     body = io.open(os.path.join(DIR, team + ".md"), encoding="utf-8").read().strip()
+    if team in ALONE:
+        lines = body.split("\n")
+        if lines and lines[0].startswith("（"):
+            lines = lines[1:]
+        return "\n".join(lines).strip() + "\n"
     return common() + "\n\n" + body + "\n"
 
 
 def main(argv):
     if argv[:1] == ["--json"]:
-        print(json.dumps({t: prompt(t) for t in TEAMS}, ensure_ascii=False, indent=1))
+        print(json.dumps({t: prompt(t) for t in TEAMS + ALONE}, ensure_ascii=False, indent=1))
         return 0
-    teams = [a for a in argv if a in TEAMS] or TEAMS
+    teams = [a for a in argv if a in TEAMS + ALONE] or TEAMS + ALONE
     for t in teams:
         print("=" * 20, t, "=" * 20)
         print(prompt(t))

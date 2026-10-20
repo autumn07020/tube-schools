@@ -30,7 +30,8 @@ status: 有効
 ## 運用
 - `40-運用/反映と巡回.md` — 更新.sh・ためしのデモ・本番切替・時間割と担当・巡回（GitHub Actions の patrol.yml。毎晩 04:00 UTC）・Mac の眠り・バックアップ
 - `40-運用/鍵の在りか.md` — 鍵・口座・表がどこにあるか（鍵そのものは書かない）。巡回の秘密 TUBE_DEMO_ACCOUNTS_B64
-- `40-運用/routine.md` — クラウド（claude.ai/code）の routine。毎晩の巡回は Actions に移した。週報・拾うは後で。環境の作り方
+- `40-運用/routine.md` — 分野ごとのクラウドのチャット（routine）5 本：形・id・時刻・ラベル・止め方・REST の注意。指示文の原本は `.claude/routines/`。毎晩の巡回は Actions（patrol.yml）
+- `docs/週報/` — 資料チームの routine が毎週月曜に 1 枚ずつ足す週報（原本は Git）
 
 ## 法務
 - `50-法務/法的対応の一覧（2026-10-13 の Docs 第 10〜15 節）.md` — 役割・一覧 23 項目・Children's code・契約/知財/税・本部・順番

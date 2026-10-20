@@ -1,0 +1,21 @@
+name: コード・仕様
+description: サーバ・画面の論理・API・検査・仕様。不具合もここ。コードチームが拾う
+title: "コード："
+labels: ["コード"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: やってほしいこと
+      description: 1〜3 行。どの画面・どの役（生徒・講師・管理）。
+    validations:
+      required: true
+  - type: textarea
+    id: now
+    attributes:
+      label: いまはどうか（不具合なら、何をしたら・どうなった）
+      description: 写しがあれば貼る。再現の手順や検査の名前が分かれば書く。
+  - type: input
+    id: due
+    attributes:
+      label: いつまでに（任意）

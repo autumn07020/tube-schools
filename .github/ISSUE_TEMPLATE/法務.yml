@@ -1,0 +1,21 @@
+name: 法務・申請
+description: DPIA・通知・規約・契約・ICO・本部への提出、商標・税・在留資格。法務チームが拾う
+title: "法務："
+labels: ["法務"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: やってほしいこと
+      description: 1〜3 行。下書きか、確認か、提出の準備か。
+    validations:
+      required: true
+  - type: textarea
+    id: now
+    attributes:
+      label: いまはどうか・決まっていること
+      description: 名義・役割・稟議の状態など、分かっていることを書く。専門家の確認が要る所はチームが「要確認」と明記する。
+  - type: input
+    id: due
+    attributes:
+      label: いつまでに（任意）

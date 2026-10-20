@@ -1,0 +1,21 @@
+name: デザイン
+description: 見た目・動き・言葉の磨き込み。Claude Design の試作を当てる。デザインチームが拾う
+title: "デザイン："
+labels: ["デザイン"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: やってほしいこと
+      description: 1〜3 行。どの画面（番号 S01・T04 など、分かれば）・どの幅（電話・iPad・PC）。
+    validations:
+      required: true
+  - type: textarea
+    id: now
+    attributes:
+      label: いまはどうか
+      description: 写しや Claude Design の試作があれば貼る（zip の名前でもよい）。
+  - type: input
+    id: due
+    attributes:
+      label: いつまでに（任意）

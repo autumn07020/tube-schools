@@ -1,0 +1,34 @@
+name: ラベル
+
+# issue のラベルを .github/labels.json のとおりに作る（あれば色と説明をそろえる。消さない）。
+# main に labels.json が入るたびに自動で流れる。手で流すのは Actions → ラベル → Run workflow。
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/labels.json"
+      - ".github/workflows/labels.yml"
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  labels:
+    name: ラベルをそろえる
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: labels.json のとおりに
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 -c '
+          import json
+          for l in json.load(open(".github/labels.json", encoding="utf-8")):
+              print("\t".join([l["name"], l["color"], l["description"]]))
+          ' | while IFS="$(printf '\t')" read -r name color desc; do
+            gh label create "$name" --color "$color" --description "$desc" --force --repo "$GITHUB_REPOSITORY"
+            echo "ラベル: $name"
+          done

@@ -1,0 +1,15 @@
+[
+  {"name": "コード", "color": "1E82D8", "description": "コード・仕様チームが拾う"},
+  {"name": "デザイン", "color": "C3AEE6", "description": "デザインチームが拾う"},
+  {"name": "運用", "color": "BFD0B0", "description": "運用・データ・デバッグチームが拾う"},
+  {"name": "法務", "color": "F6E46A", "description": "法務・申請チームが拾う"},
+  {"name": "資料", "color": "F5A93E", "description": "資料チームが拾う"},
+  {"name": "決定", "color": "FBCA04", "description": "決めること・決めたこと（決定録に写す）"},
+  {"name": "不具合", "color": "D93F0B", "description": "画面や仕組みがおかしい"},
+  {"name": "改良", "color": "0E8A16", "description": "こうなればもっと良い"},
+  {"name": "巡回", "color": "5319E7", "description": "毎晩の巡回（Actions）の結果"},
+  {"name": "対応中", "color": "0075CA", "description": "チームが着手した"},
+  {"name": "PR あり", "color": "6F42C1", "description": "PR を出した。本人が ✓ を見て merge"},
+  {"name": "保留", "color": "CCCCCC", "description": "チームは拾わない"},
+  {"name": "本人", "color": "B60205", "description": "本人の手が要る（チームは拾わない）"}
+]

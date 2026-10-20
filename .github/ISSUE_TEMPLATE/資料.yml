@@ -1,0 +1,21 @@
+name: 資料
+description: 稟議・提案・仕様書・説明書・プレゼン・動画の台本。資料チームが拾う
+title: "資料："
+labels: ["資料"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: やってほしいこと
+      description: 1〜3 行。誰が読むか（校舎・本部・保護者・講師）と、形（A4 1 枚・スライド・文書）。
+    validations:
+      required: true
+  - type: textarea
+    id: now
+    attributes:
+      label: 元にするもの
+      description: knowledge のファイル名、Docs の名前、前の版があれば。
+  - type: input
+    id: due
+    attributes:
+      label: いつまでに（任意）

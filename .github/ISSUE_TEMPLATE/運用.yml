@@ -1,0 +1,21 @@
+name: 運用・データ・デバッグ
+description: 本番の巡回、デモ・名簿・カリキュラムのデータ、不具合の切り分け、構成。運用チームが拾う
+title: "運用："
+labels: ["運用"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: やってほしいこと
+      description: 1〜3 行。本番への反映そのものは本人が流す（チームは命令文を用意するまで）。
+    validations:
+      required: true
+  - type: textarea
+    id: now
+    attributes:
+      label: いまはどうか
+      description: 巡回の issue や Actions の実行の link があれば貼る。
+  - type: input
+    id: due
+    attributes:
+      label: いつまでに（任意）

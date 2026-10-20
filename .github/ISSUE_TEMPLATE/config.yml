@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 使い方（体制の始め方）
+    url: https://github.com/autumn07020/tube-schools/blob/main/docs/体制の始め方.md
+    about: 雛形の選び方と、チームが拾う流れ

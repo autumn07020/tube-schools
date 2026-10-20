@@ -29,7 +29,7 @@ status: 有効
 | TUBE 法務・申請 | DPIA・通知・規約・契約・ICO・申請 | trig_0128Z8oDxhJZtmBouP9bFwNw | session_013fLnDsnkKKfEz4UCEmM1Zh | 月曜 08:00 | opus 5.5 | `50-法務` 15 章の期限を照らし、14 日以内のものを issue「法務：今週の期限」（ラベル「本人」） |
 | TUBE 資料 | 稟議・提案・説明書・週報 | trig_01NYDG3kzwvYdWBGpgi6H2U3 | session_01TYaZKMJdjts5LWtFFQCGFB | 月曜 07:00 | opus 5.5 | 週報 `docs/週報/YYYY-MM-DD.md` を PR |
 
-- 開き方（10-20 に確かめた）：routine が作ったセッションは、ふつうのセッションの一覧でなく**「ルーティン」の区画**に載る。Mac のアプリではサイドバーのこの区画が既定で非表示（本人が表示に切り替える）。左の「ルーティン」の頁から routine → セッションと辿っても開ける。どの端末でも直接開けるのは `https://claude.ai/code/<上の session_…>`（iPhone・iPad は Safari で開いてホーム画面に置くのが早い）。そのセッションに本人が書けば、次の実行がそれを読む（本人が書いて確かめるのはこれから）。
+- 開き方（10-20 に確かめた）：routine が作ったセッションは、ふつうのセッションの一覧でなく**「ルーティン」の区画**に載る。Mac のアプリではこの区画が 10-14 の更新から表示できない（アプリの不具合。利用者の報告あり。設定にも道具にも切り替えが無い）。左の「スケジュール済みタスク」の頁から task → 実行（セッション）と辿って開く。実行のセッションは普通のセッションと同じで、題の横のメニューで名前を変えられ、会話を続けられる（公式の説明 code.claude.com/docs/en/routines）。どの端末でも直接開けるのは `https://claude.ai/code/<上の session_…>`（iPhone・iPad は Safari で開いてホーム画面に置くのが早い）。そのセッションに本人が書けば、次の実行がそれを読む（本人が書いて確かめるのはこれから）。
 - ラベル：コード・デザイン・運用・法務・資料（チームが拾う）、対応中・PR あり（チームが付ける）、保留・本人（チームは拾わない）、決定・不具合・改良・巡回。一覧は `.github/labels.json`、作るのは Actions「ラベル」（main に入ると自動。10-20 に流れた）。
 - **クラウドのセッションでは GitHub の GraphQL が使えない**（`gh issue list`・`gh pr list`・`gh pr create` は 403）。REST（`gh api repos/autumn07020/tube-schools/…`）で読む・書く。`gh run list`・`gh run download` は使える。指示文は REST の形で書いてある。
 - セッションには本人の claude.ai の道具（Claude Docs・Google Drive）がつながる。文書の原本は Git の `docs/`、Docs は写し。本番の鍵・合言葉は環境に置かない（毎晩の巡回は Actions の Secrets で動く）。

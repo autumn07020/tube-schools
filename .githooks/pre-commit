@@ -1,10 +1,11 @@
 #!/bin/sh
-# commit の前に、機械で止められるものを止める：秘密・他言語の字・知識の目次。
+# commit の前に、機械で止められるものを止める：秘密・講師の名字・他言語の字・知識の目次。
 # 日本語のファイル名を「\346…」の形にしないよう core.quotePath=false と -z で受け取る（2026-10-14 に漏れていたのを直した）。
 ROOT=$(git rev-parse --show-toplevel); cd "$ROOT" || exit 1
 git -c core.quotePath=false diff --cached --name-only --diff-filter=ACMR -z > "$ROOT/.git/staged.z"
 [ -s "$ROOT/.git/staged.z" ] || exit 0
 xargs -0 python3 scripts/check/scan_secrets.py < "$ROOT/.git/staged.z" || { echo "× 秘密らしいものがあるので commit しません"; exit 1; }
+xargs -0 python3 scripts/check/surnames.py --staged < "$ROOT/.git/staged.z" || { echo "× 講師の名字が入っているので commit しません（名字の表がある手元だけで流れる）"; exit 1; }
 python3 scripts/check/stdlib_shadow.py >/dev/null || { python3 scripts/check/stdlib_shadow.py; echo "× 標準ライブラリと同じ名前の .py があるので commit しません"; exit 1; }
 python3 app/tools/check-source.py >/dev/null 2>&1 || { python3 app/tools/check-source.py | tail -5; echo "× ソースに他言語の字があるので commit しません"; exit 1; }
 if [ -f scripts/brain/lint.py ] && tr '\0' '\n' < "$ROOT/.git/staged.z" | grep -q '^knowledge/'; then

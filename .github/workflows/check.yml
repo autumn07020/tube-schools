@@ -29,6 +29,8 @@ jobs:
         run: python3 scripts/check/stdlib_shadow.py
       - name: 番人が止めるべきものを止め、読むだけのものを通すこと
         run: python3 scripts/check/test_guard.py
+      - name: 名字の検査の仕組み（作り物の名字で。本物の名字の表は手元だけ）
+        run: python3 scripts/check/test_surnames.py
       - name: 知識の目次と先頭の表
         run: python3 scripts/brain/lint.py
       - name: サーバの検査（server/test_*.py を全部）

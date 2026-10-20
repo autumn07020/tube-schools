@@ -70,6 +70,14 @@ def main():
         rc, out = run(["--message", file_of("直した：wt91 の件\n# %s先生\n" % FAKE1, "msg2.txt")], csv_path, exc_path)
         check("説明文の # の行（git の注）は数えない", rc == 0, out)
 
+        sub = os.path.join(d, "下")
+        os.makedirs(sub)
+        io.open(os.path.join(sub, "r.txt"), "w", encoding="utf-8").write("%s先生\n" % FAKE2)
+        rc, out = run(["r.txt"], csv_path, exc_path, cwd=sub)
+        check("相対の道は今いる場所から読む", rc == 1 and "wt91" in out, out)
+        rc, out = run([os.path.join(d, "無いファイル.txt")], csv_path, exc_path)
+        check("名前を指定したファイルが無ければ × にする（黙って 0 件にしない）", rc == 1 and "読めなかった" in out, out)
+
         rc, out = run([file_of("%s先生\n" % FAKE2)], os.path.join(d, "無い.csv"), exc_path)
         check("名字の表が無いところでは流さずに通す", rc == 0 and "流していない" in out, out)
 

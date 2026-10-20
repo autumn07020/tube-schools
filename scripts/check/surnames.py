@@ -64,7 +64,7 @@ def hits(text, names, exc):
 
 
 def read(path, staged):
-    """文字のファイルなら中身、そうでなければ None。"""
+    """文字のファイルなら中身、文字でなければ None、見つからなければ False。"""
     if path.lower().endswith(BINARY_EXT):
         return None
     if staged:
@@ -73,9 +73,10 @@ def read(path, staged):
             return None
         data = r.stdout
     else:
-        full = path if os.path.isabs(path) else os.path.join(ROOT, path)
+        # 相対の道は、今いる場所から探し、無ければ置き場の根から（pre-commit は根から流れる）。2026-10-20 に根からだけ探して 0 件と黙った
+        full = path if os.path.isabs(path) or os.path.isfile(path) else os.path.join(ROOT, path)
         if not os.path.isfile(full):
-            return None
+            return False
         with open(full, "rb") as f:
             data = f.read()
     if b"\0" in data[:8192]:
@@ -98,16 +99,25 @@ def main(argv):
     else:
         staged = argv[:1] == ["--staged"]
         files = argv[1:] if staged else argv
+        explicit = bool(files)      # 名前を指定したときだけ、見つからないファイルを × にする
         if not files:
             out = subprocess.run(["git", "-C", ROOT, "ls-files", "-z"], capture_output=True).stdout
             files = [f for f in out.decode("utf-8").split("\0") if f]
         n_files = 0
+        missing = []
         for f in files:
             text = read(f, staged)
+            if text is False:
+                if explicit:
+                    missing.append(f)
+                continue
             if text is None:
                 continue
             n_files += 1
             found += [(f, h) for h in hits(text, names, exc)]
+    if argv[:1] != ["--message"] and missing:
+        print("× 名字の検査：読めなかったファイルが %d 個（例 %s）" % (len(missing), missing[0]))
+        return 1
     if not found:
         print("名字の検査：なし（%d ファイル）" % n_files)
         return 0

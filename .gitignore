@@ -44,3 +44,6 @@ knowledge/_全部.md
 
 # 講師の名字入り（build.py が「Claude outputs/」に作る。Git に入れない）
 outputs/時間割の確認.html
+
+# 名字の検査の例外（名字の字を明かすので手元だけ。2026-10-20）
+カリキュラム/時間割の講師_例外.txt

@@ -1,0 +1,7 @@
+#!/bin/sh
+# commit の説明文に講師の名字が入らないようにする（名字の表がある手元だけで流れる。scripts/check/surnames.py）。
+ROOT=$(git rev-parse --show-toplevel); cd "$ROOT" || exit 1
+python3 scripts/check/surnames.py --message "$1" >/dev/null && exit 0
+python3 scripts/check/surnames.py --message "$1"
+echo "× commit の説明文に講師の名字があるので commit しません"
+exit 1

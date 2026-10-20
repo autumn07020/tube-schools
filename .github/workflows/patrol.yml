@@ -1,0 +1,174 @@
+name: 巡回
+
+# 毎晩、本番（tube-study.uk）を読むだけの検査（scripts/check/expect.py）を GitHub の Ubuntu から流す。
+# 2026-10-20 本人「クラウドで毎晩、検査だけ」。直す作業はしない・本番に書き込まない・SSH しない。
+# 入るのは秘密 TUBE_DEMO_ACCOUNTS_B64 の口座（架空のデモ校 london の講師 4・生徒 5）だけ。wt01 や本物の講師では入らない。
+# 秘密が無ければ口座なし（門の検査だけ）で流し、そう書く。合言葉は記録（log・Artifacts・issue）に一切出さない（機械で確かめる）。
+# 失敗なら issue「巡回 YYYY-MM-DD：失敗」。月曜に通れば控え（scripts/check/ledger-production.json）を今日の数にする PR。
+# 止めるのは、置き場の直下に 巡回を止める.txt を置く（iPhone の GitHub からでも置ける）。消すと再開する。
+# 定期の実行は main の patrol.yml で動く（GitHub の決まり）。別の枝で試すのは Actions → 巡回 → Run workflow（枝を選ぶ）。
+on:
+  schedule:
+    - cron: "0 4 * * *"   # 04:00 UTC（ロンドンの冬時間 4:00・夏時間 5:00）。本番の S3 の控え（毎日 3 時）と重ねない
+  workflow_dispatch:
+
+permissions:
+  contents: write         # 月曜の控えの枝（patrol/ledger-YYYY-MM-DD）を送るためだけ。main には送らない（送る先は下の段で枝の名前を決め打ち）
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: junkai
+  cancel-in-progress: false
+
+jobs:
+  junkai:
+    name: 本番を読むだけの検査
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 止める合図
+        id: stop
+        run: |
+          if [ -f "巡回を止める.txt" ]; then
+            echo "止める合図（巡回を止める.txt）があるので、何もしない。"
+            echo "stop=1" >> "$GITHUB_OUTPUT"
+            echo "止める合図（巡回を止める.txt）があるので、巡回しなかった。" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "stop=0" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: 口座を戻す（中身は一切出さない）
+        if: steps.stop.outputs.stop == '0'
+        id: acc
+        env:
+          B64: ${{ secrets.TUBE_DEMO_ACCOUNTS_B64 }}
+        run: |
+          if [ -n "$B64" ]; then
+            printf '%s' "$B64" | base64 -d > "$RUNNER_TEMP/demo-accounts.json"
+            n=$(python3 -c 'import json,sys; a=json.load(open(sys.argv[1], encoding="utf-8")); print(len(a) if isinstance(a, list) else -1)' "$RUNNER_TEMP/demo-accounts.json" 2>/dev/null || echo -1)
+            if [ "$n" -lt 0 ]; then echo "秘密 TUBE_DEMO_ACCOUNTS_B64 の中身が口座の一覧（JSON の配列）の形でない"; exit 1; fi
+            echo "口座 $n 件（ID と合言葉は出さない）"
+            echo "note=口座 $n 件（秘密 TUBE_DEMO_ACCOUNTS_B64）" >> "$GITHUB_OUTPUT"
+            echo "has=1" >> "$GITHUB_OUTPUT"
+          else
+            echo '[]' > "$RUNNER_TEMP/demo-accounts.json"
+            echo "秘密 TUBE_DEMO_ACCOUNTS_B64 が無い。口座が無いので門の検査だけ。"
+            echo "note=口座が無いので門の検査だけ（秘密 TUBE_DEMO_ACCOUNTS_B64 が無い）" >> "$GITHUB_OUTPUT"
+            echo "has=0" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: 本番を読むだけの検査（expect.py）
+        if: steps.stop.outputs.stop == '0'
+        id: run
+        run: |
+          cp scripts/check/ledger-production.json "$RUNNER_TEMP/ledger.json"
+          set +e
+          python3 scripts/check/expect.py --base https://tube-study.uk \
+            --accounts "$RUNNER_TEMP/demo-accounts.json" --ledger "$RUNNER_TEMP/ledger.json" > "$RUNNER_TEMP/expect.log" 2>&1
+          rc=$?
+          # 合言葉が記録に混ざっていないこと（expect.py は ID と label しか印字しない。壊れたときの網）
+          python3 - "$RUNNER_TEMP/demo-accounts.json" "$RUNNER_TEMP/expect.log" <<'PY'
+          import json, sys
+          accs = json.load(open(sys.argv[1], encoding="utf-8"))
+          log = open(sys.argv[2], encoding="utf-8", errors="replace").read()
+          pws = [a.get("password") for a in accs if isinstance(a, dict) and a.get("password")]
+          if any(p in log for p in pws):
+              open(sys.argv[2], "w").write("（記録に合言葉が混ざっていたので消した。expect.py を直すこと）\n")
+              sys.exit(9)
+          PY
+          leak=$?
+          rm -f "$RUNNER_TEMP/demo-accounts.json"
+          set -e
+          [ "$leak" = 0 ] || rc=9
+          echo "rc=$rc" >> "$GITHUB_OUTPUT"
+          echo "date=$(TZ=Europe/London date +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+          echo "monday=$([ "$(TZ=Europe/London date +%u)" = 1 ] && echo 1 || echo 0)" >> "$GITHUB_OUTPUT"
+          last=$(tail -1 "$RUNNER_TEMP/expect.log")
+          echo "終わりの番号 $rc ／ 最後の行: $last"
+          { echo "## 巡回 $(TZ=Europe/London date +%Y-%m-%d)"; echo; echo "- 結果: $last（終わりの番号 $rc）"; echo "- ${{ steps.acc.outputs.note }}"; } >> "$GITHUB_STEP_SUMMARY"
+          grep -v '^  OK' "$RUNNER_TEMP/expect.log" | head -80 || true
+
+      - name: 記録を残す（14 日）
+        if: always() && steps.stop.outputs.stop == '0'
+        uses: actions/upload-artifact@v4
+        with:
+          name: 巡回の記録
+          path: |
+            ${{ runner.temp }}/expect.log
+            ${{ runner.temp }}/ledger.json
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: 失敗なら issue
+        if: always() && steps.stop.outputs.stop == '0' && steps.run.outputs.rc != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RC: ${{ steps.run.outputs.rc }}
+          NOTE: ${{ steps.acc.outputs.note }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          D="${{ steps.run.outputs.date }}"; [ -n "$D" ] || D=$(TZ=Europe/London date +%Y-%m-%d)
+          LOG="$RUNNER_TEMP/expect.log"
+          {
+            echo "毎晩の巡回（本番を読むだけの検査 \`scripts/check/expect.py\`）が通らなかった。直していない。本番には何も書いていない。"
+            echo
+            echo "- 終わりの番号: ${RC:-（検査まで進めなかった。前の段の記録を見る）}"
+            echo "- 最後の行: $( [ -f "$LOG" ] && tail -1 "$LOG" || echo '（記録が無い）' )"
+            echo "- ${NOTE:-口座の段まで進めなかった}"
+            echo "- この実行: $RUN_URL （Artifacts「巡回の記録」に expect.log と ledger.json。14 日）"
+            echo
+            echo "× と △ の行（OK の行を除いたもの）:"
+            echo '```'
+            if [ -f "$LOG" ]; then grep -v '^  OK' "$LOG" | head -120 || true; else echo "（記録が無い）"; fi
+            echo '```'
+          } > "$RUNNER_TEMP/issue.md"
+          gh issue create --repo "${{ github.repository }}" --title "巡回 $D：失敗" --body-file "$RUNNER_TEMP/issue.md"
+
+      - name: 月曜で通ったら、控えを PR に
+        if: steps.stop.outputs.stop == '0' && steps.run.outputs.rc == '0' && steps.run.outputs.monday == '1' && steps.acc.outputs.has == '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          D="${{ steps.run.outputs.date }}"
+          B="patrol/ledger-$D"
+          BASE="${{ github.ref_name }}"
+          cp "$RUNNER_TEMP/ledger.json" scripts/check/ledger-production.json
+          if git diff --quiet -- scripts/check/ledger-production.json; then echo "控えに変わりが無い"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -q -b "$B"
+          git add scripts/check/ledger-production.json
+          git commit -q -m "巡回 $D：本番の控え（ledger-production.json）を今日の数に" \
+            -m "GitHub Actions の巡回（.github/workflows/patrol.yml）が、本番を読むだけの検査（expect.py）で取った数。"
+          {
+            echo "## 何を"; echo "本番の控え \`scripts/check/ledger-production.json\` を $D の数に置き換える（週に 1 度、月曜の巡回が作る）。"
+            echo; echo "## なぜ"; echo "巡回の決まり（knowledge/40-運用/反映と巡回.md の「巡回」）。前の控えとの差は Artifacts の expect.log（$RUN_URL）。"
+            echo; echo "## 検査"; echo "- [x] 本番を読むだけの検査（expect.py）：$(tail -1 "$RUNNER_TEMP/expect.log")"
+            echo "- Actions の token が作った PR なので「検査」は流れない（変わるのは控えの JSON 1 本だけ）。"
+            echo; echo "## 知識を更新したか"; echo "- 無し（数の控えだけ）。"
+            echo; echo "## 本番への影響"; echo "無し。"
+          } > "$RUNNER_TEMP/pr.md"
+          if git push -q origin "HEAD:refs/heads/$B" && gh pr create --repo "${{ github.repository }}" --base "$BASE" --head "$B" --title "巡回 $D（週の控え）" --body-file "$RUNNER_TEMP/pr.md"; then
+            echo "PR を作った（$B → $BASE）"
+          else
+            echo "PR を作れなかった（設定で断られた可能性）。issue に控えを貼る。"
+            git push -q origin --delete "$B" 2>/dev/null || true
+            {
+              echo "月曜の巡回は通った（$(tail -1 "$RUNNER_TEMP/expect.log")）が、控えの PR を作れなかった（枝 $B）。"
+              echo "GitHub の Settings → Actions → General →「Allow GitHub Actions to create and approve pull requests」が切れていると、Actions の token は PR を作れない。"
+              echo "手で置くなら、下の JSON を \`scripts/check/ledger-production.json\` に。この実行: $RUN_URL"
+              echo; echo '```json'; cat "$RUNNER_TEMP/ledger.json"; echo '```'
+            } > "$RUNNER_TEMP/issue.md"
+            gh issue create --repo "${{ github.repository }}" --title "巡回 $D（週の控え）：PR を作れなかった" --body-file "$RUNNER_TEMP/issue.md"
+          fi
+
+      - name: 失敗があれば赤に
+        if: steps.stop.outputs.stop == '0'
+        run: '[ "${{ steps.run.outputs.rc }}" = 0 ]'

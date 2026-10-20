@@ -5,7 +5,10 @@
 
     python3 scripts/check/test_guard.py     # 0 なら通った
 
-2026-10-14：最初の番人は「ssh」という字を含むだけで止め、grep ssh のような読むだけの命令まで止めていた。"""
+2026-10-14：最初の番人は「ssh」という字を含むだけで止め、grep ssh のような読むだけの命令まで止めていた。
+2026-10-20：別の場所で始めたセッションを置き場へ移すと、hook の CLAUDE_PROJECT_DIR が元の場所を指したままで番人が見つからず、
+道具が全部止まった。命令文を「CLAUDE_PROJECT_DIR に無ければ git の根から」に直し、ここでは CLAUDE_PROJECT_DIR が
+正しい・無い・間違った場所（/tmp）を指す 3 通りで全例を流す。番人が見つからず命令文が失敗したら、通す例でも × にする。"""
 import json, os, subprocess, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -56,16 +59,25 @@ CASES = [
 def main():
     st = json.load(open(os.path.join(ROOT, ".claude", "settings.json"), encoding="utf-8"))
     cmds = {h["matcher"]: h["hooks"][0]["command"] for h in st["hooks"]["PreToolUse"]}
-    env = dict(os.environ, CLAUDE_PROJECT_DIR=ROOT)
+    base = {k: v for k, v in os.environ.items() if k != "CLAUDE_PROJECT_DIR"}
+    modes = [("正しい", dict(base, CLAUDE_PROJECT_DIR=ROOT)),
+             ("無い", dict(base)),
+             ("間違った場所（/tmp）", dict(base, CLAUDE_PROJECT_DIR="/tmp"))]
     bad = 0
-    for want, tool, ti in CASES:
-        m = next(k for k in cmds if tool in k.split("|"))
-        out = subprocess.run(["bash", "-c", cmds[m]], input=json.dumps({"tool_name": tool, "tool_input": ti}),
-                             capture_output=True, text=True, env=env, cwd=ROOT).stdout
-        got = "deny" if '"deny"' in out else "allow"
-        if got != want:
-            bad += 1; print("×  %s を %s にすべきところ %s：%s" % (tool, want, got, ti))
-    print("番人の検査：%s（%d 例）" % ("× %d 件" % bad if bad else "すべて通った", len(CASES)))
+    for mode, env in modes:
+        for want, tool, ti in CASES:
+            m = next(k for k in cmds if tool in k.split("|"))
+            r = subprocess.run(["bash", "-c", cmds[m]], input=json.dumps({"tool_name": tool, "tool_input": ti}),
+                               capture_output=True, text=True, env=env, cwd=ROOT)
+            if '"deny"' in r.stdout:
+                got = "deny"
+            elif r.returncode != 0:
+                got = "命令文が失敗（番人が見つからない？）: " + (r.stderr.strip().splitlines() or ["?"])[-1]
+            else:
+                got = "allow"
+            if got != want:
+                bad += 1; print("×  [CLAUDE_PROJECT_DIR が %s] %s を %s にすべきところ %s：%s" % (mode, tool, want, got, ti))
+    print("番人の検査：%s（%d 例 × %d 通り）" % ("× %d 件" % bad if bad else "すべて通った", len(CASES), len(modes)))
     return 1 if bad else 0
 
 if __name__ == "__main__":

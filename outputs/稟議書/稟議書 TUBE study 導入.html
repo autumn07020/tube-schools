@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><title>稟議書 TUBE study 導入</title>
+<style>
+:root{--fs:10pt;--line:#555;--fill:#f1f2f4;--fill2:#e4e7eb}
+@page{size:A4;margin:0}
+html,body{margin:0;background:#fff}
+body{font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","IPAPGothic","IPAGothic",sans-serif;font-weight:300;font-size:var(--fs);line-height:1.34;color:#111;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.sheet{box-sizing:border-box;width:210mm;height:297mm;padding:10mm 13mm 11mm;overflow:hidden;position:relative;page-break-after:always}
+.sheet:last-child{page-break-after:auto}
+b,strong,h1,h2,h3,th{font-weight:600}
+h1{font-size:1.5em;margin:0;letter-spacing:.4em;line-height:1.2}
+.meta{border-bottom:1.1pt solid #111;padding-bottom:1.4mm;margin-bottom:1.6mm}
+.meta .row{display:flex;justify-content:space-between;align-items:baseline}
+.meta p{margin:.8mm 0 0}
+.lead{margin:1.2mm 0 .6mm}
+.ki{text-align:center;margin:.4mm 0 0;letter-spacing:.3em}
+h2{font-size:1.04em;margin:1.7mm 0 .3mm;border-left:2.2pt solid #111;padding-left:1.8mm;line-height:1.25}
+p{margin:0 0 .3mm;text-align:justify}
+ul{margin:0 0 .3mm;padding-left:4.2mm}
+li{margin:0 0 .15mm;text-align:justify}
+ol.req{margin:0;padding-left:6mm;list-style:none;counter-reset:r}
+ol.req li{counter-increment:r;position:relative}
+ol.req li::before{content:"(" counter(r) ")";position:absolute;left:-6mm}
+table{border-collapse:collapse;width:100%;margin:.5mm 0 .3mm;table-layout:fixed}
+th,td{border:.5pt solid #888;padding:.35mm 1.4mm;vertical-align:top;text-align:left;line-height:1.32}
+th{background:var(--fill2)}
+.k{font-weight:600}
+.end{text-align:right;margin-top:.8mm}
+.att{margin-top:.8mm}
+.foot{position:absolute;left:13mm;right:13mm;bottom:4.5mm;font-size:7.4pt;color:#666;display:flex;justify-content:space-between}
+
+/* 別紙：図 */
+.fig{margin:0 0 3.2mm}
+.cap{font-weight:600;font-size:1.04em;margin:0 0 1.2mm;border-left:2.2pt solid #111;padding-left:1.8mm}
+.roles{display:grid;grid-template-columns:repeat(4,1fr);gap:2mm}
+.role{border:.6pt solid var(--line);border-radius:1.6mm;overflow:hidden}
+.role h3{margin:0;font-size:1em;background:var(--fill2);padding:.8mm 2mm;border-bottom:.5pt solid var(--line)}
+.role h3 small{font-weight:300;font-size:.82em;color:#444;margin-left:1mm}
+.role ul{margin:1mm 0 1.2mm;padding-left:5.6mm;padding-right:1.6mm;font-size:.92em}
+.role li{margin:0 0 .5mm;text-align:left}
+.flow{display:flex;align-items:stretch;gap:0}
+.step{flex:1;border:.6pt solid var(--line);border-radius:1.6mm;padding:1.2mm 1.8mm;background:#fff;font-size:.92em;line-height:1.36}
+.step .who{display:inline-block;font-weight:600;font-size:.88em;background:var(--fill2);border-radius:.8mm;padding:0 1.4mm;margin-bottom:.6mm}
+.step .n{font-weight:600;margin-right:.8mm}
+.arr{flex:0 0 5mm;display:flex;align-items:center;justify-content:center}
+.arr svg{width:4mm;height:4mm}
+.store{display:grid;grid-template-columns:1fr 1fr;gap:2mm;margin-top:1.6mm;font-size:.92em}
+.box{border:.6pt solid var(--line);border-radius:1.6mm;padding:1.1mm 2mm;background:var(--fill)}
+.box b{display:block;margin-bottom:.3mm}
+.cycle{display:grid;grid-template-columns:1fr 5mm 1fr 5mm 1fr;grid-template-rows:auto 5mm auto;align-items:stretch}
+.cycle .arr.d{grid-column:5;grid-row:2}
+.cycle .arr.d svg{transform:rotate(90deg)}
+.cycle .arr.l svg{transform:rotate(180deg)}
+.side{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2mm;margin-top:1.6mm;font-size:.92em}
+.note{color:#444;font-size:.86em}
+.terms th{background:var(--fill2);white-space:nowrap}
+.terms td,.terms th{font-size:.94em}
+</style></head><body>
+
+<section class="sheet" id="p1">
+<div class="meta">
+  <div class="row"><h1>稟議書</h1><span>起案日：2026 年　　月　　日　ロンドン校　起案者：校長　＿＿＿＿＿＿＿＿</span></div>
+  <p><b>件名：</b>宿題の提出・添削および学習記録のデジタル化について（TUBE study の導入）</p>
+</div>
+<p class="lead">標記の件について、下記のとおり導入いたしたく、ご承認くださいますようお願い申し上げます。</p>
+<p class="ki">記</p>
+
+<h2>1. 結論（本稟議の要旨）</h2>
+<p>当校の宿題の提出・確認・添削および学習記録を、Web サービス「TUBE study」により行う。2026 年 11 月より希望する講師の授業で試行し、対象は当校の判断で順次拡大する。利用料は月額 300 ポンド以内とし、契約は当校にて締結する。サービスの継続・引継ぎおよび将来の移行に関する事項は、契約に定める。</p>
+
+<h2>2. 背景・目的</h2>
+<p>当校はオンライン受講生の割合が高い。本サービスの導入により、対面・オンラインを問わず全生徒の宿題を同一の方法で確認・返却し、学習記録を生徒ごとに蓄積するとともに、保護者が家庭で学習状況を確認できる環境を整えることを目的とする。</p>
+
+<h2>3. 現状の課題</h2>
+<ul>
+<li>オンライン受講生の宿題は、relation での受領・印刷・添削・読み取り・メール返却の手順を要している。</li>
+<li>評価や小テスト・過去問の結果が講師ごとの紙・表計算に分かれ、生徒ごとの推移を把握しにくい。</li>
+<li>保護者が宿題の取組状況を知る機会が、テスト結果と面談に限られている。</li>
+</ul>
+
+<h2>4. 導入後の変化</h2>
+<table>
+<colgroup><col style="width:17%"><col style="width:39%"><col style="width:44%"></colgroup>
+<tr><th>項目</th><th>現状</th><th>導入後</th></tr>
+<tr><td>宿題の確認</td><td>対面は授業内でノートを確認、オンラインはメールで受領</td><td>対面・オンラインとも同一の画面で確認し、記録が残る</td></tr>
+<tr><td>添削・返却</td><td>印刷して添削し、読み取ってメールで返却</td><td>提出された写真に直接書き込んで返却（印刷・読み取りは不要）</td></tr>
+<tr><td>個別の添削</td><td>漢字テストの直し・過去問・作文・英作文を紙でやり取り</td><td>生徒ごとに書き込みで返却し、過去問は学校・年度別に記録</td></tr>
+<tr><td>保護者</td><td>テスト結果・面談で把握</td><td>宿題の状況と講師の評価・コメントを、生徒の端末で確認</td></tr>
+</table>
+
+<h2>5. 期待される効果</h2>
+<ul>
+<li>全生徒の宿題を同一の方法で確認・返却でき、確認作業の簡便化が見込まれる。</li>
+<li>漢字テストの直し、過去問、作文・英作文などの個別の添削を、印刷・読み取りを経ずに行える。</li>
+<li>評価・小テスト・過去問の記録が生徒ごとに残り、授業・面談に活用できる。保護者も取組状況を確認できる。</li>
+</ul>
+<p>効果は試行期間中に提出率と返却までの日数を記録し、検証のうえ報告する。</p>
+
+<h2>6. 想定される懸念点と対応策</h2>
+<ul>
+<li><span class="k">講師ごとの導入の差：</span>教科により適した方式が異なることを前提に、利用の有無・開始時期は講師が選択する。紙で提出する教科が画面上で目立たない仕様とし、保護者には、各講師が適切な時期に理想と考える方式でオンライン提出と紙提出を切り替えている旨を案内する。</li>
+<li><span class="k">既存システムとの関係：</span>お知らせ・出欠・成績等は従来どおり早稲アカOnline、授業の連絡は Google Classroom とし、本サービスは宿題と学習記録に限る。他システムとの連携は行わない。</li>
+<li><span class="k">個人情報：</span>英国の個人情報保護法（UK GDPR）に基づき、当校を管理者として影響評価（DPIA）と保護者への説明を行ったうえで運用を開始する。氏名・連絡先は取得せず、ID のみで利用する。データは英国内のサーバーに保管し、通信の暗号化・毎日のバックアップ・提出写真の一定期間後の自動削除を行う。本社への生徒データの送付は行わない。</li>
+<li><span class="k">継続性・権利・データの帰属：</span>提供者が提供を継続できない場合の引継ぎ、著作権と学習データの帰属、移行時・契約終了時のデータの扱いを契約に定める（別紙 図 4）。</li>
+</ul>
+
+<h2>7. 費用</h2>
+<p>利用料　月額 300 ポンド以内（サーバー費・バックアップ・保守・改修を含む）。初期費用・開発費・端末購入費は発生しない。</p>
+
+<h2>8. 依頼事項</h2>
+<p>以上につき、次の事項のご承認をお願いいたします。</p>
+<ol class="req">
+<li>当校における TUBE study の導入（2026 年 11 月より試行。対象の拡大および継続は当校にて判断）ならびに保護者への案内</li>
+<li>利用料 月額 300 ポンド以内の計上</li>
+<li>提供者との利用・保守契約の締結（契約の相手方および条件は当校に一任）</li>
+</ol>
+<p class="att">添付資料：別紙「TUBE study の概要と情報の流れ」</p>
+<p class="end">以上</p>
+<div class="foot"><span>稟議書　宿題の提出・添削および学習記録のデジタル化について（TUBE study の導入）</span><span>1 / 2</span></div>
+</section>
+
+<section class="sheet" id="p2">
+<div class="meta"><div class="row"><h1>別紙</h1><span>TUBE study の概要と情報の流れ</span></div></div>
+
+<div class="fig">
+<p class="cap">図 1　利用者ごとのサービス</p>
+<div class="roles">
+  <div class="role"><h3>生徒</h3><ul>
+    <li>授業回ごとの宿題と期限を確認</li>
+    <li>宿題を写真で提出（紙で提出する教科は従来どおり講師へ）</li>
+    <li>講師の評価・コメント・添削を確認</li>
+    <li>小テスト・過去問の提出と記録の確認</li>
+    <li>暗記の確認テスト（任意）</li>
+  </ul></div>
+  <div class="role"><h3>保護者<small>生徒の端末で</small></h3><ul>
+    <li>初回登録（学年・クラス・受講教科の選択）</li>
+    <li>宿題の取組状況と学習の推移を確認</li>
+    <li>講師の評価・コメント・添削を確認</li>
+    <li>教科ごとに担当講師へメッセージ</li>
+    <li>クラス・受講教科の変更</li>
+  </ul></div>
+  <div class="role"><h3>講師</h3><ul>
+    <li>授業計画に沿って宿題を配信</li>
+    <li>提出物の確認・5 段階評価・コメント・書き込み添削</li>
+    <li>対面の生徒は授業中にその場で評価</li>
+    <li>小テスト・過去問・作文の提出箱を作成</li>
+    <li>生徒ごとの記録と理解度の推移を確認</li>
+  </ul></div>
+  <div class="role"><h3>管理者<small>校舎</small></h3><ul>
+    <li>講師・クラス・コースと担当の設定</li>
+    <li>登録コードの発行と配布</li>
+    <li>コースごとの利用状況の確認</li>
+    <li>在籍終了・パスワード再発行の手続</li>
+    <li>不具合の報告の確認</li>
+  </ul></div>
+</div>
+</div>
+
+<div class="fig">
+<p class="cap">図 2　初回登録の流れ</p>
+<div class="flow">
+  <div class="step"><span class="who">校舎</span><br><span class="n">①</span>登録コード（QR）を発行し、案内文書で保護者に配布する</div>
+  <div class="arr"><svg viewBox="0 0 10 10"><path d="M1 5h7M5 2l3 3-3 3" fill="none" stroke="#333" stroke-width="1.2"/></svg></div>
+  <div class="step"><span class="who">保護者</span><br><span class="n">②</span>コードを入力し、学年・クラス・受講教科を選ぶ。氏名・連絡先は入力しない</div>
+  <div class="arr"><svg viewBox="0 0 10 10"><path d="M1 5h7M5 2l3 3-3 3" fill="none" stroke="#333" stroke-width="1.2"/></svg></div>
+  <div class="step"><span class="who">保護者</span><br><span class="n">③</span>ID（例 s-042）が発行され、端末でパスワードを設定する</div>
+  <div class="arr"><svg viewBox="0 0 10 10"><path d="M1 5h7M5 2l3 3-3 3" fill="none" stroke="#333" stroke-width="1.2"/></svg></div>
+  <div class="step"><span class="who">生徒</span><br><span class="n">④</span>ID がクラス・受講教科に結びつき、登録した日から現在の宿題が表示される</div>
+</div>
+<div class="store">
+  <div class="box"><b>サーバーに保存する情報</b>ID・学年・クラス・受講教科・宿題と評価の記録。パスワードは復元できない形でのみ保存する</div>
+  <div class="box"><b>取得しない情報</b>氏名・住所・電話番号・メールアドレス。ID と氏名の対応表も作成しない</div>
+</div>
+</div>
+
+<div class="fig">
+<p class="cap">図 3　運用開始後の流れ</p>
+<div class="cycle">
+  <div class="step"><span class="who">講師</span><br><span class="n">①</span>授業計画に宿題（教材・範囲）を入れる。授業日ごとに生徒の画面へ自動で配信される</div>
+  <div class="arr"><svg viewBox="0 0 10 10"><path d="M1 5h7M5 2l3 3-3 3" fill="none" stroke="#333" stroke-width="1.2"/></svg></div>
+  <div class="step"><span class="who">生徒</span><br><span class="n">②</span>宿題を確認して取り組み、写真で提出する。対面の生徒はノートを授業で提示する</div>
+  <div class="arr"><svg viewBox="0 0 10 10"><path d="M1 5h7M5 2l3 3-3 3" fill="none" stroke="#333" stroke-width="1.2"/></svg></div>
+  <div class="step"><span class="who">講師</span><br><span class="n">③</span>一つの画面で確認し、5 段階評価・コメントを付け、必要に応じて写真に直接書き込んで返す</div>
+  <div class="arr d"><svg viewBox="0 0 10 10"><path d="M1 5h7M5 2l3 3-3 3" fill="none" stroke="#333" stroke-width="1.2"/></svg></div>
+  <div class="step" style="grid-column:1;grid-row:3"><span class="who">講師</span><br><span class="n">⑥</span>生徒ごとの記録と理解度の推移を、次の授業・面談・宿題の調整に生かす</div>
+  <div class="arr l" style="grid-column:2;grid-row:3"><svg viewBox="0 0 10 10"><path d="M1 5h7M5 2l3 3-3 3" fill="none" stroke="#333" stroke-width="1.2"/></svg></div>
+  <div class="step" style="grid-column:3;grid-row:3"><span class="who">保護者</span><br><span class="n">⑤</span>生徒の端末で取組状況と評価・コメントを確認し、必要に応じて講師へメッセージを送る</div>
+  <div class="arr l" style="grid-column:4;grid-row:3"><svg viewBox="0 0 10 10"><path d="M1 5h7M5 2l3 3-3 3" fill="none" stroke="#333" stroke-width="1.2"/></svg></div>
+  <div class="step" style="grid-column:5;grid-row:3"><span class="who">生徒</span><br><span class="n">④</span>評価・コメント・添削を受け取り、直しに取り組む。記録は生徒ごとに残る</div>
+</div>
+<div class="side">
+  <div class="box"><b>紙で提出する教科</b>従来どおり講師へ直接提出する。生徒の画面には「紙で先生に提出」と表示し、未提出としては扱わない</div>
+  <div class="box"><b>管理者（校舎）</b>講師・クラス・コースの設定、登録コードの管理、利用状況と報告の確認を管理画面で行う</div>
+  <div class="box"><b>データの保管</b>英国内のサーバーに保管。通信の暗号化、毎日のバックアップ、提出写真の一定期間後の自動削除。本社・他システムへの送信は行わない</div>
+</div>
+</div>
+<div class="fig">
+<p class="cap">図 4　契約に定める主な事項（当校と提供者の契約）</p>
+<table class="terms">
+<colgroup><col style="width:19%"><col style="width:81%"></colgroup>
+<tr><th>権利の帰属</th><td>本サービスの著作権は提供者に帰属し、当校は利用許諾を受ける。開発費・買取費は発生しない</td></tr>
+<tr><th>データの帰属</th><td>生徒の学習データは当校に帰属する。提供者は当校の指示の範囲でのみ取り扱い、目的外の利用は行わない</td></tr>
+<tr><th>継続性・引継ぎ</th><td>提供者が提供を継続できない場合は 6 か月前までに通知し、プログラム・手順書・サーバー等を当校または当校の指定する者に引き継ぐ。引継ぎ後も、当校は自校の業務のために利用・改修できる</td></tr>
+<tr><th>運用体制</th><td>日常の運用は管理画面で行う。保守を第三者が引き継げるよう、試行期間中に手順書等を整備する</td></tr>
+<tr><th>移行・契約終了</th><td>他システムへの移行時および契約終了時は、学習データを一般的な形式で当校に提供し、サーバー上のデータを消去する</td></tr>
+<tr><th>個人情報の取扱い</th><td>当校を管理者、提供者を処理者とし、英国法（UK GDPR 第 28 条）が求める事項（守秘・安全管理・再委託の承認・事故時の報告等）を定める</td></tr>
+<tr><th>契約期間・費用</th><td>1 年（自動更新）。利用料は月額 300 ポンド以内</td></tr>
+</table>
+</div>
+<div class="foot"><span>稟議書　宿題の提出・添削および学習記録のデジタル化について（TUBE study の導入）</span><span>2 / 2</span></div>
+</section>
+</body></html>

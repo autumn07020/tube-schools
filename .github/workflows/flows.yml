@@ -56,6 +56,13 @@ jobs:
           {
             echo "### 画面の流れ（Chrome）"
             cat "$RUNNER_TEMP/W/結果.md" 2>/dev/null || echo "（結果が無い。土台を作れなかった可能性）"
+            # 通らなかった台本の × の行をここに写す（Artifacts と job の log は、クラウドの routine から 403 で読めない。10-26）
+            for f in "$RUNNER_TEMP"/W/flows-out/*.out; do
+              [ -f "$f" ] && grep -q -E '^ +× ' "$f" || continue
+              echo ""; echo "<details><summary>$(basename "$f" .out) の ×</summary>"; echo ""; echo '```'
+              grep -E '^ +× ' "$f" | head -20 | cut -c1-400
+              echo '```'; echo "</details>"
+            done
             echo ""
             echo "写しと記録は この実行の Artifacts「写しと記録」（${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}）。WebKit と Safari の目視は Mac で。"
           } > comment.md

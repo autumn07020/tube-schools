@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><title>参考資料 TUBE study の情報セキュリティ</title>
+<style>
+:root{--fs:10pt;--line:#555;--fill:#f1f2f4;--fill2:#e4e7eb}
+@page{size:A4;margin:0}
+html,body{margin:0;background:#fff}
+body{font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","IPAPGothic","IPAGothic",sans-serif;font-weight:300;font-size:var(--fs);line-height:1.38;color:#111;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.sheet{box-sizing:border-box;width:210mm;height:297mm;padding:10mm 13mm 11mm;overflow:hidden;position:relative}
+b,strong,h1,h2,th{font-weight:600}
+h1{font-size:1.5em;margin:0;letter-spacing:.2em;line-height:1.2}
+.meta{border-bottom:1.1pt solid #111;padding-bottom:1.4mm;margin-bottom:2mm}
+.meta .row{display:flex;justify-content:space-between;align-items:baseline}
+.meta p{margin:.8mm 0 0}
+h2{font-size:1.04em;margin:2.6mm 0 .8mm;border-left:2.2pt solid #111;padding-left:1.8mm;line-height:1.25}
+p{margin:0 0 .4mm;text-align:justify}
+ul{margin:0 0 .3mm;padding-left:4.2mm}
+li{margin:0 0 .3mm;text-align:justify}
+table{border-collapse:collapse;width:100%;margin:.5mm 0 .3mm;table-layout:fixed}
+th,td{border:.5pt solid #888;padding:.6mm 1.6mm;vertical-align:top;text-align:left;line-height:1.36}
+th{background:var(--fill2)}
+td.k{font-weight:600;background:var(--fill)}
+.foot{position:absolute;left:13mm;right:13mm;bottom:4.5mm;font-size:7.4pt;color:#666;display:flex;justify-content:space-between}
+/* 図 */
+.net{display:flex;align-items:stretch;margin:1mm 0 0}
+.node{flex:1;border:.6pt solid var(--line);border-radius:1.6mm;padding:1.2mm 1.8mm;font-size:.9em;line-height:1.35;background:#fff}
+.node b{display:block;font-size:1.02em;margin-bottom:.3mm}
+.node.srv{background:var(--fill)}
+.wire{flex:0 0 13mm;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:.72em;color:#333;text-align:center;line-height:1.2}
+.wire svg{width:9mm;height:3mm;margin:.4mm 0}
+.cut{margin-top:1.6mm;border:.6pt dashed var(--line);border-radius:1.6mm;padding:1mm 2mm;font-size:.9em;display:flex;gap:2mm;align-items:center}
+.cut b{white-space:nowrap}
+.pr{display:grid;grid-template-columns:1fr 1fr;gap:1.6mm 2.4mm}
+.pr div{border:.6pt solid var(--line);border-radius:1.6mm;padding:1.1mm 2mm}
+.pr b{display:block;margin-bottom:.3mm}
+</style></head><body>
+
+<section class="sheet">
+<div class="meta">
+  <div class="row"><h1>参考資料</h1><span>稟議書「宿題の提出・添削および学習記録のデジタル化について」添付</span></div>
+  <p><b>件名：</b>TUBE study における情報セキュリティ対策について</p>
+</div>
+<p>近年、国内企業を狙うサイバー攻撃（ランサムウェア等）による被害が相次いでいる。本資料は、TUBE study がこうした攻撃に対してどのような仕組みで備えているかを整理したものである。</p>
+
+<h2>1. 基本の考え方</h2>
+<div class="pr">
+  <div><b>(1) 狙われる情報を持たない</b>生徒の氏名・住所・電話番号・メールアドレスは取得しない。パスワードはサーバーに送られず、保存するのは照合用の値のみである（元のパスワードには戻せない）。</div>
+  <div><b>(2) 入口を絞る</b>サーバーは Web の入口を外部に開けておらず、通信はすべて暗号化された経路を通る。外部から直接つながる口は、保守用の 1 つ（鍵による認証）に限る。</div>
+  <div><b>(3) 他のシステムとつながない</b>本社のシステム・早稲アカOnline・校舎のネットワークや端末とは接続しない。利用はブラウザのみで、校舎の端末にソフトを入れない。被害が他へ広がる経路を持たない。</div>
+  <div><b>(4) 失っても戻せる</b>データは毎日、別の保管場所（英国内）へ複製する。サーバー自身には過去の複製を読む・消す権限を与えていないため、サーバーが侵害されても過去 30 日分は残る。</div>
+</div>
+
+<h2>2. 構成</h2>
+<div class="net">
+  <div class="node"><b>利用者の端末</b>生徒・保護者・講師・管理者。ブラウザのみで利用</div>
+  <div class="wire">暗号化<svg viewBox="0 0 30 10"><path d="M1 5h26M23 2l4 3-4 3" fill="none" stroke="#333" stroke-width="1.2"/></svg>HTTPS</div>
+  <div class="node"><b>Cloudflare</b>通信の中継。大量アクセス等の妨害を遮断</div>
+  <div class="wire">専用経路<svg viewBox="0 0 30 10"><path d="M1 5h26M23 2l4 3-4 3" fill="none" stroke="#333" stroke-width="1.2"/></svg>トンネル</div>
+  <div class="node srv"><b>サーバー（英国）</b>Amazon Web Services（ロンドン）。Web の入口は外部に開けていない</div>
+  <div class="wire">毎日<svg viewBox="0 0 30 10"><path d="M1 5h26M23 2l4 3-4 3" fill="none" stroke="#333" stroke-width="1.2"/></svg>複製</div>
+  <div class="node"><b>バックアップ（英国内）</b>30 日分を保持。サーバーからは読めず、消せない</div>
+</div>
+<div class="cut"><b>接続しないもの</b>本社のシステム、早稲アカOnline、校舎のネットワーク・端末、広告・解析等の外部サービス（画面から外部への通信は設定により遮断）</div>
+
+<h2>3. 主な攻撃と対策</h2>
+<table>
+<colgroup><col style="width:24%"><col style="width:76%"></colgroup>
+<tr><th>想定される攻撃</th><th>主な対策</th></tr>
+<tr><td class="k">ランサムウェア<br>（暗号化・窃取と脅迫）</td><td>脅迫の材料となる氏名・連絡先を保有しない。バックアップはサーバーから消去できない別の保管場所にあり、30 日分から復元できる。紙での提出も併用しているため、停止中も授業・宿題は継続できる。</td></tr>
+<tr><td class="k">不正ログイン<br>（なりすまし・総当たり）</td><td>パスワードを送受信しない照合方式（SCRAM-SHA-256）を用いる。試行回数を制限し、締め出しは管理画面に表示する。存在しない ID でも同じ応答を返し、ID の有無を判別させない。</td></tr>
+<tr><td class="k">サーバーへの侵入<br>（情報の持ち出し）</td><td>氏名・連絡先・パスワードを保有しない。データは校舎ごとに分けて保管する。生徒は自分の記録のみ、講師は担当の授業のみ閲覧でき、管理者は学習記録を閲覧できない。</td></tr>
+<tr><td class="k">部品の汚染<br>（サプライチェーン攻撃）</td><td>外部のソフトウェア部品・ライブラリを使用しない（Python の標準機能のみで構成）。画面は外部のサーバーから部品を読み込まない。</td></tr>
+<tr><td class="k">通信の盗聴・改ざん</td><td>通信はすべて暗号化する（HTTPS を強制し、暗号化されていない接続ではデータをやり取りしない）。</td></tr>
+<tr><td class="k">大量アクセスによる妨害</td><td>通信を中継する Cloudflare の防御機能を利用する。サーバーは Web の接続を直接受け付けない。</td></tr>
+</table>
+
+<h2>4. 確認の体制</h2>
+<ul>
+<li>プログラムを変更するたびに自動検査を行う（自ら攻撃を試みる検査 56 項目、校舎間のデータの分離、利用者ごとの閲覧範囲など）。</li>
+<li>毎晩、本番の動作を自動で点検する。</li>
+<li>提出された答案の写真は一定期間後に自動で削除し、保有する情報を最小限に保つ。</li>
+</ul>
+
+<h2>5. 今後の対応（試行期間中）</h2>
+<ul>
+<li>外部の専門家による検査の実施を検討する。</li>
+<li>バックアップからの復元訓練を行い、記録に残す。</li>
+<li>停止時の自動通知と、障害時の手順書（校舎用・紙 1 枚）を整備する。</li>
+<li>保守と鍵の管理が提供者 1 名に集中しているため、手順書の整備と引継ぎの取り決めを契約に定める。</li>
+</ul>
+<div class="foot"><span>参考資料　TUBE study における情報セキュリティ対策</span><span>1 / 1</span></div>
+</section>
+</body></html>

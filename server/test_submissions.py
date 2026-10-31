@@ -300,6 +300,36 @@ def test_score():
     check("出していない宿題には付かない", SUB.put_score(SCHOOL, "atest-none", s1, 50) is None)
 
 
+def test_race():
+    """同時に届いた 2 本の書き込みが、互いを消さない（10-26 #13：評価の PUT が、同時に届いたひとことを消した）。
+    台帳の書き戻しを遅らせて、2 本を必ず重ねる。"""
+    print("同時の書き込み")
+    import threading
+    s1, s3 = sid("lj2d01"), sid("lj2d03")
+    got = SUB.mark_seen(SCHOOL, "atest01", s1, sid("t-a"), "字がていねいです")
+    got = SUB.mark_seen(SCHOOL, "atest01", s1, sid("t-a"), None)
+    check("ひとことを渡さない「見た」は、ひとことに触らない", got["note"] == "字がていねいです", got)
+    real = SUB.save
+
+    def slow(school, db):
+        time.sleep(0.2)
+        real(school, db)
+    SUB.save = slow
+    try:
+        a = threading.Thread(target=SUB.mark_seen, args=(SCHOOL, "atest01", s1, sid("t-a"), "図がわかりやすい"))
+        b = threading.Thread(target=SUB.mark_seen, args=(SCHOOL, "atest01", s1, sid("t-a"), None))
+        a.start(); time.sleep(0.05); b.start(); a.join(); b.join()
+        check("ひとこと → 評価だけ が重なっても、ひとことが残る",
+              SUB.of_assignment(SCHOOL, "atest01")[s1]["note"] == "図がわかりやすい", SUB.of_assignment(SCHOOL, "atest01")[s1])
+        a = threading.Thread(target=SUB.put, args=(SCHOOL, "atest-race", s1, [{"kind": "png", "data": png()}]))
+        b = threading.Thread(target=SUB.put, args=(SCHOOL, "atest-race", s3, [{"kind": "png", "data": png()}]))
+        a.start(); time.sleep(0.05); b.start(); a.join(); b.join()
+        check("2 人が同時に出しても、2 人とも残る", set(SUB.of_assignment(SCHOOL, "atest-race")) >= {s1, s3},
+              sorted(SUB.of_assignment(SCHOOL, "atest-race")))
+    finally:
+        SUB.save = real
+
+
 def main():
     setup()
     test_put()
@@ -309,6 +339,7 @@ def main():
     test_pdf()
     test_quiz()
     test_score()
+    test_race()
     print()
     if ng_n:
         print("test_submissions: %d件 だめ" % ng_n)

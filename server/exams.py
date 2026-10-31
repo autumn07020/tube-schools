@@ -24,12 +24,21 @@
 規則から日付を計算するのではなく、**入っている日付を読む**。
 """
 
+import datetime
 import time
 
 import paths
 import curriculum_source as SOURCE
 
 DAY = 86400
+
+
+def _midnight(ymd, n=0):
+    """ymd（"YYYY-MM-DD"）の n 日あとの 0 時。**日は暦で足す。**
+    秒（n×DAY）で足すと、夏時間の切り替え（3 月・10 月の終わりの日曜）をまたいだときに
+    23 時や 1 時になり、画面の日付が 1 日ずれる（2026-10-31、聞く時期が 10-30 でなく 10-29 からと出た）。"""
+    d = datetime.date(*map(int, ymd.split("-"))) + datetime.timedelta(days=int(n))
+    return time.mktime((d.year, d.month, d.day, 0, 0, 0, 0, 0, -1))
 # 本番の何日前から対策を出すか。**2週間**。
 # 8日では、5週ぶんの範囲を1教科50分で回すのに足りない
 # （5教科 × 50分 = 1日4時間強。8日では他の宿題と両立しない）。
@@ -105,11 +114,11 @@ def placement_window(school, when=None, dept=None):
     rd = result_days(school)
     for e in reversed(all_exams(school, dept)):
         try:
-            t = time.mktime(time.strptime(e["date"], "%Y-%m-%d"))
+            time.strptime(e["date"], "%Y-%m-%d")
         except ValueError:
             continue
-        start = t + rd * DAY
-        end = start + ASK_DAYS * DAY
+        start = _midnight(e["date"], rd)
+        end = _midnight(e["date"], rd + ASK_DAYS)
         if start <= now < end:
             return {"exam": e, "from": int(start), "to": int(end),
                     "fromDay": time.strftime("%Y-%m-%d", time.localtime(start)),
@@ -243,7 +252,7 @@ def window_for(school, e, now, dept=None):
     except ValueError:
         return None
     days = prep_days(school)
-    start = t - days * DAY
+    start = _midnight(e["date"], -days)
     if now < start:
         return None                     # まだ早い。ふだんの毎日テストのまま
     # **日数は日付どうしで数える。** 時刻の引き算で数えると、

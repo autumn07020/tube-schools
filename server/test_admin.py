@@ -1184,8 +1184,12 @@ def server_checks():
 
     print("\n組分けの申告（テストの結果が出てから2週間、「クラスは どちらに？」を本人に聞く）")
     import exams as EX
-    def day(n):
-        return time.strftime("%Y-%m-%d", time.localtime(time.time() + n * 86400))
+    def day(n):                                    # 暦で足す（秒で足すと、夏時間の切り替えをまたぐ日に 1 日ずれる）
+        import datetime
+        return (datetime.date.today() + datetime.timedelta(days=n)).isoformat()
+    hrs = [time.localtime(EX._midnight(a, n)).tm_hour for a, n in (("2026-10-20", 7), ("2026-10-23", 21), ("2026-03-27", 3), ("2026-04-10", -14))]
+    check("日は暦で足す：夏時間の切り替え（10-25・3-29）をまたいでも 0 時（聞く時期・対策の始まりが 1 日早くならない）",
+          hrs == [0, 0, 0, 0] and time.strftime("%Y-%m-%d", time.localtime(EX._midnight("2026-10-23", 7))) == "2026-10-30", hrs)
     tj = login(ids[0], pwj)
     c, d = call("GET", "/api/me", tj)
     check("日程が無いあいだは、何も聞かない", c == 200 and "placeAsk" not in d["profile"], d["profile"].get("placeAsk"))

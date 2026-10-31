@@ -37,7 +37,7 @@ status: 有効
 - 開き方：routine が作ったセッションは、ふつうのセッションの一覧でなく「スケジュール済みタスク」の区画に載る。Mac のアプリではこの区画が 10-14 の更新から表示できない（アプリの不具合。設定にも道具にも切り替えが無い）。左の「スケジュール済みタスク」の頁から task → 実行（セッション）と辿って開く。実行のセッションは普通のセッションと同じで、名前を変えられ、会話を続けられる（10-20 に法務のチャットで確かめた）。どの端末でも直接開けるのは `https://claude.ai/code/<上の session_…>`（iPhone・iPad は Safari で開いてホーム画面に置くのが早い）。
 - ラベル：コード・デザイン・運用・法務・資料（チームが拾う）、対応中・PR あり（チームが付ける）、保留・本人（チームは拾わない）、決定・不具合・改良・巡回。一覧は `.github/labels.json`、作るのは Actions「ラベル」。
 - **クラウドのセッションでは GitHub の GraphQL が使えない**（`gh issue list`・`gh pr list`・`gh pr create`・`gh pr checks` は 403）。REST（`gh api repos/autumn07020/tube-schools/…`）で読む・書く。`gh run list`・`gh run download` は使える。指示文は REST の形で書いてある。
-- セッションには本人の claude.ai の道具（Claude Docs・Google Drive・Claude Code Remote）がつながる。Claude Code Remote で routine を作れてしまうので、作らない決まりを指示文に書いた。文書の原本は Git の `docs/`、Docs は写し。本番の鍵・合言葉は環境に置かない。
+- セッションには本人の claude.ai の道具（Claude Docs・Google Drive・Claude Code Remote・GitHub の connector `mcp__github__*`（10-31 に確認。REST の `gh api` と同じことができる））がつながる。Claude Code Remote で routine を作れてしまうので、作らない決まりを指示文に書いた。文書の原本は Git の `docs/`、Docs は写し。本番の鍵・合言葉は環境に置かない。
 - issue の出来事 1 つで 5 チームが起き（担当でないチームは数秒で終わる）、PR の出来事 1 つでリーダーが起きる。
 
 ## 毎晩の巡回 ―― GitHub Actions（2026-10-20 夜）

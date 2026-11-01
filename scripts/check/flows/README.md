@@ -5,7 +5,7 @@
 
 ## 使い方
     S=/tmp/tube-flows; mkdir -p $S
-    rsync -a --exclude .DS_Store --exclude '*.nosync' "…/tube-schools/app" "…/tube-schools/server" "…/tube-schools/scripts" $S/tube/
+    rsync -a --exclude .DS_Store --exclude '*.nosync' --exclude '時間割*' --exclude '*.pdf' "…/tube-schools/app" "…/tube-schools/server" "…/tube-schools/scripts" "…/tube-schools/カリキュラム" $S/tube/   # カリキュラム（コマ.csv・担当.csv）が無いと、ためしのデモが作れず 13・15 が空で落ちる（11-01）
     sh $S/tube/scripts/check/flows/run.sh $S                      # Chrome だけ（12分ほど）
     sh $S/tube/scripts/check/flows/run.sh $S chrome edge webkit   # 3つとも
     # 1本だけ：土台を作り直してから流す

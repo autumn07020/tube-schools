@@ -13,8 +13,8 @@ status: 有効
 ## 形
 - **本人が書くのはリーダーのチャットだけ**（「TUBE リーダー」。直接 issue を立ててもよい）。リーダーが分野ごとの issue（雛形の 3 欄＋分野ラベル）に分ける。
 - **チームは issue のラベルで起きる**（webhook。立てる・ラベルを付ける・閉じる）。自分のラベルの issue を古い順に 1 つ拾い、枝 `<チーム>/issue-N` で直して PR を出し、issue に link を書く。issue が無い実行は数秒で終わる。
-- **リーダーは 2 時間ごと（UTC の偶数時）と PR の出来事（開いた・更新した・閉じた）で起きる**。毎回：本人の指示の分割 → 板（issue・PR・検査・巡回）を読む → PR の点検（検査・5 欄・範囲・触ってはいけない所・知識）→「merge 可」か「<分野>：PR #N の直し」の issue → 停滞の催促（24 時間更新なしで 1 日 1 回、ラベルの付け直しでチームが起きる）→ 本人の手の一覧（merge・決める・Mac）→ 仕事の無い分野には `90-種.md` から 1 日 1 つ。変化が無ければ「HH:MM 変化なし」の 1 行だけ。
-- **merge は本人**（リーダーが「merge 可」と番号で出す）。任せる範囲は未決（`90-種.md`）。本番への反映も本人（Mac で `sh deploy/更新.sh`）。
+- **リーダーは 2 時間ごと（UTC の偶数時）と PR の出来事（開いた・更新した・閉じた）で起きる**。毎回：本人の指示の分割 → 板（issue・PR・検査・巡回）を読む → PR の点検（検査・5 欄・範囲・触ってはいけない所・知識）→ merge するか「<分野>：PR #N の直し」の issue → 停滞の催促（24 時間更新なしで 1 日 1 回、ラベルの付け直しでチームが起きる）→ 本人の手の一覧（決める・本番への反映・Mac）→ 仕事の無い分野には `90-種.md` から 1 日 1 つ。変化が無ければ「HH:MM 変化なし」の 1 行だけ。
+- **merge はリーダーがする**（検査が全部緑で、点検に問題が無い PR だけ。2026-11-01 本人「merge もあなたがやってください。権限を付与します」）。Mac の Claude も merge できる。本番への反映は本人（Mac で更新の命令を流す）。
 - **記憶**：6 本とも 1 つの会話が続く（`persist_session`）。仕事の前に `CLAUDE.md`・`knowledge/INDEX.md`・自分の定義を読む。会話が長くなるとクラウドが自動で要約する。
 - **止める**：リポジトリの直下に `チームを止める.txt`（iPhone の GitHub からでも置ける）。リーダーも 5 チームも何もせずに終わる。消すと再開。1 本だけ止めるなら https://claude.ai/code/routines で切る。
 - **指示文の原本は `.claude/routines/`**（共通.md＋分野ごとの 1 枚。リーダーは `リーダー.md` 1 枚）。routine の指示文そのものは「main のそのファイルを読んで従う」という短い指し示しだけ（2026-10-31 から。`python3 scripts/brain/routines.py --json` が組む。全文を見るのは `--full`）。だから直すのはファイルだけでよく、main に入れば次の実行から効く。指し示しを変えたときだけ、Claude（Mac のセッション）に「routine の指示文を API に当て直して」と言う（RemoteTrigger の update）。
@@ -27,7 +27,7 @@ status: 有効
 ## 6 本（環境「TUBE study」env_01RpZH7znTGF1MmDzFhDNe3N）
 | チャット | 役割 | routine の id | 続く会話（セッション） | いつ（UTC） | 出来事 | モデル |
 | --- | --- | --- | --- | --- | --- | --- |
-| TUBE リーダー | 本人の唯一の窓口。分割・点検・催促・本人の手の一覧 | trig_01FYmJNSmZgrhaUXbhd8QQkH | session_01QeU6wefBYoTAeFavAeosHC | 2 時間ごと（偶数時） | PR（開く・更新・閉じる） | opus 5.5 |
+| TUBE リーダー | 本人の唯一の窓口。分割・点検・merge・催促・本人の手の一覧 | trig_01FYmJNSmZgrhaUXbhd8QQkH | session_01QeU6wefBYoTAeFavAeosHC | 2 時間ごと（偶数時） | PR（開く・更新・閉じる） | opus 5.5 |
 | TUBE コード・仕様 | サーバ・画面の論理・API・検査・仕様 | trig_01ErHPGBHN1cPV9DrzRahkhZ | session_01EhH4ZkjvtMG5gScWpFLLjx | 毎日 05:00 | issue | opus 5.5 |
 | TUBE デザイン | 見た目・動き・言葉 | trig_01N88LA3ypyczknGUur5ScrG | session_014BxN9Ww1abhWrMsE1EehSu | 毎日 05:30 | issue | opus 5.5 |
 | TUBE 運用・データ・デバッグ | 巡回の結果・データ・切り分け。定例：巡回の失敗の切り分け、月曜に現状の数を PR | trig_01BEqgKVtU5YCaen5c2QGm2i | session_01UPypEj5W1bBGh1Z5rKAneZ | 毎日 06:00 | issue | sonnet 5.5 |

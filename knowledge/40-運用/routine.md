@@ -38,7 +38,7 @@ status: 有効
 - ラベル：コード・デザイン・運用・法務・資料（チームが拾う）、対応中・PR あり（チームが付ける）、保留・本人（チームは拾わない）、決定・不具合・改良・巡回。一覧は `.github/labels.json`、作るのは Actions「ラベル」。
 - **クラウドのセッションでは GitHub の GraphQL が使えない**（`gh issue list`・`gh pr list`・`gh pr create`・`gh pr checks` は 403）。REST（`gh api repos/autumn07020/tube-schools/…`）で読む・書く。`gh run list`・`gh run download` は使える。指示文は REST の形で書いてある。
 - セッションには本人の claude.ai の道具（Claude Docs・Google Drive・Claude Code Remote・GitHub の connector `mcp__github__*`（10-31 に確認。REST の `gh api` と同じことができる））がつながる。Claude Code Remote で routine を作れてしまうので、作らない決まりを指示文に書いた。文書の原本は Git の `docs/`、Docs は写し。本番の鍵・合言葉は環境に置かない。
-- issue の出来事 1 つで 5 チームが起き（担当でないチームは数秒で終わる）、PR の出来事 1 つでリーダーが起きる。
+- issue の出来事 1 つで 5 チームが起き（担当でないチームは数秒で終わる）、PR の出来事 1 つでリーダーが起きる（11-01 に確認：PR の検査の完了と merge で起きた。会話が仕事中の間の出来事は落ちることがあるので、2 時間ごとの定時が拾う）。
 
 ## 毎晩の巡回 ―― GitHub Actions（2026-10-20 夜）
 - `.github/workflows/patrol.yml`：04:00 UTC に本番を読むだけの検査（`scripts/check/expect.py`）。失敗は issue「巡回 YYYY-MM-DD：失敗」、月曜は控えの PR。止めるのは `巡回を止める.txt`。中身は `40-運用/反映と巡回.md`。

@@ -66,7 +66,7 @@ def pointer(team):
                 % (name, team, name, team))
         budget = "10 万"
     return (head + "読めなければ「指示文が読めないので何もしなかった」と 1 行書いて止まる。"
-            "ファイルが読めても読めなくても守る線：" + LINE + "・1 回の実行は " + budget + "トークン以内。"
+            "ファイルが読めても読めなくても守る線：" + (LINE.replace("・merge しない", "・merge は指示文の 3 条件を満たしたときだけ") if team in ALONE else LINE) + "・1 回の実行は " + budget + "トークン以内。"
             "返答は日本語、見出しは日本語だけ。本人がこの会話に書いた指示は最優先。\n")
 
 

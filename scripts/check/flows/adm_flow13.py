@@ -92,7 +92,7 @@ with Chrome(width=1280, height=900, scale=2, port=9323) as t, Chrome(width=430, 
           (len(tasks), today.get("ratedToday")))
     t.shot(os.path.join(OUT, "a1-wt01-today.png"))
     check("今日やることの画面に JS のエラーが無い", not errs(t), errs(t)[:3])
-    # 今日やることの札の密度（10-11 本人：4段は多い。横長は 7 件以上で半分の札・3 段以内）。PC 1280px・wt01 は 7 件
+    # 今日やることの札の密度（10-11 本人：4段は多い。横長は 7 件以上で半分の札・3 段以内）。PC 1280px・wt01 は 6〜8 件（作るたびに変わる）
     MEAS = """JSON.stringify((function(){ var cs=[].slice.call(document.querySelectorAll('.t-cards > .t-check')); var tops={};
       cs.forEach(function(c){ tops[Math.round(c.getBoundingClientRect().top)]=1; });
       var h=document.querySelector('.t-hero').getBoundingClientRect(), k=document.querySelector('.t-cards').getBoundingClientRect();
@@ -100,16 +100,26 @@ with Chrome(width=1280, height=900, scale=2, port=9323) as t, Chrome(width=430, 
       var last=cs.length?cs[cs.length-1].getBoundingClientRect():k;
       return {n:cs.length, rows:Object.keys(tops).length, cols:cols, cardH:cs.length?Math.round(cs[0].getBoundingClientRect().height):0,
               heroH:Math.round(h.height), cardsH:Math.round(k.height), sameRow:Math.abs(h.top-k.top)<2, fills:Math.abs(last.right-k.right)<2}; })())"""
-    dm = json.loads(t.eval(MEAS))
+    # ためしのデモは作るたびに中身が変わる（sid と宿題の ID は secrets で作る。#13：GitHub で 6 件、手元で 8 件）。
+    # 決まりは「7 件以上」の形なので、7 件に届かないときは adm_flow14 と同じやり方で札を複製して 7 枚にしてから測る。
+    PAD = """(function(n){ var k=document.querySelector('.t-cards'); var cs=[].slice.call(k.querySelectorAll('.t-check')); var had=cs.length;
+      while(cs.length && k.querySelectorAll('.t-check').length < n){ var x=cs[k.querySelectorAll('.t-check').length % cs.length].cloneNode(true); x.setAttribute('data-pad','1'); k.appendChild(x); }
+      k.setAttribute('data-cls', k.className); if(had < n) k.className = 't-cards' + (n>3?' n3':'') + (n>6?' n6':'') + (n>9?' n9':''); return had; })(7)"""
+    def meas(c):
+        had = c.eval(PAD); time.sleep(0.3)
+        d = json.loads(c.eval(MEAS)); d["data"] = had; return d
+    dm = meas(t)
     # 7〜9 枚は 3 列（輪の札と同じ行・同じ高さ）、10 枚以上は 4 列（輪の札は上に横長）。どちらも 3 段以内・札は 150px 以下
     cols_ok = (dm["cols"] == 4 and not dm["sameRow"]) if dm["n"] >= 10 else (dm["cols"] == 3 and dm["sameRow"] and abs(dm["heroH"] - dm["cardsH"]) <= 2)
     check("PC の細い窓（1280px）：7 件以上の今日やることは半分の札で 3 段以内（7〜9 枚は 3 列で輪の札と同じ行、10 枚以上は 4 列で輪の札は上）",
           dm["n"] >= 7 and dm["rows"] <= 3 and cols_ok and dm["cardH"] <= 150, dm)
     check("PC の細い窓：余った札は横に広がって最後の段を埋める（右端が塊の右端）", dm["n"] % dm["cols"] == 0 or dm["fills"], dm)
+    if dm["data"] < 7:
+        t.eval("(function(){ var k=document.querySelector('.t-cards'); [].slice.call(k.querySelectorAll('[data-pad]')).forEach(function(x){ k.removeChild(x); }); k.className=k.getAttribute('data-cls'); })()")   # 複製した札を外して、データのとおりに戻す
     with Chrome(width=1600, height=900, scale=1, port=9325) as wide:
         enter_ui(wide, "wt01"); wide.eval("TubeUI.go('hw')"); time.sleep(2.0)
         wide.eval("document.querySelector('.t-cards').scrollIntoView({block:'start'})"); time.sleep(0.3)
-        dw = json.loads(wide.eval(MEAS))
+        dw = meas(wide)
     check("広い PC（1600px）：7 件以上は 4 列、3 段以内、余った札は段を埋める", dw["n"] >= 7 and dw["cols"] == 4 and dw["rows"] <= 3 and dw["cardH"] <= 150 and (dw["n"] % 4 == 0 or dw["fills"]), dw)
     # 時間割：同じ段（その日の何コマ目か）の札は、どの曜日でも上端と高さが同じ（10-11 本人「ガタガタ」）
     rows_ = json.loads(t.eval("""JSON.stringify((function(){ var by={}; document.querySelectorAll('.tt-week .slot').forEach(function(s){ var r=s.style.getPropertyValue('--r'); var b=s.getBoundingClientRect();

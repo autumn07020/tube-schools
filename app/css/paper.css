@@ -996,7 +996,7 @@ header .brand .mark{margin-right:8px}
 #main .dk-title{margin:0; font-size:26px; font-weight:700; letter-spacing:-.02em; line-height:1.2; display:flex; align-items:center; gap:8px; flex-wrap:wrap}
 @media (min-width:700px){ #main .dk-title{font-size:30px; gap:10px} }
 #main .dk-title .sj-ico{color:var(--sjt, #004E93); flex:none} #main .dk-x{color:#8A8A8E; font-weight:400} #main .dk-sub{font-size:15px; color:#6E6E73}
-#main .fc-modes{display:grid; grid-template-columns:repeat(2, auto); height:44px; box-sizing:border-box; padding:3px; border-radius:22px; margin:0;
+#main .fc-modes{display:grid; grid-template-columns:repeat(2, auto); height:44px; box-sizing:border-box; padding:3px; border-radius:22px; margin:0; flex:none;
   background:var(--glass); -webkit-backdrop-filter:blur(20px) saturate(1.8); backdrop-filter:blur(20px) saturate(1.8); border:var(--glass-bd); box-shadow:inset 0 1px 0 #fff, 0 2px 8px rgba(23,21,15,.08)}
 #main .fc-modes button{padding:0 18px; border-radius:19px; font-size:15px; font-weight:600; color:#6E6E73; background:transparent; border:0; display:grid; place-items:center}
 #main .fc-modes button.on{background:linear-gradient(180deg,#fff,rgba(255,255,255,.9)); box-shadow:inset 0 1px 0 #fff, 0 1px 3px rgba(23,21,15,.14); color:#1D1D1F}
@@ -1030,12 +1030,12 @@ header .brand .mark{margin-right:8px}
 #main .dk-cell.s-none{background:rgba(255,255,255,.42); border:1.5px dashed rgba(60,60,67,.22); box-shadow:none}
 #main .dk-thumb{display:block; aspect-ratio:1; border-radius:10px; overflow:hidden; background:#FBFAF6; border:1px solid rgba(29,29,31,.05)}
 #main .dk-thumb img{width:100%; height:100%; object-fit:cover; display:block}
-#main .dk-cap{display:flex; align-items:center; justify-content:space-between; gap:6px; height:28px; padding:0 2px}
-#main .dk-no{font-size:16px; font-weight:600}
+#main .dk-cap{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:2px 6px; min-height:28px; padding:0 2px}   /* 高さを固定しない：狭い札で「R-52」や「未提出」が折れて枠からはみ出た（11-01 の画面の検査） */
+#main .dk-no{font-size:16px; font-weight:600; white-space:nowrap}
 #main .dk-dot{width:10px; height:10px; border-radius:5px; background:#0A6FC7; display:inline-block}
 #main .dk-v{min-width:22px; height:22px; padding:0 6px; border-radius:7px; background:rgba(60,60,67,.12); color:#1D1D1F; font-size:13px; font-weight:700; display:inline-grid; place-items:center; font-family:var(--num)}
 #main .dk-v.v4{background:rgba(249,185,0,.28); color:#8A5A00} #main .dk-v.v5{background:#F9B900; color:#5A3A00}
-#main .dk-dash{font-size:12px; color:#8A8A8E}
+#main .dk-dash{font-size:12px; color:#8A8A8E; white-space:nowrap}
 #main .dk-cell .dk-pers{height:22px; padding:0 7px; border-radius:11px; background:rgba(10,111,224,.12); color:#004E93; font-size:11px; font-weight:700; display:inline-flex; align-items:center; position:absolute; left:12px; top:12px}
 #main .dk-legend{display:flex; align-items:center; gap:8px 18px; flex-wrap:wrap; padding:0 6px; font-size:13px; color:#6E6E73}
 #main .dk-legend span{display:inline-flex; align-items:center; gap:6px} #main .dk-legend .dk-pers{position:static}

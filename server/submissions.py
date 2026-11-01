@@ -59,6 +59,16 @@ def _index_path(school):
     return paths.school_file(school, "submissions.json")
 
 
+def _locked(fn):
+    """台帳を読んで書き戻す関数は、鍵（paths.GUARD）の中で通す。
+    2 本の要求が重なると、あとから書いた方が先の変更を消す（10-26 #13：評価の PUT がひとことを消した）。"""
+    def run(*a, **k):
+        with paths.GUARD:
+            return fn(*a, **k)
+    run.__name__, run.__doc__ = fn.__name__, fn.__doc__
+    return run
+
+
 def load(school):
     try:
         return paths.load(_index_path(school), {}) or {}
@@ -87,6 +97,7 @@ def of_student(school, sid, db=None):
     return out
 
 
+@_locked
 def put(school, aid, sid, files, now=None):
     """出す。now … 出した時刻（秒）。省略で「いま」。デモが過去の日付で作るときだけ渡す。
 
@@ -159,6 +170,7 @@ def _write_files(school, sid, aid, files, tag=""):
     return saved
 
 
+@_locked
 def put_by_teacher(school, aid, sid, files, by):
     """講師が、対面の生徒の紙を取り込む（回収した答案をスキャン／撮影）。
     生徒が出したのと同じ場所に入り、そのまま評価できる。**見た印も付く**（講師の手にある紙）。
@@ -174,6 +186,7 @@ def put_by_teacher(school, aid, sid, files, by):
     return per[sid]
 
 
+@_locked
 def put_return(school, aid, sid, files, by, note=None, now=None):
     """講師が添削した答案を返す（赤を入れた紙を撮る／スキャンした PDF）。
     生徒の画面の「先生から」に出る。返し直したら前のものは消す。"""
@@ -195,6 +208,7 @@ def put_return(school, aid, sid, files, by, note=None, now=None):
     return got
 
 
+@_locked
 def prune(school, days=KEEP_DAYS, dry=False, now=None, graded_days=None):
     """古い答案の写真を消す。**台帳の行は残す**（出した・評価・ひとことは記録として要る）。
 
@@ -245,19 +259,23 @@ def all_files(got):
     return list((got or {}).get("files") or []) + list(((got or {}).get("returned") or {}).get("files") or [])
 
 
-def mark_seen(school, aid, sid, by, note="", now=None):
-    """講師が見た。ひとことを添えられる。now は見た時刻（秒）。省略で「いま」。"""
+@_locked
+def mark_seen(school, aid, sid, by, note=None, now=None):
+    """講師が見た。ひとことを添えられる。now は見た時刻（秒）。省略で「いま」。
+    note が None なら、ひとことには触らない（評価だけの保存が、同時に届いたひとことを消さない）。"""
     db = load(school)
     got = (db.get(aid) or {}).get(sid)
     if not got:
         return None
     got["seen"] = int(now if now is not None else time.time())
     got["by"] = by
-    got["note"] = str(note or "")[:400]
+    if note is not None:
+        got["note"] = str(note or "")[:400]
     save(school, db)
     return got
 
 
+@_locked
 def put_score(school, aid, sid, score, max_=None):
     """過去問の点数（生徒が自分で書く。2026-10-11 本人「点数の記録などもできると良い」）。出したものにだけ添える。
     score が None なら消す。max_ は満点（無ければ None）。"""
@@ -277,6 +295,7 @@ def put_score(school, aid, sid, score, max_=None):
     return got
 
 
+@_locked
 def erase_returned(school, sid):
     """その生徒に返した添削（赤を入れた答案）を、ぜんぶ消す。本人が設定から消す（2026-10-08）。評価・ひとことは残る。"""
     db = load(school)
@@ -293,6 +312,7 @@ def erase_returned(school, sid):
     return n
 
 
+@_locked
 def drop_student(school, sid):
     """その生徒の答案を、目録ごと消す。退塾の整理で呼ぶ。"""
     db = load(school)

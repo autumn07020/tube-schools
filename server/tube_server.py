@@ -2586,9 +2586,9 @@ def desk_rate(school, acc, mine, d):
     if b["head"]:
         subs = SUB.of_assignment(school, b["head"]["id"])
         if sid in subs and ((touch and v is not None) or note is not None):
-            keep = subs[sid].get("note") or ""
+            # ひとことの無い評価は、ひとことに触らない（読んでから書くと、同時に届いたひとことを消す。#13）
             SUB.mark_seen(school, b["head"]["id"], sid, acc["sid"],
-                          (str(note)[:200] if note is not None else keep))
+                          (str(note)[:200] if note is not None else None))
     audit(school, acc["sid"], "rate_bundle", "%s#%d" % (key, n), sid)
     try:
         blob = (paths.load(progress_path(school, sid), None) or {}).get("blob") or {}

@@ -1217,6 +1217,11 @@ def demo_mark(key, n, sid):
     return int(max(1, min(5, int(x + 0.5))))
 
 
+def _day0(t):
+    """t の日（ロンドン時間）の 0 時。「今日つけた評価」は夜中すぎに作っても今日に入るように（11-01 00:02 の検査で 0 件になった）。"""
+    return time.mktime(time.strptime(time.strftime("%Y-%m-%d", time.localtime(t)), "%Y-%m-%d"))
+
+
 def paper_ratings(school):
     """紙の宿題に評価を付ける。ただし全員には付けない。
 
@@ -1300,7 +1305,7 @@ def paper_ratings(school):
                 # 「今日つけた評価 378人」になり、今日やったことが読めない。
                 due_s = (a.get("dueAt") or 0) / 1000.0
                 if a is rows[0] and done_today:
-                    at = now_s - random.uniform(0.5, 3) * 3600
+                    at = max(now_s - random.uniform(0.5, 3) * 3600, _day0(now_s) + 300)
                 else:
                     at = min(now_s - 6 * 3600, due_s + random.uniform(0.3, 3.0) * 86400)
                 per[sid] = {"v": v, "s": 5, "at": int(at), "by": "demo"}
@@ -1557,7 +1562,7 @@ def essay_box(school):
         try:
             SUB.put(school, r["id"], sid, page)
             if i == 3:                                   # 返した見本
-                rate.setdefault(r["id"], {})[sid] = {"v": 4, "s": 5, "at": int(time.time() - 3600), "by": ken["sid"]}
+                rate.setdefault(r["id"], {})[sid] = {"v": 4, "s": 5, "at": int(max(time.time() - 3600, _day0(time.time()) + 300)), "by": ken["sid"]}
                 SUB.mark_seen(school, r["id"], sid, ken["sid"], "理由が本文の言葉で書けています。「〜から。」で結ぶと満点です。")
                 SUB.put_return(school, r["id"], sid,
                                [{"kind": "png", "data": _mark_png(800, 600, "%s|%s" % (r["id"], sid), base=lambda w, h, s: _genko_png(w, h, s, fill=(0.30, 0.42)))}],
@@ -1974,7 +1979,7 @@ def quiz_box(school):
             try:
                 if i == 0:                                     # デモの生徒：添削まで返っている
                     SUB.put(school, r3["id"], sid, pages(r3, sid))
-                    rate.setdefault(r3["id"], {})[sid] = {"v": 4, "s": 5, "at": int(time.time() - 3600), "by": ken["sid"]}
+                    rate.setdefault(r3["id"], {})[sid] = {"v": 4, "s": 5, "at": int(max(time.time() - 3600, _day0(time.time()) + 300)), "by": ken["sid"]}
                     SUB.mark_seen(school, r3["id"], sid, ken["sid"], KANJI_SAY[4])
                     SUB.put_return(school, r3["id"], sid, marked(r3, sid), ken["sid"], None)
                 elif i <= 3:                                   # 写真で出したまま（未評価）

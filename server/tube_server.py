@@ -2644,7 +2644,7 @@ def desk_course(school, acc, mine, key):
         live = [r for r in rules.get(x["sid"], [])
                 if r.get("until") is None or int(r.get("until")) >= nn]
         students.append({"sid": x["sid"], "label": x["label"], "avg": x["avg"],
-                         "subRate": x["subRate"], "missed": x["missed"], "rules": len(live),
+                         "subRate": x["subRate"], "missed": x["missed"], "rules": len(live), "worry": x["worry"],
                          "cells": {str(k): v for k, v in x["cells"].items()}})
     return {"course": {"key": key, "name": p.get("name") or key, "subject": p.get("subject") or "",
                        "grade": p.get("grade") or ""},

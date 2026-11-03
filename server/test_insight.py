@@ -110,7 +110,7 @@ def main():
             asg("c7", 7, "新中学問題集 p.34-37", ["S1", "S2", "S3"]),
             asg("c8", 8, "新中学問題集 p.38-41", ["S1", "S2", "S3"], due=NOW + 86400 * 1000)]
     ratings = {"c6": {"S1": {"v": 5, "s": 5}, "S2": {"v": 3, "s": 5}, "S3": {"v": 2, "s": 5}},
-               "c7": {"S1": {"v": 4, "s": 5}, "S2": {"v": 2, "s": 5}}}
+               "c7": {"S1": {"v": 4, "s": 5}, "S2": {"v": 2, "s": 5, "worry": True}}}
     subs2 = {"c7": {"S3": {"files": [{"name": "x.jpg"}]}}}
     tests = [{"date": "2026-09-09", "cols": [{"label": "一次関数", "max": 20, "lessons": [7]}],
               "rows": {"S3": [5]}}]
@@ -128,6 +128,11 @@ def main():
     check("生徒の理解度は直近の単元の平均", st["S1"]["avg"] == 90 and st["S3"]["avg"] == 33, st)
     check("根拠が分かる", st["S3"]["cells"][7]["ev"] == {"hw": None, "test": 25, "daily": None, "prep": None},
           st["S3"]["cells"][7])
+    check("宿題チェックの「理解が心配」が、成績の生徒の札と単元に乗る（#22）",
+          st["S2"]["worry"] == 1 and st["S2"]["cells"][7]["worry"] and not st["S2"]["cells"][6]["worry"] and st["S1"]["worry"] == 0,
+          (st["S2"]["worry"], st["S1"]["worry"]))
+    trw = IN.student_trend(m, "S2", plan["lessons"])
+    check("生徒の紙（講師）の単元にも「心配」が乗る", [u["worry"] for u in trw["units"]] == [False, True], trw["units"])
     blind = dict(ctx, asgs=asgs + [asg("c5", 5, "新中学問題集 p.26-29", ["S1", "S2", "S3"])],
                  plan={"lessons": plan["lessons"] + [{"n": 5, "date": "2026-08-25", "topic": "総復習"}]})
     mb = IN.course_matrix(blind, now_ms=NOW)

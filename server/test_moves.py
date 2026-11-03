@@ -244,6 +244,19 @@ def main():
           math and not any(u.get("key") == "e4a:math" and (u.get("date") or "") >= "2026-09-20" for u in math[0]["units"]))
     gu = T.student_growth(SCHOOL, sT, now=at("2026-09-21 12:00"))
     check("記録の無い生徒（TT）も落ちない", isinstance(gu.get("courses"), list))
+    # 「理解が心配」は講師だけの印。成績の札（course_matrix）に乗せても、本人と保護者の返事には入らない（#22）
+    with T.LOCK:
+        rdb = T.ratings(SCHOOL)
+        marked = 0
+        for per in rdb.values():
+            if sS in per:
+                per[sS]["worry"] = True
+                marked += 1
+        T.save_ratings(SCHOOL, rdb)
+    T._GROWTH.clear()
+    gw = T.student_growth(SCHOOL, sS, now=at("2026-09-21 12:00"))
+    import json as _json
+    check("「理解が心配」は本人の成績の伸びに入らない（講師だけの印）", marked >= 1 and "worry" not in _json.dumps(gw), marked)
 
     print("\n塾内テストの取り込み（テストの日の席で合わせる）")
     table = "席番号,合計\n小4α-01,80\n小4α-02,70\n小4α-03,60\n"

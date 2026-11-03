@@ -1457,7 +1457,7 @@ function studentSheet(sh){
     (tr.units || []).slice().reverse().map(function(u){
       var ev = u.ev || {};
       return '<tr><td>'+esc(utext(u))+'</td>'+
-        '<td>'+(u.v >= 1 ? WORD[u.v] : u.v === 0 ? '出ていない' : '―')+'</td>'+
+        '<td>'+(u.v >= 1 ? WORD[u.v] : u.v === 0 ? '出ていない' : '―')+(u.worry ? ' <span class="ik-worry">心配</span>' : '')+'</td>'+
         '<td>'+(has(ev.test) ? ev.test+'%' : '―')+'</td>'+
         '<td>'+(has(ev.daily) ? ev.daily+'%' : '―')+'</td>'+
         '<td class="'+tone(u.u)+'"><b>'+(has(u.u) ? u.u+'%' : '―')+'</b></td>'+

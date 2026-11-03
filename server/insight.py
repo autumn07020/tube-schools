@@ -289,7 +289,8 @@ def course_matrix(ctx, now_ms=None):
             ev = {"hw": ratescale.PCT.get(st["v"]) if st["v"] else (ratescale.PCT[PROVISIONAL_V] if st.get("prov") else None),
                   "test": (tp.get(n) or {}).get("pct"),
                   "daily": daily.get(n), "prep": prep.get(n)}
-            cells[n] = {"u": combine(ev), "ev": ev, "v": st["v"], "prov": bool(st.get("prov")),
+            # worry … 宿題チェックで付けた「理解が心配」（講師だけの印。生徒・保護者への返事には写さない）
+            cells[n] = {"u": combine(ev), "ev": ev, "v": st["v"], "prov": bool(st.get("prov")), "worry": bool(st.get("worry")),
                         "sub": st["submitted"] if (st["assigned"] and observed.get(n)) else None,
                         "files": len(st["files"]), "personal": st["personal"],
                         "test": tp.get(n)}
@@ -302,6 +303,7 @@ def course_matrix(ctx, now_ms=None):
             "subRate": (half_up(100.0 * sum(1 for x in subs_recent if x) / len(subs_recent))
                         if subs_recent else None),
             "missed": sum(1 for x in subs_recent if x is False),
+            "worry": sum(1 for n in recent if cells[n]["worry"]),     # 直近の単元で「心配」の付いた数
         })
     students.sort(key=lambda s: s["label"])
 
@@ -375,7 +377,7 @@ def student_trend(matrix, sid, lessons):
         if not c:
             continue
         units.append({"n": u["n"], "topic": u["topic"], "label": u.get("label"), "date": u["date"], "u": c["u"],
-                      "ev": c["ev"], "v": c["v"], "sub": c["sub"], "classU": u["und"]})
+                      "ev": c["ev"], "v": c["v"], "sub": c["sub"], "classU": u["und"], "worry": c.get("worry", False)})
     months = {}
     for x in units:
         d = dates.get(x["n"]) or x["date"]

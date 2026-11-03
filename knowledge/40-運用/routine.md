@@ -1,7 +1,7 @@
 ---
 name: routine
-description: クラウドの 6 つのチャット（claude.ai/code の routine）。リーダー 1 本（本人の唯一の窓口。2 時間ごと＋PR の出来事で板を見て、分割・点検・催促・本人の手の一覧）と 5 チーム（issue のラベルで起きる）。それぞれ 1 つの会話が続き、Mac・iPad・iPhone のどれからでも読める・書ける。指示文の原本は .claude/routines/。毎晩の巡回は GitHub Actions（patrol.yml）
-updated: 2026-10-31
+description: クラウドの 6 つのチャット（claude.ai/code の routine）。リーダー 1 本（本人の唯一の窓口。2 時間ごと＋PR の出来事で板を見て、分割・点検・催促・本人の手の一覧）と 5 チーム（定時に起きて、自分のラベルの issue を拾う。issue の出来事では起きていない。11-03）。それぞれ 1 つの会話が続き、Mac・iPad・iPhone のどれからでも読める・書ける。指示文の原本は .claude/routines/。毎晩の巡回は GitHub Actions（patrol.yml）
+updated: 2026-11-03
 owner: ops
 status: 有効
 ---
@@ -12,7 +12,7 @@ status: 有効
 
 ## 形
 - **本人が書くのはリーダーのチャットだけ**（「TUBE リーダー」。直接 issue を立ててもよい）。リーダーが分野ごとの issue（雛形の 3 欄＋分野ラベル）に分ける。
-- **チームは issue のラベルで起きる**（webhook。立てる・ラベルを付ける・閉じる）。自分のラベルの issue を古い順に 1 つ拾い、枝 `<チーム>/issue-N` で直して PR を出し、issue に link を書く。issue が無い実行は数秒で終わる。
+- **チームは定時に起きて、自分のラベルの issue を拾う**（コード 05:00・デザイン 05:30・運用 06:00 UTC は毎日、資料は月曜 07:00・法務は月曜 08:00。下の表）。**issue の出来事では起きていない**（11-03 に確かめた。routine の最後の実行 `last_fired_at` を、Claude Code Remote の get_trigger で読んだ（読むだけ）：#22 を 01:00 に立てても、コードが動いたのは定時の 05:09。#24 を 08:59 に立て、#4 のラベルを 09:00 に付け直しても、運用は 06:08・法務は 11-02 08:15 のまま）。だから、ラベルを付け直す催促ではチームは起きない。起こし方は本人の判断待ち（`10-現状.md`）。自分のラベルの issue を古い順に 1 つ拾い、枝 `<チーム>/issue-N` で直して PR を出し、issue に link を書く。issue が無い実行は数秒で終わる。
 - **リーダーは 2 時間ごと（UTC の偶数時）と PR の出来事（開いた・更新した・閉じた）で起きる**。毎回：本人の指示の分割 → 板（issue・PR・検査・巡回）を読む → PR の点検（検査・5 欄・範囲・触ってはいけない所・知識）→ merge するか「<分野>：PR #N の直し」の issue → 停滞の催促（24 時間更新なしで 1 日 1 回、ラベルの付け直しでチームが起きる）→ 本人の手の一覧（決める・本番への反映・Mac）→ 仕事の無い分野には `90-種.md` から 1 日 1 つ。変化が無ければ「HH:MM 変化なし」の 1 行だけ。
 - **merge はリーダーがする**（検査が全部緑で、点検に問題が無い PR だけ。2026-11-01 本人「merge もあなたがやってください。権限を付与します」）。Mac の Claude も merge できる。本番への反映は本人（Mac で更新の命令を流す）。
 - **記憶**：6 本とも 1 つの会話が続く（`persist_session`）。仕事の前に `CLAUDE.md`・`knowledge/INDEX.md`・自分の定義を読む。会話が長くなるとクラウドが自動で要約する。
@@ -38,7 +38,7 @@ status: 有効
 - ラベル：コード・デザイン・運用・法務・資料（チームが拾う）、対応中・PR あり（チームが付ける）、保留・本人（チームは拾わない）、決定・不具合・改良・巡回。一覧は `.github/labels.json`、作るのは Actions「ラベル」。
 - **クラウドのセッションでは GitHub の GraphQL が使えない**（`gh issue list`・`gh pr list`・`gh pr create`・`gh pr checks` は 403）。REST（`gh api repos/autumn07020/tube-schools/…`）で読む・書く。`gh run list`・`gh run download` は使える。指示文は REST の形で書いてある。
 - セッションには本人の claude.ai の道具（Claude Docs・Google Drive・Claude Code Remote・GitHub の connector `mcp__github__*`（10-31 に確認。REST の `gh api` と同じことができる））がつながる。Claude Code Remote で routine を作れてしまうので、作らない決まりを指示文に書いた。文書の原本は Git の `docs/`、Docs は写し。本番の鍵・合言葉は環境に置かない。
-- issue の出来事 1 つで 5 チームが起き（担当でないチームは数秒で終わる）、PR の出来事 1 つでリーダーが起きる（11-01 に確認：PR の検査の完了と merge で起きた。会話が仕事中の間の出来事は落ちることがあるので、2 時間ごとの定時が拾う）。
+- PR の出来事 1 つでリーダーが起きる（11-01 に確認：PR の検査の完了と merge で起きた。会話が仕事中の間の出来事は落ちることがあるので、2 時間ごとの定時が拾う）。issue の出来事では 5 チームは起きない（上。11-03 に確かめた）。
 
 ## 毎晩の巡回 ―― GitHub Actions（2026-10-20 夜）
 - `.github/workflows/patrol.yml`：04:00 UTC に本番を読むだけの検査（`scripts/check/expect.py`）。失敗は issue「巡回 YYYY-MM-DD：失敗」、月曜は控えの PR。止めるのは `巡回を止める.txt`。中身は `40-運用/反映と巡回.md`。

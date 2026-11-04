@@ -143,21 +143,22 @@ def reverse_lookup(n, L, asked, answer):
             hits.append(pid)
     return hits
 
-def discriminating(cands, asked="crane", tries=400, seed=1):
-    """候補の型が全部ちがう答えになる（しかも正しい答えとも違う）問題を探す。"""
+def discriminating(cands, asked=None, tries=400, seed=1):
+    """候補の型が全部ちがう答えになる（しかも正しい答えとも違う）問題を探す。asked が None なら問う量も変えて探す。"""
     rnd = random.Random(seed)
     for _ in range(tries):
         n = rnd.randint(4, 30); t = rnd.randint(1, n - 1); L = 2 * (n - t) + 4 * t
+        ask = asked or rnd.choice(["crane", "turtle"])
         vals = {}
         ok = True
         for pid in cands + ["R"]:
-            v, _ = run(pid, n, L, asked)
+            v, _ = run(pid, n, L, ask)
             key = None if v is None else round(v, 6)
             if key in vals.values():
                 ok = False; break
             vals[pid] = key
         if ok:
-            return (n, L, asked, vals)
+            return (n, L, ask, vals)
     return None
 
 def main():

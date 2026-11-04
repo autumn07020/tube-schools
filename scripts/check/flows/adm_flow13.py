@@ -356,7 +356,9 @@ with Chrome(width=1280, height=900, scale=2, port=9323) as t, Chrome(width=430, 
     demo = [lid for lid, a in acc.items() if a.get("demo")]
     asg_all = json.load(open(S + "/real/schools/waseaca-london/assignments.json"))
     dsids = {acc[l]["sid"] for l in demo}
-    leak = [aid for aid, x in asg_all.items() if x.get("demo") and int(x.get("dueAt") or 0) < time.time() * 1000
+    # 「過ぎた」は流れの始めの時刻で見る。途中で期限をまたいだ回には、期限前のうちに本物の生徒が正しく足されている
+    # （2026-11-04 の CI：18:15 の回が 18:23 の検査で「過ぎた」になり、受け取り手の本物の生徒を漏れと数えた）。
+    leak = [aid for aid, x in asg_all.items() if x.get("demo") and int(x.get("dueAt") or 0) < now_ms
             and not set(x.get("students") or []) <= dsids]
     prog_dir = S + "/real/schools/waseaca-london/progress"
     seat_prog = [lid for lid in seats if os.path.exists(os.path.join(prog_dir, acc[lid]["sid"] + ".json"))]

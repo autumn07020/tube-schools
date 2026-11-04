@@ -672,7 +672,8 @@ function viewHomework(m){
 var inbox;                   /* {items:[...], unread:n} */
 var qzTitle = '';            /* 提出箱の名前（書きかけ） */
 var qzKind = '';             /* 提出箱の種類（書きかけ） */
-var qzYear = '', qzSchool = '';   /* 過去問の年度と学校（書きかけ）。題は「年度 学校 教科」に組む（生徒の過去問のタブが学校ごと・年度順に読む） */
+var qzYears = [], qzSchool = '';  /* 過去問の年度（いくつでも）と学校（書きかけ）。題は「年度 学校 教科」に組む（生徒の過去問のタブが学校ごと・年度順に読む） */
+var KK_MAX = 10;                    /* 1 回に出せる年度の数（選び肢の kkYears と同じ 10 年分） */
 function kkYears(){ var y = new Date().getFullYear(), out = []; for(var i = 0; i < 10; i++) out.push(String(y - i)); return out; }
 /* 提出箱の種類。回の名札になる（「提出箱」の代わり）。普段の宿題と、漢字テスト・計算テスト・作文・過去問の添削を
    別々に見られるように（2026-10-11 本人）。 */
@@ -878,9 +879,11 @@ function lessonSheet(sh){
             /* 過去問：年度と学校を選ぶと、題が「年度 学校 教科」になる（10-12 本人：過去問のデータの足し方が不明瞭）。
                これが過去問のデータそのもの ―― 1 本の過去問＝1 つの提出箱。足すのはここ、消すのは下の一覧、生徒には過去問のタブに学校ごと・年度順で並ぶ */
             '<div class="row qz-kk" id="qzKk" style="gap:8px; align-items:center; flex-wrap:wrap"'+(qzKind === '過去問' ? '' : ' hidden')+'>'+
-              '<select id="qzYear" aria-label="年度">'+kkYears().map(function(y){ return '<option value="'+y+'"'+(y === String(qzYear) ? ' selected' : '')+'>'+y+' 年度</option>'; }).join('')+'</select>'+
+              /* 年度はいくつでも選べる（11-04 #26）。選んだ年度の数だけ提出箱を作る（1 年度＝1 つの提出箱） */
+              '<span class="qz-years" id="qzYears" role="group" aria-label="年度（いくつでも）">'+kkYears().map(function(y){
+                return '<label class="qz-st"><input type="checkbox" value="'+y+'"'+(qzYears.indexOf(y) >= 0 ? ' checked' : '')+'> '+y+' 年度</label>'; }).join('')+'</span>'+
               '<input id="qzSchool" maxlength="30" placeholder="学校名（例：都立共通・早稲田実業）" value="'+esc(qzSchool || '')+'" aria-label="学校名">'+
-              '<span class="tiny">題は「年度 学校 教科」になります。生徒の「過去問」のタブに、学校ごと・年度の新しい順で並びます。同じ学校の別の年度は、また出せば足されます</span>'+
+              '<span class="tiny">年度はいくつでも選べます（選んだ年度ごとに 1 つずつ出ます）。題は「年度 学校 教科」になり、生徒の「過去問」のタブに学校ごと・年度の新しい順で並びます</span>'+
             '</div>'+
             '<div class="row qz-who" style="gap:12px; align-items:center; flex-wrap:wrap">'+
               '<span class="lbl">出す相手</span>'+
@@ -1158,7 +1161,8 @@ function wireLesson(m){
     if(kk) kk.hidden = qk.value !== '過去問';
     if(qt2) qt2.hidden = qk.value === '過去問';
   };
-  var qy = m.querySelector('#qzYear'); if(qy) qy.onchange = function(){ qzYear = qy.value; };
+  var yearsNow = function(){ return Array.prototype.map.call(m.querySelectorAll('#qzYears input:checked'), function(c){ return c.value; }); };
+  m.querySelectorAll('#qzYears input').forEach(function(c){ c.onchange = function(){ qzYears = yearsNow(); }; });
   var qs = m.querySelector('#qzSchool'); if(qs) qs.oninput = function(){ qzSchool = qs.value; };
   var ql = m.querySelector('#qzList'); if(ql) loadBoxes(ql);
   /* 「選んだ生徒だけ」：このコースの生徒を取ってきて、札に並べる（画面を描き直さず、その場で開く） */
@@ -1182,11 +1186,15 @@ function wireLesson(m){
     b.onclick = async function(){
       var title = ((m.querySelector('#qzTitle') || {}).value || '').trim();
       var kind = ((m.querySelector('#qzKind') || {}).value || '');
+      var titles = null;                           /* 過去問：選んだ年度ごとに 1 つずつ（新しい年度から） */
       if(kind === '過去問'){
-        var yr = ((m.querySelector('#qzYear') || {}).value || ''), sc = ((m.querySelector('#qzSchool') || {}).value || '').trim();
+        var yrs = yearsNow().sort().reverse(), sc = ((m.querySelector('#qzSchool') || {}).value || '').trim();
+        if(!yrs.length) return toast('年度を選んでください（いくつでも選べます）');
+        if(yrs.length > KK_MAX) return toast('一度に出せるのは '+KK_MAX+' 年度までです');
         if(!sc) return toast('学校名を入れてください（例：都立共通）');
-        var ck = b.dataset.quiz.split(':');
-        title = (yr + ' ' + sc + ' ' + (subjNameFor(TubeConfig.gradeOfClass(ck[0]) || '', ck[1] || '') || '')).trim();
+        var ck = b.dataset.quiz.split(':'), sj = subjNameFor(TubeConfig.gradeOfClass(ck[0]) || '', ck[1] || '') || '';
+        titles = yrs.map(function(yr){ return (yr + ' ' + sc + ' ' + sj).trim(); });
+        title = titles[0];
       }
       if(!title && !kind) return toast('種類を選ぶか、名前を入れてください（例：漢字テスト 第3回）');
       var who = (m.querySelector('[name="qzWho"]:checked') || {}).value || 'all';
@@ -1196,15 +1204,25 @@ function wireLesson(m){
         if(!students.length) return toast('出す生徒を選んでください');
       }
       var days = +((m.querySelector('#qzDue') || {}).value || 7);
-      b.disabled = true; b.textContent = '出しています…';
-      var r = await S().srv.createQuiz(b.dataset.quiz, title, Date.now() + days * 864e5, kind, students);
+      var due = Date.now() + days * 864e5, list = titles || [title];
+      b.disabled = true;
+      /* 1 本ずつ出す（同じ口 POST /api/quiz）。途中で 1 本だけ断られても、出せたものと出せなかったものを分けて言う */
+      var done = [], fail = [];
+      for(var i = 0; i < list.length; i++){
+        b.textContent = list.length > 1 ? '出しています…（'+(i + 1)+'/'+list.length+'）' : '出しています…';
+        var r = await S().srv.createQuiz(b.dataset.quiz, list[i], due, kind, students);
+        if(r.ok) done.push((r.assignment && r.assignment.title) || list[i] || kind);
+        else fail.push({t:list[i], e:r.error});
+      }
       b.disabled = false; b.textContent = '提出箱を出す';
-      if(!r.ok) return toast(r.error);
-      qzTitle = ''; qzSchool = '';                 /* 種類と年度は残す（同じ学校の別の年度・次の学校をすぐ出せる） */
-      refreshHw(); grid = undefined;               /* 紙は開いたまま（出した箱が下の一覧に増える。続けて次の年度を出せる） */
+      if(!done.length) return toast(list.length > 1 ? '1 つも出せませんでした：'+fail[0].e : fail[0].e);
+      qzTitle = ''; qzSchool = ''; qzYears = [];   /* 種類は残す（次の学校をすぐ出せる） */
+      refreshHw(); grid = undefined;               /* 紙は開いたまま（出した箱が下の一覧に増える） */
       if(window.TubeDesk) TubeDesk.forgetAll();
-      var made = (r.assignment && r.assignment.title) || title || kind;
-      toast('提出箱「'+made+'」を'+(students ? '選んだ'+students.length+'人に' : '')+'出しました。生徒の宿題に出ます');
+      var whom = students ? '選んだ'+students.length+'人に' : '';
+      toast(list.length > 1
+        ? '提出箱を '+done.length+' つ'+whom+'出しました'+(fail.length ? '。出せなかった '+fail.length+' つ：'+fail.map(function(f){ return f.t; }).join('・')+'（'+fail[0].e+'）' : '。生徒の宿題に出ます')
+        : '提出箱「'+done[0]+'」を'+whom+'出しました。生徒の宿題に出ます');
       ui().render();
     };
   });

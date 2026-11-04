@@ -208,7 +208,7 @@ with Chrome(width=1280, height=900, scale=2, port=9323) as t, Chrome(width=430, 
            "var q=document.querySelector('#qzSchool'); q.value='流れ学園'; q.dispatchEvent(new Event('input'));" % (json.dumps(KY1), json.dumps(KY2)))
     click(t, '[data-quiz="j3r:math"]'); time.sleep(4.0)
     srv = json.load(open(S + "/real/schools/waseaca-london/assignments.json"))
-    kkm = sorted(x.get("title") for x in srv.values() if (x.get("lesson") or {}).get("key") == "j3r:math" and x.get("kind") == "過去問"
+    kkm = sorted(re.sub(r"^過去問 ", "", x.get("title") or "") for x in srv.values()   # 台帳の題は頭に種類が付く（画面では名札） if (x.get("lesson") or {}).get("key") == "j3r:math" and x.get("kind") == "過去問"
                  and "流れ学園" in (x.get("title") or "") and not x.get("picked"))
     check("年度を 2 つ選んで 1 回押すと、提出箱が 2 つ（%s・%s 流れ学園 数学。全員に）" % (KY1, KY2),
           kkm == sorted(["%s 流れ学園 数学" % KY1, "%s 流れ学園 数学" % KY2]), kkm)

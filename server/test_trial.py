@@ -24,6 +24,11 @@ import shutil
 import sys
 import time
 
+# 時計を止める。「2度作っても同じ数」は、1 度目と 2 度目のあいだに時計が進むと、期限をまたいだ回の写真の数が
+# 1 つずれる（2026-11-04 の CI：16:40 に 46 対 45）。作るたびの期限・写真の時刻は、同じ「今」から数える。
+_T0 = time.time()
+time.time = lambda: _T0
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = "/tmp/test-trial"
 os.environ["MYACADY_ROOT"] = ROOT

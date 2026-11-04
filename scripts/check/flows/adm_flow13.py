@@ -196,6 +196,25 @@ with Chrome(width=1280, height=900, scale=2, port=9323) as t, Chrome(width=430, 
     check("サーバの記録：種類は計算テスト、選んだ生徒だけの印、受け取り手は 1 人",
           len(mine_q) == 1 and mine_q[0].get("kind") == "計算テスト" and mine_q[0].get("picked") is True and mine_q[0].get("students") == [s91], mine_q[:1])
     t.shot(os.path.join(OUT, "a6-wt01-quiz-picked.png"))
+    # ---- 過去問を年度をまとめて一度に出す（11-04 #26。選んだ年度の数だけ提出箱。全員に） ----
+    import datetime as _dt
+    KY1, KY2 = str(_dt.date.today().year - 1), str(_dt.date.today().year - 2)
+    t.eval("var r=document.querySelector('[name=\"qzWho\"][value=\"all\"]'); r.checked=true; r.dispatchEvent(new Event('change'));"
+           "document.querySelector('#qzKind').value='過去問'; document.querySelector('#qzKind').dispatchEvent(new Event('change'));")
+    check("種類を「過去問の添削」にすると、年度を 10 年分から いくつでも選べる",
+          t.wait_for("!document.querySelector('#qzKk').hidden && document.querySelectorAll('#qzYears input[type=checkbox]').length === 10", 10),
+          t.eval("document.querySelectorAll('#qzYears input').length"))
+    t.eval("[%s,%s].forEach(function(y){ var c=document.querySelector('#qzYears input[value=\"'+y+'\"]'); c.checked=true; c.dispatchEvent(new Event('change')); });"
+           "var q=document.querySelector('#qzSchool'); q.value='流れ学園'; q.dispatchEvent(new Event('input'));" % (json.dumps(KY1), json.dumps(KY2)))
+    click(t, '[data-quiz="j3r:math"]'); time.sleep(4.0)
+    srv = json.load(open(S + "/real/schools/waseaca-london/assignments.json"))
+    kkm = sorted(x.get("title") for x in srv.values() if (x.get("lesson") or {}).get("key") == "j3r:math" and x.get("kind") == "過去問"
+                 and "流れ学園" in (x.get("title") or "") and not x.get("picked"))
+    check("年度を 2 つ選んで 1 回押すと、提出箱が 2 つ（%s・%s 流れ学園 数学。全員に）" % (KY1, KY2),
+          kkm == sorted(["%s 流れ学園 数学" % KY1, "%s 流れ学園 数学" % KY2]), kkm)
+    a92k = [a.get("title") for a in ((api("GET", "/assignments", expect.Api(BASE).login(l92, PW.get(l92, ""))) or {}).get("assignments") or [])
+            if "流れ学園" in (a.get("title") or "")]
+    check("まとめて出した過去問は、そのクラスの生徒（%s）に 2 つとも届く" % l92, len(a92k) == 2, a92k)
 
     tab(t, "roster"); time.sleep(2.5)
     t.shot(os.path.join(OUT, "a4-wt01-roster.png"))
@@ -244,6 +263,9 @@ with Chrome(width=1280, height=900, scale=2, port=9323) as t, Chrome(width=430, 
     check("過去問のタブは学校ごとの一覧（都立共通・早稲田実業）で、出した 2 本（点数の欄）と これから 2 本（出す口）が年度で並ぶ",
           "学校ごと" in kk and "都立共通" in kk and "早稲田実業" in kk and s.eval("document.querySelectorAll('.kk-school').length") >= 2
           and s.eval("document.querySelectorAll('.kk-row.done [data-kkscore]').length") >= 2 and s.eval("document.querySelectorAll('.kk-row.todo [data-up]').length") >= 2, kk[:200])
+    kk_at = kk.find("流れ学園")
+    check("まとめて出した過去問（流れ学園）も学校の札にまとまり、年度の新しい順（%s → %s）" % (KY1, KY2),
+          kk_at >= 0 and 0 <= kk.find(KY1, kk_at) < kk.find(KY2, kk_at), kk[kk_at:kk_at + 120] if kk_at >= 0 else kk[:200])
     check("出した過去問に、評価の札と「添削を見る」がある", s.eval("!!document.querySelector('.kk-row.done .rt') && !!document.querySelector('.kk-row.done [data-ret]')"), kk[:200])
     # 点数を書くと その場で保存され、開き直しても残る（生徒の自己申告。PUT /submissions/<id>/score）
     s.eval("(function(){ var i=document.querySelector('.kk-row.done [data-kkscore]'); i.value='72'; i.dispatchEvent(new Event('change')); })()"); time.sleep(1.2)
@@ -311,6 +333,8 @@ with Chrome(width=1280, height=900, scale=2, port=9323) as t, Chrome(width=430, 
     mine_open = [a for a in nrows if a.get("subject") == "math" and int(a.get("dueAt") or 0) >= now_ms]
     check("新しく作った中3R の口座に、今週の数学の宿題（期限前）が届いている。過ぎた回の「未提出」は付かない",
           bool(mine_open) and not any(int(a.get("dueAt") or 0) < now_ms for a in nrows), (len(nrows), len(mine_open)))
+    check("新しく作った中3R の口座にも、まとめて出した過去問（流れ学園）が 2 つとも届いている（絶対に守ること 7）",
+          len([a for a in nrows if "流れ学園" in (a.get("title") or "")]) == 2, [a.get("title") for a in nrows if "流れ学園" in (a.get("title") or "")])
     login_ui(s, "wsj3r77", "kensa-seito-kensa-0077"); time.sleep(1.0)
     home = s.eval("document.querySelector('#main').innerText")
     check("その口座のホームの大きな札が宿題（提出する）で、「宿題はありません」と出ない",
